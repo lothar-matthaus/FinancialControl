@@ -7,6 +7,7 @@ namespace Financial.Control.Domain.Entities.Base
         #region Properties
         public string Flag { get; }
         public CardType CardType { get; protected set; }
+        public string CardNumber { get; }
         #endregion
 
         #region Navigation
@@ -16,11 +17,11 @@ namespace Financial.Control.Domain.Entities.Base
         public ICollection<Expense> Expenses { get; private set; }
         #endregion
 
-        protected Card(string flag, CardType cardType)
+        protected Card(string flag, CardType cardType, string cardNumber)
         {
             Flag = flag;
             CardType = cardType;
+            CardNumber = cardNumber;
         }
-
     }
 }

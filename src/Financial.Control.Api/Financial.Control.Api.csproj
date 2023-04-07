@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Financial.Control.Application\Financial.Control.Application.csproj" />
     <ProjectReference Include="..\Financial.Control.Infra.Data\Financial.Control.Infra.Data.csproj" />
+    <ProjectReference Include="..\Financial.Control.Infra.IoC\Financial.Control.Infra.IoC.csproj" />
   </ItemGroup>
 
 </Project>

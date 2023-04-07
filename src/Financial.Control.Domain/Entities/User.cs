@@ -7,6 +7,7 @@ namespace Financial.Control.Domain.Entities
     {
         #region Properties
         public string Name { get; }
+
         public Email Email { get; }
         public ProfilePicture ProfilePicture { get; }
         public Password Password { get; }

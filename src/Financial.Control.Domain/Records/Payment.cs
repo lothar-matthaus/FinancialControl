@@ -1,5 +1,4 @@
-﻿using Financial.Control.Domain.Entities.Base;
-using Financial.Control.Domain.Enum;
+﻿using Financial.Control.Domain.Enum;
 
 namespace Financial.Control.Domain.Records
 {

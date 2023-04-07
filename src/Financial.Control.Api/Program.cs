@@ -1,4 +1,8 @@
 using Financial.Control.Infra.Data.Extension.Service;
+using Financial.Control.Infra.IoC.MediatR;
+using Financial.Control.Infra.IoC.Services;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureApplicationServices(builder.Configuration);
+builder.Services.ConfigureDbContext();
+builder.Services.AddApplicationMediatR();
+
+#region Configure Controllers
+var assembly = Assembly.Load("Financial.Control.Application");
+
+builder.Services.AddControllers()
+        .PartManager.ApplicationParts.Add(new AssemblyPart(assembly));
+#endregion
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

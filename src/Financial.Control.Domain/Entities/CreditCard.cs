@@ -10,13 +10,13 @@ namespace Financial.Control.Domain.Entities
         public DateTime PaymentDueDate { get; }
         #endregion
 
-        protected CreditCard() : base(string.Empty, CardType.Credit) { }
-        private CreditCard(string flag, decimal limit) : base(flag, CardType.Credit)
+        protected CreditCard() : base(string.Empty, CardType.Credit, string.Empty) { }
+        private CreditCard(string flag, decimal limit, string number) : base(flag, CardType.Credit, number)
         {
             Limit = limit;
             PaymentDueDate = DateTime.Now.AddMonths(1);
         }
 
-        public static CreditCard Create(string flag, decimal limit) => new CreditCard(flag, limit);
+        public static CreditCard Create(string flag, decimal limit, string number) => new CreditCard(flag, limit, number);
     }
 }

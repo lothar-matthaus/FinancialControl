@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Domain.Entities.Base;
-using Financial.Control.Domain.Enum;
 using Financial.Control.Domain.Records;
 
 namespace Financial.Control.Domain.Entities
@@ -22,7 +21,7 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         protected Expense() { }
-        private Expense(string description, User user, Category category, Card card, Payment payment )
+        private Expense(string description, User user, Category category, Card card, Payment payment)
         {
             Description = description;
             Category = category;

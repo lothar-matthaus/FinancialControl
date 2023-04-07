@@ -9,7 +9,7 @@ namespace Financial.Control.Infra.Data.Config.Types
         public void Configure(EntityTypeBuilder<Revenue> builder)
         {
             builder.HasKey(rev => rev.Id);
-            
+
             builder.Property(rev => rev.CreationDate).IsRequired(true).ValueGeneratedOnAdd();
             builder.Property(rev => rev.UpdateDate).IsRequired(true).ValueGeneratedOnUpdate();
 

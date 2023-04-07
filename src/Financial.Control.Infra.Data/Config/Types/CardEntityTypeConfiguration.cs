@@ -3,11 +3,6 @@ using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Infra.Data.Config.Types
 {
@@ -23,7 +18,8 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.Property(card => card.UpdateDate).IsRequired(true).ValueGeneratedOnUpdate();
             builder.Property(card => card.CardType).IsRequired(true);
             builder.Property(card => card.Flag).IsRequired(true).HasMaxLength(100);
-            
+            builder.Property(card => card.CardNumber).IsRequired(true).HasMaxLength(16);
+
             builder.HasDiscriminator<CardType>("CardType")
                 .HasValue<CreditCard>(CardType.Credit)
                 .HasValue<DebitCard>(CardType.Debit);
@@ -35,7 +31,7 @@ namespace Financial.Control.Infra.Data.Config.Types
         {
             builder.Property(card => card.Limit).IsRequired(true);
             builder.Property(card => card.PaymentDueDate).IsRequired(true);
-            
+
         }
 
         public void Configure(EntityTypeBuilder<DebitCard> builder)
