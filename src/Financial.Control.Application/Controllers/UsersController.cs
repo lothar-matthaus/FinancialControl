@@ -2,6 +2,7 @@
 using Financial.Control.Application.Models.Users.Commands;
 using Financial.Control.Application.Models.Users.Response.Create;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Financial.Control.Application.Controllers
@@ -13,10 +14,9 @@ namespace Financial.Control.Application.Controllers
         public UsersController(IMediator mediatR) : base(mediatR) { }
 
         [HttpPost]
-        public Task<UserCreateResponse> Post([FromQuery] UserCreateRequest request)
+        public Task<UserCreateResponse> Post([FromBody] UserCreateRequest request)
         {
-
-            TryValidateModel(request);
+            request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }
     }

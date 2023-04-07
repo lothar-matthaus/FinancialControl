@@ -13,8 +13,8 @@ namespace Financial.Control.Infra.Data.Config.Types
 
             builder.Property(category => category.Name).IsRequired(true).HasMaxLength(120);
 
-            builder.Property(category => category.CreationDate).IsRequired().ValueGeneratedOnAdd();
-            builder.Property(category => category.UpdateDate).IsRequired().ValueGeneratedOnUpdate();
+            builder.Property(category => category.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            builder.Property(category => category.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
     }
 }

@@ -1,19 +1,17 @@
 ﻿using Financial.Control.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Financial.Control.Infra.Data.Extension.Service
 {
     public static class ConfigureDataBase
     {
-        public static IServiceCollection ConfigureDbContext(this IServiceCollection services)
+        public static IServiceCollection ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            ServiceProvider serviceProvider = services.BuildServiceProvider();
-            IApplication application = serviceProvider.GetService<IApplication>();
-
             services.AddDbContext<FinancialControlDbContext>(options =>
             {
-                options.UseNpgsql(application.AppConfig.DbConfig.ConnectionString);
+                options.UseNpgsql(configuration.GetSection("Database:DefaultConnection").Value ?? string.Empty);
             });
 
             return services;

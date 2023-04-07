@@ -4,15 +4,17 @@
     {
         #region Properties
         public string Context { get; }
-        public string Message { get; }
+        public string Field { get; }
+        public ICollection<string> Errors { get; }
         #endregion
 
-        private Notification(string context, string message)
+        private Notification(string field, string context, ICollection<string> errors)
         {
             Context = context;
-            Message = message;
+            Errors = errors;
+            Field = field;
         }
 
-        public static Notification Create(string context, string message) => new Notification(context, message);
+        public static Notification Create(string context, string field, ICollection<string> errors) => new Notification(field, context, errors);
     }
 }

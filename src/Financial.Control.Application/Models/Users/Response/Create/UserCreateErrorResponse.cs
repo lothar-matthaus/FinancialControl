@@ -4,8 +4,9 @@ namespace Financial.Control.Application.Models.Users.Response.Create
 {
     public class UserCreateErrorResponse : BaseErrorResponse
     {
-        public UserCreateErrorResponse(IReadOnlyCollection<Notification> errors) : base(errors)
+        private UserCreateErrorResponse(IReadOnlyCollection<Notification> errors) : base(errors)
         {
         }
+        public static UserCreateErrorResponse Create(IReadOnlyCollection<Notification> errors) => new UserCreateErrorResponse(errors);
     }
 }

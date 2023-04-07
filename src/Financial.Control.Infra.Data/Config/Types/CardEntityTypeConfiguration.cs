@@ -3,6 +3,7 @@ using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Data;
 
 namespace Financial.Control.Infra.Data.Config.Types
 {
@@ -14,8 +15,6 @@ namespace Financial.Control.Infra.Data.Config.Types
 
             builder.HasKey(card => card.Id);
 
-            builder.Property(card => card.CreationDate).IsRequired(true).ValueGeneratedOnAdd();
-            builder.Property(card => card.UpdateDate).IsRequired(true).ValueGeneratedOnUpdate();
             builder.Property(card => card.CardType).IsRequired(true);
             builder.Property(card => card.Flag).IsRequired(true).HasMaxLength(100);
             builder.Property(card => card.CardNumber).IsRequired(true).HasMaxLength(16);
@@ -25,6 +24,9 @@ namespace Financial.Control.Infra.Data.Config.Types
                 .HasValue<DebitCard>(CardType.Debit);
 
             builder.HasOne(card => card.User).WithMany(us => us.Cards).HasForeignKey(card => card.UserId);
+          
+            builder.Property(card => card.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            builder.Property(card => card.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
 
         public void Configure(EntityTypeBuilder<CreditCard> builder)

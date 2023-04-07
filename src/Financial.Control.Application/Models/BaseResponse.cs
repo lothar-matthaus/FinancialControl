@@ -1,16 +1,20 @@
-﻿using Financial.Control.Domain.Models;
+﻿using Financial.Control.Domain.Entities.NotificationEntity;
+using Financial.Control.Domain.Models;
 using System.Net;
 
 namespace Financial.Control.Application.Models
 {
-    public abstract class BaseResponse<TSuccess, TError> :
-        IBaseResponse<TSuccess, TError> where TSuccess : BaseSuccessResponse where TError : BaseErrorResponse
+    public abstract class BaseResponse<TSuccess, TError> : IBaseResponse<TSuccess, TError> where TSuccess : IBaseSuccessResponse where TError : IBaseErrorResponse
     {
-        public string Message { get; }
-        public HttpStatusCode StatusCode { get; }
-        public TSuccess Success { get; }
-        public TError Error { get; set; }
+        public string Message { get;  protected set; }
+        public HttpStatusCode StatusCode { get; protected set; }
+        public TSuccess Success { get; protected set; }
+        public TError Error { get; protected set; }
 
+        protected BaseResponse()
+        {
+            
+        }
         protected BaseResponse(string message, HttpStatusCode statusCode, TSuccess success)
         {
             Message = message;

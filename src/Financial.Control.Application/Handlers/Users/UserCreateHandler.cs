@@ -1,19 +1,22 @@
 ﻿using Financial.Control.Application.Models.Users.Commands;
 using Financial.Control.Application.Models.Users.Response.Create;
 using Financial.Control.Domain.Entities;
+using Financial.Control.Domain.Interfaces;
 using MediatR;
 using System.Net;
 
 namespace Financial.Control.Application.Handlers.Users
 {
-    public class UserCreateHandler : IRequestHandler<UserCreateRequest, UserCreateResponse>
+    public class UserCreateHandler : AppRequestHandler<UserCreateRequest, UserCreateResponse>
     {
-        public async Task<UserCreateResponse> Handle(UserCreateRequest request, CancellationToken cancellationToken)
+        public UserCreateHandler(IApplication application) : base(application) { }
+
+        public async override Task<UserCreateResponse> Handle(UserCreateRequest request)
         {
-            return UserCreateResponse
-                .AsSuccess("Usuário criado com sucesso.", HttpStatusCode.Created, UserCreateSuccessResponse
-                    .Create(User
-                        .Create("Lothar Matthaus", "lothar1258@hotmail.com", "asdasdasdadsa.com", "asdasdasd")));
+            User user = User.Create(request.Name, request.Email, request.ProfilePictureUrl, request.Password);
+            _app.UnitOfWork.Users.Add(user);
+
+            return UserCreateResponse.AsSuccess("Usuário criado com sucesso.", HttpStatusCode.Created, UserCreateSuccessResponse.Create(user));
         }
     }
 }
