@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using Financial.Control.Application.Models.Users.Commands;
+using Financial.Control.Application.Models.Users.Response.Create;
+using Financial.Control.Domain.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Financial.Control.Application.Controllers.Base

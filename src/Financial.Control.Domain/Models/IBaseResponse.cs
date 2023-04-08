@@ -15,6 +15,7 @@ namespace Financial.Control.Domain.Models
     }
     public interface IBaseResponse
     {
-        public abstract void SetInvalidState(IReadOnlyCollection<Notification> errors);
+        public abstract void SetInvalidState(IReadOnlyCollection<Notification> errors, string message = null, HttpStatusCode? statusCode = null);
+        public HttpStatusCode StatusCode { get; }
     }
 }

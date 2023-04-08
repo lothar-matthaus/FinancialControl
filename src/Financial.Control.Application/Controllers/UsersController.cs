@@ -14,10 +14,10 @@ namespace Financial.Control.Application.Controllers
         public UsersController(IMediator mediatR) : base(mediatR) { }
 
         [HttpPost]
-        public Task<UserCreateResponse> Post([FromBody] UserCreateRequest request)
+        public async Task<UserCreateResponse> Post([FromBody] UserCreateRequest request)
         {
             request.SetModelState(ModelState);
-            return _mediatR.Send(request, HttpContext.RequestAborted);
+            return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
     }
 }
