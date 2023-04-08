@@ -2,6 +2,8 @@
 {
     public interface IAppConfig
     {
+        public string ApiVersion { get; }
+        public string ApiName { get; }
         public IDatabaseConfig DbConfig { get; }
     }
 }

@@ -18,6 +18,8 @@ namespace Financial.Control.Infra.Services
 
         #region Properties
         public IDatabaseConfig DbConfig => _dbConfig ?? new DatabaseConfig(_configuration);
+        public string ApiVersion => _configuration.GetSection(nameof(ApiVersion)).Value ?? string.Empty;
+        public string ApiName => _configuration.GetSection(nameof(ApiName)).Value ?? string.Empty;
         #endregion
 
     }

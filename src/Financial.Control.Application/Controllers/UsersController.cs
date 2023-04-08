@@ -13,8 +13,14 @@ namespace Financial.Control.Application.Controllers
     {
         public UsersController(IMediator mediatR) : base(mediatR) { }
 
+        /// <summary>
+        /// Cadastra um novo usuário no sistema.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="201">O usuário foi cadastrado com sucesso.</response>
+        /// <response code="409">O usuário já existe no sistema</response>
         [HttpPost]
-        public async Task<UserCreateResponse> Post([FromBody] UserCreateRequest request)
+        public async Task<UserCreateResponse> Post([FromQuery] UserCreateRequest request)
         {
             request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);

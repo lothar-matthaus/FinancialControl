@@ -14,9 +14,9 @@ namespace Financial.Control.Application.Models.Users.Response.Create
         public static UserCreateResponse AsSuccess(string message, HttpStatusCode statusCode, UserCreateSuccessResponse success) => new UserCreateResponse(message, statusCode, success);
         public static UserCreateResponse AsError(string message, HttpStatusCode statusCode, UserCreateErrorResponse error) => new UserCreateResponse(message, statusCode, error);
 
-        public void SetInvalidState( IReadOnlyCollection<Notification> errors, string message = null, HttpStatusCode? statusCode = null)
+        public void SetInvalidState( IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
         {
-            Message = message ?? "Erro ao criar o usuário.";
+            Message = "Erro ao criar o usuário.";
             StatusCode = statusCode ?? HttpStatusCode.BadRequest;
             Error = UserCreateErrorResponse.Create(errors);
         }
