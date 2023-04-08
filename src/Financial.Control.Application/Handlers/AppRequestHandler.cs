@@ -26,7 +26,7 @@ namespace Financial.Control.Application.Handlers
         {
             try
             {
-                TResponse response = await Handle(request);
+                TResponse response = await Handle(request); ;
 
                 ModelStateDictionary modelState = (request as BaseRequest<TResponse>).GetModelState();
 
@@ -41,6 +41,7 @@ namespace Financial.Control.Application.Handlers
                     return response;
                 }
 
+                _httpContext.Response.SetStatusCode(response.StatusCode);
                 _app.UnitOfWork.Commit();
 
                 return response;
