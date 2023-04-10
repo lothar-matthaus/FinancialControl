@@ -5,6 +5,7 @@ using Financial.Control.Domain.Entities.NotificationEntity;
 using Financial.Control.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+using static Financial.Control.Domain.Constants.Constants;
 
 namespace Financial.Control.Application.Handlers.Users
 {
@@ -25,17 +26,17 @@ namespace Financial.Control.Application.Handlers.Users
                 .Any();
 
             if (emailAlreadyExists)
-                return UserUpdateResponse.AsError($"Erro ao atualizar o usuário o usuário.", HttpStatusCode.Conflict,
+                return UserUpdateResponse.AsError(UserMessage.UserUpdateError(), HttpStatusCode.Conflict,
                     UserUpdateErrorResponse.Create(new List<Notification>()
                     {
-                        Notification.Create(request.GetType().Name, nameof(request.Email), new string[] { $"O e-mail '{request.Email}' informado já está cadastrado no sistema." })
+                        Notification.Create(request.GetType().Name, nameof(request.Email), new string[] { UserMessage.UserEmailAlreadyExists(request.Email) })
                     }));
 
             if (user is null)
-                return UserUpdateResponse.AsError("Erro ao atualizar o usuário", HttpStatusCode.NotFound,
+                return UserUpdateResponse.AsError(UserMessage.UserUpdateError(), HttpStatusCode.NotFound,
                     UserUpdateErrorResponse.Create(new List<Notification>()
                     {
-                        Notification.Create(request.GetType().Name, string.Empty, new string[]{ "O usuário não está cadastrado"})
+                        Notification.Create(request.GetType().Name, string.Empty, new string[]{ UserMessage.UserNotFound()})
                     }));
 
             user.SetName(request.Name);
@@ -44,7 +45,7 @@ namespace Financial.Control.Application.Handlers.Users
 
             _app.UnitOfWork.Users.Update(user);
 
-            return UserUpdateResponse.AsSuccess("Usuário atualizado com sucesso.", HttpStatusCode.OK, UserUpdateSuccessResponse.Create(user));
+            return UserUpdateResponse.AsSuccess(UserMessage.UserUpdateSuccess(), HttpStatusCode.OK, UserUpdateSuccessResponse.Create(user));
         }
     }
 }

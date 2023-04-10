@@ -1,6 +1,7 @@
 ﻿using Financial.Control.Domain.Entities.NotificationEntity;
 using Financial.Control.Domain.Models;
 using System.Net;
+using static Financial.Control.Domain.Constants.Constants;
 
 namespace Financial.Control.Application.Models.Users.Response.Update
 {
@@ -23,7 +24,7 @@ namespace Financial.Control.Application.Models.Users.Response.Update
 
         public void SetInvalidState(IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
         {
-            Message = "Erro ao atualizar o usuário.";
+            Message = UserMessage.UserUpdateError();
             StatusCode = statusCode ?? HttpStatusCode.BadRequest;
             Error = UserUpdateErrorResponse.Create(errors);
         }

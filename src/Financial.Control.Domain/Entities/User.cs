@@ -1,6 +1,7 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Records;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Financial.Control.Domain.Entities
 {
@@ -32,9 +33,27 @@ namespace Financial.Control.Domain.Entities
 
         #region Behaviors
 
-        public void SetName(string name) => Name = name;
-        public void SetEmail(string email) => Email = Email.Create(email);
-        public void SetProfilePictureUrl(string profilePictureUrl) => ProfilePicture = ProfilePicture.Create(profilePictureUrl);
+        public void SetName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return;
+
+            Name = name;
+        }
+        public void SetEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return;
+
+            Email = Email.Create(email);
+        }
+        public void SetProfilePictureUrl(string profilePictureUrl)
+        {
+            if (!string.IsNullOrWhiteSpace(profilePictureUrl))
+                return;
+
+            ProfilePicture = ProfilePicture.Create(profilePictureUrl);
+        }
 
         public UserToken Login(ITokenService tokenService, string plainTextPassword)
         {

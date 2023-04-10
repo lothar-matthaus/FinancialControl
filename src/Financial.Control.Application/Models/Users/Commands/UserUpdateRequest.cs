@@ -7,23 +7,20 @@ namespace Financial.Control.Application.Models.Users.Commands
     public class UserUpdateRequest : BaseRequest<UserUpdateResponse>
     {
         /// <summary>
-        /// Nome do usuário a ser criado
+        /// Nome do usuário a ser alterado
         /// </summary>
-        [Required(ErrorMessage = "O campo 'Nome' é obrigatório.")]
         [DisplayName("Nome")]
         public string Name { get; set; }
 
         /// <summary>
-        /// E-mail do usuário que será utilizado no login.
+        /// E-mail do usuário que será utilizado no login a ser alterada.
         /// </summary>
-        [Required(ErrorMessage = "O campo 'E-mail' é obrigatório.")]
         [EmailAddress(ErrorMessage = "O E-mail inserido está no formato inválido.")]
         public string Email { get; set; }
 
         /// <summary>
-        /// Url da foto de perfil do usuário.
+        /// Url da foto de perfil do usuário a ser alterada.
         /// </summary>
-        [Required(ErrorMessage = "O campo 'PictureProfileUrl' é obrigatório.")]
         public string ProfilePictureUrl { get; set; }
     }
 }
