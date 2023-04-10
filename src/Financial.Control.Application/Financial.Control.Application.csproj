@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Users\Commands\Validations\" />
     <Folder Include="Models\Users\Queries\" />
+    <Folder Include="Validation\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,4 @@
-﻿using Financial.Control.Application.Models.Users.Commands;
-using Financial.Control.Application.Models.Users.Response.Create;
-using Financial.Control.Domain.Models;
+﻿using Financial.Control.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +8,12 @@ namespace Financial.Control.Application.Controllers.Base
     public abstract class BaseController : ControllerBase
     {
         protected readonly IMediator _mediatR;
-        public BaseController(IMediator mediatR)
+        protected readonly IApplication _app;
+
+        public BaseController(IMediator mediatR, IApplication application)
         {
             _mediatR = mediatR;
+            _app = application;
         }
     }
 }

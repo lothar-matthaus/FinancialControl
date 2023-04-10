@@ -1,4 +1,6 @@
-﻿namespace Financial.Control.Application.Models.Users
+﻿using Financial.Control.Domain.Entities;
+
+namespace Financial.Control.Application.Models.Users
 {
     public class UserModel : BaseModel
     {
@@ -7,13 +9,14 @@
         public string Email { get; }
         public string ProfilePictureUrl { get; }
         #endregion
-        private UserModel(long id, string nome, string email, string profilePictureUrl) : base(id)
+
+        private UserModel(User user) : base(user.Id)
         {
-            Name = nome;
-            Email = email;
-            ProfilePictureUrl = profilePictureUrl;
+            Name = user.Name;
+            Email = user.Email.Value;
+            ProfilePictureUrl = user.ProfilePicture.Value;
         }
 
-        public static UserModel Create(long id, string nome, string email, string profilePictureUrl) => new UserModel(id, nome, email, profilePictureUrl);
+        public static UserModel Create(User user) => new UserModel(user);
     }
 }

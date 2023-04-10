@@ -32,6 +32,34 @@ namespace Financial.Control.Infra.IoC.Configurations
                     }
                 });
 
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Header de autorizao JWT usando esquema Bearer token. " +
+                   "\r\n\r\n Introduza 'Bearer'[espao] e logo aps o seu token no campo abaixo." +
+                    "\r\n\r\nExemplo: \"Bearer 12345abcdef\"",
+
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                      {
+                        {
+                          new OpenApiSecurityScheme
+                          {
+                            Reference = new OpenApiReference
+                              {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                              }
+                            },
+                            new List<string>()
+                          }
+                        });
+                options.CustomSchemaIds(schema => schema.FullName);
                 options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
                 var assemply = Assembly.Load("Financial.Control.Application");
@@ -59,7 +87,6 @@ namespace Financial.Control.Infra.IoC.Configurations
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint($"/swagger/{appService.AppConfig.ApiVersion}/swagger.json", appService.AppConfig.ApiName);
-                options.RoutePrefix = string.Empty;
             });
 
             return app;

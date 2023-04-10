@@ -17,16 +17,16 @@ namespace Financial.Control.Application.Handlers
         protected readonly IApplication _app;
         private readonly HttpContext _httpContext;
 
-        public AppRequestHandler(IApplication application, HttpContext httpContext)
+        public AppRequestHandler(IApplication application, IHttpContextAccessor httpContextAccessor)
         {
             _app = application;
-            _httpContext = httpContext;
+            _httpContext = httpContextAccessor.HttpContext;
         }
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken)
         {
             try
             {
-                TResponse response = await Handle(request); ;
+                TResponse response = await Handle(request);
 
                 ModelStateDictionary modelState = (request as BaseRequest<TResponse>).GetModelState();
 
@@ -48,7 +48,7 @@ namespace Financial.Control.Application.Handlers
             }
             catch (Exception ex)
             {
-                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create("Internal Server Error", ex.GetType().Name, new string[] { ex.InnerException.Message ?? ex.Message }) };
+                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create("Internal Server Error", ex.GetType().Name, new string[] { ex.InnerException?.Message ?? ex.Message }) };
                 TResponse response = new TResponse();
 
                 response.SetInvalidState(notifications, HttpStatusCode.InternalServerError);

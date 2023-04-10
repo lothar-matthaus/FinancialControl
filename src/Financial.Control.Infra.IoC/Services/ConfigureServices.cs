@@ -10,7 +10,7 @@ namespace Financial.Control.Infra.IoC.Services
     {
         public static IServiceCollection ConfigureApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IApplication, Infra.Services.Application>();
+            services.AddScoped<IApplication, Infra.Config.Application>();
 
             return services;
         }

@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Domain.Interfaces.Config;
 using Microsoft.Extensions.Configuration;
 
-namespace Financial.Control.Infra.Services.Config
+namespace Financial.Control.Infra.Config
 {
     public class DatabaseConfig : IDatabaseConfig
     {

@@ -38,7 +38,7 @@ namespace Financial.Control.Infra.Data.Migrations
                     b.Property<int>("CardType")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("CreationDate")
+                    b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -48,8 +48,8 @@ namespace Financial.Control.Infra.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<DateTime?>("UpdateDate")
-                        .ValueGeneratedOnUpdate()
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
@@ -73,7 +73,7 @@ namespace Financial.Control.Infra.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime?>("CreationDate")
+                    b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -83,8 +83,8 @@ namespace Financial.Control.Infra.Data.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("character varying(120)");
 
-                    b.Property<DateTime?>("UpdateDate")
-                        .ValueGeneratedOnUpdate()
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
@@ -107,7 +107,7 @@ namespace Financial.Control.Infra.Data.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("CreationDate")
+                    b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -121,8 +121,8 @@ namespace Financial.Control.Infra.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("UpdateDate")
-                        .ValueGeneratedOnUpdate()
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
@@ -148,13 +148,13 @@ namespace Financial.Control.Infra.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime?>("CreationDate")
+                    b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<DateTime?>("UpdateDate")
-                        .ValueGeneratedOnUpdate()
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
@@ -179,7 +179,7 @@ namespace Financial.Control.Infra.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime?>("CreationDate")
+                    b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -189,8 +189,8 @@ namespace Financial.Control.Infra.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<DateTime?>("UpdateDate")
-                        .ValueGeneratedOnUpdate()
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
@@ -312,6 +312,9 @@ namespace Financial.Control.Infra.Data.Migrations
 
                             b1.HasKey("UserId");
 
+                            b1.HasIndex("Value")
+                                .IsUnique();
+
                             b1.ToTable("User");
 
                             b1.WithOwner()
@@ -322,6 +325,12 @@ namespace Financial.Control.Infra.Data.Migrations
                         {
                             b1.Property<long>("UserId")
                                 .HasColumnType("bigint");
+
+                            b1.Property<string>("Salt")
+                                .IsRequired()
+                                .HasMaxLength(256)
+                                .HasColumnType("character varying(256)")
+                                .HasColumnName("PasswordSalt");
 
                             b1.Property<string>("Value")
                                 .IsRequired()

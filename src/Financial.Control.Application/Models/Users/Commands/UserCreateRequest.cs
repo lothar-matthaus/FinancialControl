@@ -1,6 +1,4 @@
 ﻿using Financial.Control.Application.Models.Users.Response.Create;
-using Financial.Control.Domain.Entities;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 

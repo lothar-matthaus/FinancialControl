@@ -1,12 +1,9 @@
 using Financial.Control.Infra.Data.Extension.Service;
+using Financial.Control.Infra.IoC.Configurations;
 using Financial.Control.Infra.IoC.MediatR;
 using Financial.Control.Infra.IoC.Services;
-using Financial.Control.Infra.IoC.Configurations;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using System.Reflection;
-using Swashbuckle.Swagger;
-using Microsoft.OpenApi.Models;
-using System.Resources;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +20,7 @@ builder.Services.ConfigureApplicationServices(builder.Configuration);
 #endregion
 
 #region Configurations
+builder.Services.ConfigureJwt(builder.Configuration);
 builder.Services.ConfigureApiBehavior();
 #endregion
 
@@ -50,7 +48,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
