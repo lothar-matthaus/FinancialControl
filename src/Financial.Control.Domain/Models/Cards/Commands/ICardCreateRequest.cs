@@ -6,7 +6,6 @@ namespace Financial.Control.Domain.Models.Cards.Commands
     {
         public string Name { get; }
         public string CardNumber { get; }
-        public CardFlag Flag { get; }
         public CardType CardType { get; }
         public decimal Limit { get; }
         public DateTime PaymentDueDate { get; }

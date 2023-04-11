@@ -1,5 +1,4 @@
-﻿using Financial.Control.Domain.Entities.Base;
-using Financial.Control.Domain.Enums;
+﻿using Financial.Control.Domain.Enums;
 
 namespace Financial.Control.Domain.Entities
 {
@@ -11,12 +10,12 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         protected CreditCard() : base() { }
-        private CreditCard(string name, CardFlag flag, decimal limit, string number, DateTime paymentDueDate) : base(name, flag, CardType.Credit, number)
+        private CreditCard(string name, decimal limit, string number, DateTime paymentDueDate) : base(name, CardType.Credit, number)
         {
             Limit = limit;
             PaymentDueDate = paymentDueDate;
         }
 
-        public static CreditCard Create(string name, CardFlag flag, decimal limit, string number, DateTime paymentDueDate) => new CreditCard(name, flag, limit, number, paymentDueDate);
+        public static CreditCard Create(string name, decimal limit, string number, DateTime paymentDueDate) => new CreditCard(name, limit, number, paymentDueDate);
     }
 }

@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Cards\Queries\" />
-    <Folder Include="Validation\" />
   </ItemGroup>
 
   <ItemGroup>

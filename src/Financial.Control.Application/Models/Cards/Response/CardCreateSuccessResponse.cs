@@ -1,4 +1,4 @@
-﻿using Financial.Control.Domain.Entities.Base;
+﻿using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Models.Cards;
 using Financial.Control.Domain.Models.Cards.Response;
 

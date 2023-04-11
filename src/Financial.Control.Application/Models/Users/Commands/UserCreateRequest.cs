@@ -1,5 +1,8 @@
 ﻿using Financial.Control.Application.Models.Users.Response.Create;
+using Financial.Control.Application.Validation.Users;
+using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Models.Users.Commands;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,7 +13,9 @@ namespace Financial.Control.Application.Models.Users.Commands
         /// <summary>
         /// Nome do usuário a ser criado
         /// </summary>
-        [Required(ErrorMessage = "O campo 'Nome' é obrigatório.")]
+
+        [Required(ErrorMessage = $"O campo 'Name' é obrigatório.")]
+        [NameValidation(isRequired: true)]
         [DisplayName("Nome")]
         public string Name { get; set; }
 
@@ -18,28 +23,29 @@ namespace Financial.Control.Application.Models.Users.Commands
         /// E-mail do usuário que será utilizado no login.
         /// </summary>
         [Required(ErrorMessage = "O campo 'E-mail' é obrigatório.")]
-        [EmailAddress(ErrorMessage = "O E-mail inserido está no formato inválido.")]
+        [EmailValidation]
         public string Email { get; set; }
 
         /// <summary>
         /// Senha do usuário
         /// </summary>
         [Required(ErrorMessage = "O campo 'Password' é obrigatório.")]
-        [MinLength(8, ErrorMessage = "O campo 'Password' deve possuir no mínimo [8] caracteres.")]
-        [PasswordPropertyText]
+        [PasswordValidation]
         public string Password { get; set; }
 
         /// <summary>
         /// Confirmação da senha do usuário
         /// </summary>
         [Required(ErrorMessage = "O campo 'ConfirmPassword' é obrigatório.")]
-        [Compare(nameof(Password), ErrorMessage = "As senhas não são iguais.")]
+        [PasswordValidation]
+        [Compare(nameof(Password), ErrorMessage = "Os campos 'Password' e 'ConfirmPassword' não se correspondem.")]
         public string ConfirmPassword { get; set; }
 
         /// <summary>
         /// Url da foto de perfil do usuário.
         /// </summary>
         [Required(ErrorMessage = "O campo 'PictureProfileUrl' é obrigatório.")]
+        [UrlValidation]
         public string ProfilePictureUrl { get; set; }
     }
 }

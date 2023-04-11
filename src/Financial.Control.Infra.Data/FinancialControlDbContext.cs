@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Infra.Data.Config.Types;
 using Microsoft.EntityFrameworkCore;
 

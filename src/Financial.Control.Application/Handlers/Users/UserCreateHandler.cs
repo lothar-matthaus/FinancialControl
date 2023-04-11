@@ -18,7 +18,7 @@ namespace Financial.Control.Application.Handlers.Users
 
         public async override Task<UserCreateResponse> Handle(UserCreateRequest request)
         {
-            bool emailAlreadyExists = _app.UnitOfWork.Users.Query(us => us.Email.Value.Equals(request.Email)).Any();
+            bool emailAlreadyExists = _app.UnitOfWork.Users.EmailAlreadyExists(request.Email);
 
             if (emailAlreadyExists)
                 return UserCreateResponse.AsError(UserMessage.UserCreateError(), HttpStatusCode.Conflict,

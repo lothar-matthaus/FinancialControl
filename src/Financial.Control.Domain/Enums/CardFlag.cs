@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Financial.Control.Domain.Enums
 {
@@ -16,6 +11,8 @@ namespace Financial.Control.Domain.Enums
         [Description("Hipercard")]
         Hipercard = 3,
         [Description("Alelo")]
-        Alelo = 4
+        Alelo = 4,
+        [Description("JDC")]
+        JBC = 5
     }
 }

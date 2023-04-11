@@ -1,7 +1,6 @@
 ﻿using Financial.Control.Application.Models.Cards.Commands;
 using Financial.Control.Application.Models.Cards.Response;
 using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Entities.NotificationEntity;
 using Financial.Control.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;

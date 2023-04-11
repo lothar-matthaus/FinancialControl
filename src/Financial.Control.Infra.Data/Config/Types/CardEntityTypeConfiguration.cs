@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

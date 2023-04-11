@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Enums;
 using Financial.Control.Domain.Extensions;
 using Financial.Control.Domain.Models.Cards;

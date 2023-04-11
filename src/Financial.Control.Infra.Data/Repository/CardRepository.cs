@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Interfaces.Repository;
 using Financial.Control.Infra.Data.Repository.Base;
 using System.Linq.Expressions;

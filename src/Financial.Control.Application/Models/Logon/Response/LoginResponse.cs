@@ -7,13 +7,13 @@ namespace Financial.Control.Application.Models.Logon.Response
 {
     public class LoginResponse : BaseResponse<ILoginSuccessResponse, ILoginErrorResponse>, ILoginResponse
     {
-        protected LoginResponse() { }
+        public LoginResponse() { }
 
         private LoginResponse(string message, HttpStatusCode statusCode, ILoginSuccessResponse success) : base(message, statusCode, success) { }
         private LoginResponse(string message, HttpStatusCode statusCode, ILoginErrorResponse error) : base(message, statusCode, error) { }
 
-        public static LoginResponse AsSuccess(string message, HttpStatusCode statusCode, LoginSuccessResponse success) => new LoginResponse(message, statusCode, success);
-        public static LoginResponse AsError(string message, HttpStatusCode statusCode, LoginErrorResponse error) => new LoginResponse(message, statusCode, error);
+        public static LoginResponse AsSuccess(string message, HttpStatusCode statusCode, ILoginSuccessResponse success) => new LoginResponse(message, statusCode, success);
+        public static LoginResponse AsError(string message, HttpStatusCode statusCode, ILoginErrorResponse error) => new LoginResponse(message, statusCode, error);
 
         public void SetInvalidState(IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
         {

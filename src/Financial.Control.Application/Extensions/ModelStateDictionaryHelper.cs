@@ -7,7 +7,7 @@ namespace Financial.Control.Application.Extensions
     {
         public static IReadOnlyCollection<Notification> CreateNotifications(this ModelStateDictionary modelState, string context = null)
         {
-            return modelState.Select(ms => ms).ToList().ConvertAll(ms => Notification.Create(context, ms.Key, ms.Value.Errors.Select(err => err.ErrorMessage)
+            return modelState.Where(ms => ms.Value.Errors.Any()).ToList().ConvertAll(ms => Notification.Create(context, ms.Key, ms.Value.Errors.Select(err => err.ErrorMessage)
                                     .ToList()));
         }
     }
