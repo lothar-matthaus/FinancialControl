@@ -19,7 +19,7 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.HasOne(user => user.Account).WithMany(account => account.Users).HasForeignKey(user => user.AccountId);
             builder.HasMany(user => user.Cards).WithOne(user => user.User).HasForeignKey(card => card.UserId);
             builder.HasMany(user => user.Expenses).WithOne(expense => expense.User).HasForeignKey(expense => expense.UserId);
-            builder.HasOne(user => user.Revenue).WithMany(revenue => revenue.Users).HasForeignKey(user => user.RevenueId);
+            builder.HasOne(user => user.Revenue).WithMany(revenue => revenue.Users).HasForeignKey(user => user.RevenueId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
