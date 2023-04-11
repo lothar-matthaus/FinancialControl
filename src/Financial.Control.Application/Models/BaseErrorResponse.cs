@@ -5,9 +5,9 @@ namespace Financial.Control.Application.Models
 {
     public abstract class BaseErrorResponse : IBaseErrorResponse
     {
-        public IReadOnlyCollection<Notification> Errors { get; }
+        public IReadOnlyCollection<Notification> Errors { get; set; }
 
-        public BaseErrorResponse(IReadOnlyCollection<Notification> errors)
+        protected BaseErrorResponse(IReadOnlyCollection<Notification> errors)
         {
             Errors = errors;
         }

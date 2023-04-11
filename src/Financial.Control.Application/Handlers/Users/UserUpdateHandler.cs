@@ -5,7 +5,7 @@ using Financial.Control.Domain.Entities.NotificationEntity;
 using Financial.Control.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System.Net;
-using static Financial.Control.Domain.Constants.Constants;
+using static Financial.Control.Domain.Constants.Message;
 
 namespace Financial.Control.Application.Handlers.Users
 {

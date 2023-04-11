@@ -11,7 +11,7 @@ namespace Financial.Control.Application.Controllers
     [Route("api/[controller]")]
     public class LoginController : BaseController
     {
-        public LoginController(IMediator mediatR, IApplication application) : base(mediatR, application) { }
+        public LoginController(IMediator mediatR) : base(mediatR) { }
 
         /// <summary>
         ///  Realiza o login no sistema e retorna um token de acesso.

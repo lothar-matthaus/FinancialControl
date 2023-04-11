@@ -1,8 +1,9 @@
 ﻿using Financial.Control.Domain.Entities;
+using Financial.Control.Domain.Models.Users;
 
 namespace Financial.Control.Application.Models.Users
 {
-    public class UserModel : BaseModel
+    public class UserModel : BaseModel, IUserModel
     {
         #region Properties
         public string Name { get; }

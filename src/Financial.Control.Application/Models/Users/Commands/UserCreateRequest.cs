@@ -1,10 +1,11 @@
 ﻿using Financial.Control.Application.Models.Users.Response.Create;
+using Financial.Control.Domain.Models.Users.Commands;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Financial.Control.Application.Models.Users.Commands
 {
-    public class UserCreateRequest : BaseRequest<UserCreateResponse>
+    public class UserCreateRequest : BaseRequest<UserCreateResponse>, IUserCreateRequest
     {
         /// <summary>
         /// Nome do usuário a ser criado

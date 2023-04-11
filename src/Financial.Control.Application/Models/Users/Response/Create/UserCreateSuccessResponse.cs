@@ -1,10 +1,12 @@
 ﻿using Financial.Control.Domain.Entities;
+using Financial.Control.Domain.Models.Users;
+using Financial.Control.Domain.Models.Users.Response.Create;
 
 namespace Financial.Control.Application.Models.Users.Response.Create
 {
-    public class UserCreateSuccessResponse : BaseSuccessResponse
+    public class UserCreateSuccessResponse : BaseSuccessResponse, IUserCreateSuccessResponse
     {
-        public UserModel Result { get; }
+        public IUserModel Result { get; }
 
         public UserCreateSuccessResponse(User user)
         {

@@ -1,6 +1,8 @@
-﻿namespace Financial.Control.Application.Models
+﻿using Financial.Control.Domain.Models;
+
+namespace Financial.Control.Application.Models
 {
-    public abstract class BaseModel
+    public abstract class BaseModel : IBaseModel
     {
         public long Id { get; }
 

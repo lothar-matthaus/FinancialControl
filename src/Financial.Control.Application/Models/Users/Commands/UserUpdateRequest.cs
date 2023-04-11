@@ -1,10 +1,11 @@
 ﻿using Financial.Control.Application.Models.Users.Response.Update;
+using Financial.Control.Domain.Models.Users.Commands;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Financial.Control.Application.Models.Users.Commands
 {
-    public class UserUpdateRequest : BaseRequest<UserUpdateResponse>
+    public class UserUpdateRequest : BaseRequest<UserUpdateResponse>, IUserUpdateRequest
     {
         /// <summary>
         /// Nome do usuário a ser alterado

@@ -1,7 +1,6 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Records;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Financial.Control.Domain.Entities
 {

@@ -16,7 +16,7 @@ namespace Financial.Control.Application.Controllers
     [Route("api/[controller]")]
     public class UsersController : BaseController
     {
-        public UsersController(IMediator mediatR, IApplication application) : base(mediatR, application)
+        public UsersController(IMediator mediatR) : base(mediatR)
         {
         }
 
@@ -50,11 +50,10 @@ namespace Financial.Control.Application.Controllers
         }
 
         /// <summary>
-        /// Retorna os dados do usuário que está logado.
+        /// Busca os dados do usuário que está logado.
         /// </summary>
-        /// <param name="request"></param>
-        /// <response code="200">Quando o usuário é encontrado e seus dados são retornados.</response>
-        /// <response code="404">O usuário não foi encontrado.</response>
+        /// <response code="200">O usuário foi encontrado com sucesso.</response>
+        /// <response code="404">O usuário não existe no sistema</response>
         /// <response code="500">Erro interno ocorrido no servidor</response>
         [HttpGet]
         [Authorize]

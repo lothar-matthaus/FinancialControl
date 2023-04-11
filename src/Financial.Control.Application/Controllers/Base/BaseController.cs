@@ -8,12 +8,10 @@ namespace Financial.Control.Application.Controllers.Base
     public abstract class BaseController : ControllerBase
     {
         protected readonly IMediator _mediatR;
-        protected readonly IApplication _app;
 
-        public BaseController(IMediator mediatR, IApplication application)
+        public BaseController(IMediator mediatR)
         {
             _mediatR = mediatR;
-            _app = application;
         }
     }
 }

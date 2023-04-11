@@ -4,6 +4,6 @@ namespace Financial.Control.Domain.Models
 {
     public interface IBaseErrorResponse
     {
-        public IReadOnlyCollection<Notification> Errors { get; }
+        public abstract IReadOnlyCollection<Notification> Errors { get; }
     }
 }

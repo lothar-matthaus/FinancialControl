@@ -1,6 +1,6 @@
 ﻿using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Base;
-using Financial.Control.Domain.Enum;
+using Financial.Control.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -31,7 +31,7 @@ namespace Financial.Control.Infra.Data.Config.Types
         public void Configure(EntityTypeBuilder<CreditCard> builder)
         {
             builder.Property(card => card.Limit).IsRequired(true);
-            builder.Property(card => card.PaymentDueDate).IsRequired(true);
+            builder.Property(card => card.PaymentDueDate).IsRequired(true).HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
 
         }
 

@@ -48,6 +48,9 @@ namespace Financial.Control.Infra.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
@@ -207,7 +210,9 @@ namespace Financial.Control.Infra.Data.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<DateTime>("PaymentDueDate")
-                        .HasColumnType("timestamp with time zone");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasDiscriminator().HasValue(0);
                 });

@@ -1,4 +1,4 @@
-﻿using Financial.Control.Domain.Enum;
+﻿using Financial.Control.Domain.Enums;
 
 namespace Financial.Control.Domain.Records
 {

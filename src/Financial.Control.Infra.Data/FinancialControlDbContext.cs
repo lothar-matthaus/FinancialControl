@@ -8,10 +8,10 @@ namespace Financial.Control.Infra.Data
     public class FinancialControlDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Category> Categories { get; }
-        public DbSet<Card> Cards { get; }
-        public DbSet<Revenue> Revenues { get; }
-        public DbSet<Expense> Expenses { get; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<Revenue> Revenues { get; set; }
+        public DbSet<Expense> Expenses { get; set; }
 
         public FinancialControlDbContext(DbContextOptions options) : base(options) { }
 

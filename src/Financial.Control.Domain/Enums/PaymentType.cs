@@ -1,4 +1,4 @@
-﻿namespace Financial.Control.Domain.Enum
+﻿namespace Financial.Control.Domain.Enums
 {
     public enum PaymentType
     {

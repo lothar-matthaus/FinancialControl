@@ -1,16 +1,12 @@
 ﻿using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Financial.Control.Domain.Models.Users;
+using Financial.Control.Domain.Models.Users.Response.Get;
 
 namespace Financial.Control.Application.Models.Users.Response.Get
 {
-    public class UserGetSuccessResponse : IBaseSuccessResponse
+    public class UserGetSuccessResponse : IUserGetSuccessResponse
     {
-        public UserModel Result { get; }
+        public IUserModel Result { get; }
 
         private UserGetSuccessResponse(User user)
         {

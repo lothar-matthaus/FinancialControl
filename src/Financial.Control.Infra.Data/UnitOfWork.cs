@@ -14,8 +14,10 @@ namespace Financial.Control.Infra.Data
         }
 
         private IUserRepository _userRepository;
+        private ICardRepository _cardRepository;
 
         public IUserRepository Users => _userRepository ?? new UserRepository(_dbContext);
+        public ICardRepository Cards => _cardRepository ?? new CardRepository(_dbContext);
 
         public void Commit() => _dbContext.SaveChanges();
     }
