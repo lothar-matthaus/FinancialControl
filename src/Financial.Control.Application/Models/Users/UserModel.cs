@@ -14,8 +14,8 @@ namespace Financial.Control.Application.Models.Users
         private UserModel(User user) : base(user.Id)
         {
             Name = user.Name;
-            Email = user.Email.Value;
-            ProfilePictureUrl = user.ProfilePicture.Value;
+            Email = user.Account.Email.Value;
+            ProfilePictureUrl = user.Account.ProfilePicture.Value;
         }
 
         public static UserModel Create(User user) => new UserModel(user);

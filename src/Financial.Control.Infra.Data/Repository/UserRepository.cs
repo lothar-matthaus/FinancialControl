@@ -14,7 +14,7 @@ namespace Financial.Control.Infra.Data.Repository
 
         public bool EmailAlreadyExists(string email)
         {
-            return _dbContext.Users.Where(user => user.Email.Value.Equals(email)).Any();
+            return _dbContext.Users.Where(user => user.Account.Email.Value.Equals(email)).Any();
         }
 
         public IQueryable<User> Query(Expression<Func<User, bool>> expression) => _dbContext.Users.Where(expression);

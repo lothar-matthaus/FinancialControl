@@ -7,17 +7,15 @@ namespace Financial.Control.Domain.Entities
         public decimal Value { get; }
 
         #region Navigation
-        public long UserId { get; }
-        public User User { get; set; }
+        public ICollection<User> Users { get; }
         #endregion
 
         protected Revenue() { }
-        private Revenue(decimal value, User user)
+        private Revenue(decimal value)
         {
             Value = value;
-            User = user;
         }
 
-        public static Revenue Create(decimal revenue, User user) => new Revenue(revenue, user);
+        public static Revenue Create(decimal revenue) => new Revenue(revenue);
     }
 }

@@ -21,8 +21,6 @@ namespace Financial.Control.Infra.Data.Config.Types
                 .HasValue<CreditCard>(CardType.Credit)
                 .HasValue<DebitCard>(CardType.Debit);
 
-            builder.HasOne(card => card.User).WithMany(us => us.Cards).HasForeignKey(card => card.UserId);
-
             builder.Property(card => card.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(card => card.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
         }

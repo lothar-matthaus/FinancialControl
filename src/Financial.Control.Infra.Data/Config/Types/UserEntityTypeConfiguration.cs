@@ -12,26 +12,14 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.HasKey(user => user.Id);
 
             builder.Property(user => user.Name).IsRequired(true).HasMaxLength(100);
-            builder.Ignore(user => user.Token);
-
-            builder.OwnsOne(user => user.Email, email =>
-            {
-                email.HasIndex(email => email.Value).IsUnique(true);
-                email.Property(email => email.Value).IsRequired(true).HasMaxLength(256).HasColumnName("Email");
-            });
-            builder.OwnsOne(user => user.Password, password =>
-            {
-                password.Property(pass => pass.Value).IsRequired(true).HasMaxLength(256).HasColumnName("Password");
-                password.Property(pass => pass.Salt).IsRequired(true).HasMaxLength(256).HasColumnName("PasswordSalt");
-            });
-
-            builder.OwnsOne(user => user.ProfilePicture, profilePicture =>
-            {
-                profilePicture.Property(pass => pass.Value).IsRequired(true).HasMaxLength(256).HasColumnName("ProfilePictureURL");
-            });
 
             builder.Property(user => user.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(user => user.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            builder.HasOne(user => user.Account).WithMany(account => account.Users).HasForeignKey(user => user.AccountId);
+            builder.HasMany(user => user.Cards).WithOne(user => user.User).HasForeignKey(card => card.UserId);
+            builder.HasMany(user => user.Expenses).WithOne(expense => expense.User).HasForeignKey(expense => expense.UserId);
+            builder.HasOne(user => user.Revenue).WithMany(revenue => revenue.Users).HasForeignKey(user => user.RevenueId);
         }
     }
 }

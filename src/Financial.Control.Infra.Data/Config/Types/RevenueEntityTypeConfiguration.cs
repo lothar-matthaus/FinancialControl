@@ -14,9 +14,6 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.Property(rev => rev.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             builder.Property(rev => rev.Value).IsRequired(true);
-
-            builder.HasOne(rev => rev.User).WithMany(us => us.Revenues).HasForeignKey(rev => rev.UserId);
-
         }
     }
 }

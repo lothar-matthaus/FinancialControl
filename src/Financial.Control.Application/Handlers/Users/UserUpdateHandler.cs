@@ -22,7 +22,7 @@ namespace Financial.Control.Application.Handlers.Users
                 .FirstOrDefault();
 
             bool emailAlreadyExists = _app.UnitOfWork.Users
-                .Query(us => us.Email.Value.Equals(request.Email))
+                .Query(us => us.Account.Email.Value.Equals(request.Email))
                 .Any();
 
             if (emailAlreadyExists)
@@ -41,7 +41,7 @@ namespace Financial.Control.Application.Handlers.Users
 
             user.SetName(request.Name);
             user.SetEmail(request.Email);
-            user.SetProfilePictureUrl(request.ProfilePictureUrl);
+            user.SetProfilePicture(request.ProfilePictureUrl);
 
             _app.UnitOfWork.Users.Update(user);
 

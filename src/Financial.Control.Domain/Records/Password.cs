@@ -29,10 +29,10 @@ namespace Financial.Control.Domain.Records
             var key = Encoding.UTF8.GetBytes(Salt);
             string hashString;
 
-            using (var hmac = new HMACSHA256(key))
+            using (HMACSHA256 hmac = new HMACSHA256(key))
             {
-                var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(plainTextPassword));
-                hashString = Convert.ToBase64String(hash);
+                byte[] hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(plainTextPassword));
+                hashString = Convert.ToString(hash);
             }
 
             return hashString;

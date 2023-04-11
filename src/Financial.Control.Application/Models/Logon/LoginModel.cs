@@ -13,8 +13,8 @@ namespace Financial.Control.Application.Models.Logon
         private LoginModel(User user)
         {
             Name = user.Name;
-            Email = user.Email.Value;
-            Token = user.Token;
+            Email = user.Account.Email.Value;
+            Token = user.Account.Token;
         }
 
         public static LoginModel Create(User user) => new LoginModel(user);

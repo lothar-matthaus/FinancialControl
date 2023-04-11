@@ -1,5 +1,6 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Models.Users.Response.Update;
 using Financial.Control.Domain.Records;
 
 namespace Financial.Control.Domain.Entities
@@ -8,26 +9,22 @@ namespace Financial.Control.Domain.Entities
     {
         #region Properties
         public string Name { get; private set; }
-        public Email Email { get; private set; }
-        public ProfilePicture ProfilePicture { get; private set; }
-        public Password Password { get; private set; }
-        public UserToken Token { get; private set; }
-
         #endregion
 
         #region Navigation
         public ICollection<Card> Cards { get; private set; }
         public ICollection<Expense> Expenses { get; private set; }
-        public ICollection<Revenue> Revenues { get; private set; }
+        public long RevenueId { get; }
+        public Revenue Revenue { get; private set; }
+        public long AccountId { get; }
+        public Account Account { get; }
         #endregion
 
         protected User() { }
         private User(string name, string email, string profilePictureURL, string plainPassword)
         {
             Name = name;
-            Email = Email.Create(email);
-            ProfilePicture = ProfilePicture.Create(profilePictureURL);
-            Password = Password.Create(plainPassword);
+            Account = Account.Create(email, profilePictureURL, plainPassword);
         }
 
         #region Behaviors
@@ -39,30 +36,36 @@ namespace Financial.Control.Domain.Entities
 
             Name = name;
         }
+        #region Account Behaviors
         public void SetEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
                 return;
 
-            Email = Email.Create(email);
+            Account.SetEmail(email);
         }
-        public void SetProfilePictureUrl(string profilePictureUrl)
+
+        public void SetProfilePicture(string profilePictureUrl)
         {
-            if (!string.IsNullOrWhiteSpace(profilePictureUrl))
+            if (string.IsNullOrWhiteSpace(profilePictureUrl))
                 return;
 
-            ProfilePicture = ProfilePicture.Create(profilePictureUrl);
+            Account.SetProfilePicture(profilePictureUrl);
         }
 
         public UserToken Login(ITokenService tokenService, string plainTextPassword)
         {
-            if (!Password.IsMatchPassword(plainTextPassword))
+            if (!Account.Password.IsMatchPassword(plainTextPassword))
                 return null;
 
-            Token = tokenService.GenerateAccessToken(this);
+            UserToken token = tokenService.GenerateAccessToken(this);
 
-            return Token;
+            Account.SetToken(token);
+
+            return Account.Token;
         }
+        #endregion
+
 
         public void AddCard(Card card)
         {

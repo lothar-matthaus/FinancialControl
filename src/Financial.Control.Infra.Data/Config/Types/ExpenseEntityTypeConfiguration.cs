@@ -26,7 +26,6 @@ namespace Financial.Control.Infra.Data.Config.Types
 
             builder.HasOne(ex => ex.Category).WithMany(cat => cat.Expenses).HasForeignKey(ex => ex.CategoryId);
             builder.HasOne(ex => ex.Card).WithMany(card => card.Expenses).HasForeignKey(ex => ex.CardId);
-            builder.HasOne(ex => ex.User).WithMany(us => us.Expenses).HasForeignKey(ex => ex.UserId);
         }
     }
 }

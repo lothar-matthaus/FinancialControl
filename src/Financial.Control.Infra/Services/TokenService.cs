@@ -25,7 +25,7 @@ namespace Financial.Control.Infra.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Email, user.Email.Value.ToString()),
+                    new Claim(ClaimTypes.Email, user.Account.Email.Value.ToString()),
                     new Claim(ClaimTypes.Sid, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Name.ToString())
                 }),

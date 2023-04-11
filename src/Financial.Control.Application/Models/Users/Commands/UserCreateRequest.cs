@@ -1,5 +1,6 @@
 ﻿using Financial.Control.Application.Models.Users.Response.Create;
 using Financial.Control.Application.Validation.Users;
+using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Models.Users.Commands;
 using Microsoft.AspNetCore.Mvc;
@@ -47,5 +48,9 @@ namespace Financial.Control.Application.Models.Users.Commands
         [Required(ErrorMessage = "O campo 'PictureProfileUrl' é obrigatório.")]
         [UrlValidation]
         public string ProfilePictureUrl { get; set; }
+
+        #region Implict Operator
+        public static implicit operator User(UserCreateRequest request) => User.Create(request.Name, request.Email, request.ProfilePictureUrl, request.Password);
+        #endregion
     }
 }
