@@ -8,6 +8,7 @@ namespace Financial.Control.Infra.Data.Config.Types
     {
         public void Configure(EntityTypeBuilder<Revenue> builder)
         {
+            builder.ToTable(nameof(Revenue));
             builder.HasKey(rev => rev.Id);
 
             builder.Property(rev => rev.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");

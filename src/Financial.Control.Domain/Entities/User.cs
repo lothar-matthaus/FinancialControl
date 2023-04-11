@@ -14,8 +14,7 @@ namespace Financial.Control.Domain.Entities
         #region Navigation
         public ICollection<Card> Cards { get; private set; }
         public ICollection<Expense> Expenses { get; private set; }
-        public long? RevenueId { get; }
-        public Revenue Revenue { get; private set; }
+        public ICollection<Revenue> Revenues { get; private set; }
         public long AccountId { get; }
         public Account Account { get; }
         #endregion

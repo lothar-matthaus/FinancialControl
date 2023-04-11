@@ -3,6 +3,7 @@ using System;
 using Financial.Control.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Financial.Control.Infra.Data.Migrations
 {
     [DbContext(typeof(FinancialControlDbContext))]
-    partial class FinancialControlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230411231228_alteração_na_regra_de_usuario_e_revenues_muitos_para_um")]
+    partial class alteração_na_regra_de_usuario_e_revenues_muitos_para_um
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,7 +187,7 @@ namespace Financial.Control.Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Revenue", (string)null);
+                    b.ToTable("Revenues");
                 });
 
             modelBuilder.Entity("Financial.Control.Domain.Entities.User", b =>

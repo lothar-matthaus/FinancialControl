@@ -7,7 +7,8 @@ namespace Financial.Control.Domain.Entities
         public decimal Value { get; }
 
         #region Navigation
-        public ICollection<User> Users { get; }
+        public long UserId { get; }
+        public User User { get; }
         #endregion
 
         protected Revenue() { }
