@@ -10,7 +10,7 @@ namespace Financial.Control.Application.Validation.Users
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            string pattern = "/^[a-z0-9.]+@[a-z0-9]+\\.[a-z]+\\.([a-z]+)?$/i";
+            string pattern = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
 
             if (!Regex.IsMatch((value as string), pattern))
                 return new ValidationResult("O e-mail informado não está no formato válido.", new List<string> { validationContext.MemberName });

@@ -15,7 +15,7 @@ namespace Financial.Control.Application.Validation.Users
             string pattern = @"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)";
 
             if (!Regex.IsMatch(value as string, pattern))
-                return new ValidationResult(value as string, new List<string> { validationContext.MemberName });
+                return new ValidationResult("O formato da URL informada está incorreto.", new List<string> { validationContext.MemberName });
 
             return ValidationResult.Success;
         }

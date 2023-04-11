@@ -31,7 +31,7 @@ namespace Financial.Control.Infra.Data.Config.Types
 
             builder.OwnsOne(account => account.ProfilePicture, profilePicture =>
             {
-                profilePicture.Property(pass => pass.Value).IsRequired(true).HasMaxLength(256).HasColumnName("ProfilePictureURL");
+                profilePicture.Property(pass => pass.Value).IsRequired(true).HasColumnName("ProfilePictureURL");
             });
         }
     }
