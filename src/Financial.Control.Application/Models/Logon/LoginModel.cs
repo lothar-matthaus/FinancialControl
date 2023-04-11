@@ -1,9 +1,10 @@
 ﻿using Financial.Control.Domain.Entities;
+using Financial.Control.Domain.Models.Logon;
 using Financial.Control.Domain.Records;
 
 namespace Financial.Control.Application.Models.Logon
 {
-    public class LoginModel
+    public class LoginModel : ILoginModel
     {
         public string Name { get; }
         public string Email { get; }
