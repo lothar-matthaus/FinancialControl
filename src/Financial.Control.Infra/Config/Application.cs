@@ -31,7 +31,6 @@ namespace Financial.Control.Infra.Config
         public IUnitOfWork UnitOfWork => _unitOfWork;
         public IApplicationServices Services => _services ?? new ApplicationServices(AppConfig);
         public IApplicationUser CurrentUser => _currentUser ?? new ApplicationUser(_httpContext);
-
         #endregion
     }
 }

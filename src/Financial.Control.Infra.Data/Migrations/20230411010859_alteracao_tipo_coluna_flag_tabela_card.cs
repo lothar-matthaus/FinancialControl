@@ -4,7 +4,7 @@
 
 namespace Financial.Control.Infra.Data.Migrations
 {
-    public partial class alteracao_tipo_coluna_flag_tabela_card : Migration
+    public partial class alteracao_tipo_coluna_flag_para_int_tabela_card : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

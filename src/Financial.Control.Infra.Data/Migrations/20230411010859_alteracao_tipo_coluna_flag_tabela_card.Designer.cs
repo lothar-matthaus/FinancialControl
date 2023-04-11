@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Financial.Control.Infra.Data.Migrations
 {
     [DbContext(typeof(FinancialControlDbContext))]
-    [Migration("20230411010859_alteracao_tipo_coluna_flag_tabela_card")]
-    partial class alteracao_tipo_coluna_flag_tabela_card
+    [Migration("20230411010859_alteracao_tipo_coluna_flag_para_int_tabela_card")]
+    partial class alteracao_tipo_coluna_flag_para_int_tabela_card
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
