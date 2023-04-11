@@ -31,7 +31,7 @@ namespace Financial.Control.Infra.Data.Config.Types
         public void Configure(EntityTypeBuilder<CreditCard> builder)
         {
             builder.Property(card => card.Limit).IsRequired(true);
-            builder.Property(card => card.PaymentDueDate).IsRequired(true).HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            builder.Property(card => card.PaymentDueDate).IsRequired(true).HasColumnType("TIMESTAMP");
 
         }
 
