@@ -6,8 +6,8 @@ namespace Financial.Control.Domain.Entities.Base
     {
         #region Properties
         public string Name { get; private set; }
-        public string Flag { get; }
-        public CardType CardType { get; protected set; }
+        public CardFlag Flag { get; }
+        public CardType CardType { get; }
         public string CardNumber { get; }
         #endregion
 
@@ -22,7 +22,7 @@ namespace Financial.Control.Domain.Entities.Base
         {
 
         }
-        protected Card(string name, string flag, CardType cardType, string cardNumber)
+        protected Card(string name, CardFlag flag, CardType cardType, string cardNumber)
         {
             Flag = flag;
             CardType = cardType;

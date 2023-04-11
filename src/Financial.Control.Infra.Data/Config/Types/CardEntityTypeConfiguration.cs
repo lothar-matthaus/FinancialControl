@@ -15,7 +15,7 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.HasKey(card => card.Id);
 
             builder.Property(card => card.CardType).IsRequired(true);
-            builder.Property(card => card.Flag).IsRequired(true).HasMaxLength(100);
+            builder.Property(card => card.Flag).IsRequired(true);
             builder.Property(card => card.CardNumber).IsRequired(true).HasMaxLength(16);
 
             builder.HasDiscriminator<CardType>("CardType")

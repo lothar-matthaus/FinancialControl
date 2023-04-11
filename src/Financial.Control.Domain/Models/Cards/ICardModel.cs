@@ -11,7 +11,7 @@ namespace Financial.Control.Domain.Models.Cards
     {
         public string CardNumber { get; }
         public string Name { get; }
-        public string Flag { get; }
+        public KeyValuePair<CardFlag, string> Flag { get; }
         public DateTime? PaymentDueDate { get; }
         public KeyValuePair<CardType, string> Type { get; }
         public decimal? Limit { get; }

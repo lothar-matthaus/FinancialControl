@@ -6,8 +6,8 @@ namespace Financial.Control.Domain.Entities
     public class DebitCard : Card
     {
         protected DebitCard() : base() { }
-        private DebitCard(string name, string flag, string number) : base(name, flag, CardType.Debit, number) { }
+        private DebitCard(string name, CardFlag flag, string number) : base(name, flag, CardType.Debit, number) { }
 
-        public static DebitCard Create(string name, string flag, string number) => new DebitCard(name, flag, number);
+        public static DebitCard Create(string name, CardFlag flag, string number) => new DebitCard(name, flag, number);
     }
 }
