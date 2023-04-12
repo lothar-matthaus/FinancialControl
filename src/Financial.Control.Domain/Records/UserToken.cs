@@ -5,6 +5,7 @@
         public string AccessToken { get; }
         public DateTime ExpirationTime { get; }
 
+        public UserToken() { }
         private UserToken(string accessToken, DateTime expirationTime)
         {
             AccessToken = accessToken;

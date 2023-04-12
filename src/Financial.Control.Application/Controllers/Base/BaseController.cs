@@ -1,5 +1,4 @@
-﻿using Financial.Control.Domain.Interfaces;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Financial.Control.Application.Controllers.Base

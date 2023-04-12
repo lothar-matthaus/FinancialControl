@@ -1,9 +1,7 @@
 ﻿using Financial.Control.Application.Models.Users.Response.Create;
 using Financial.Control.Application.Validation.Users;
 using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Models.Users.Commands;
-using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -38,7 +36,6 @@ namespace Financial.Control.Application.Models.Users.Commands
         /// Confirmação da senha do usuário
         /// </summary>
         [Required(ErrorMessage = "O campo 'ConfirmPassword' é obrigatório.")]
-        [PasswordValidation]
         [Compare(nameof(Password), ErrorMessage = "Os campos 'Password' e 'ConfirmPassword' não se correspondem.")]
         public string ConfirmPassword { get; set; }
 

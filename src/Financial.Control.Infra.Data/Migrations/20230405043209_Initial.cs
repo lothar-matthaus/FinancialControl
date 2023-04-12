@@ -54,7 +54,7 @@ namespace Financial.Control.Infra.Data.Migrations
                     Credit = table.Column<string>(type: "text", nullable: true),
                     Debit = table.Column<string>(type: "text", nullable: false),
                     Limit = table.Column<decimal>(type: "numeric", nullable: true),
-                    PaymentDueDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CardInvoiceDay = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },

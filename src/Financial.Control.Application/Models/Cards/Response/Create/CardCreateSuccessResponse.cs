@@ -1,10 +1,10 @@
 ﻿using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Models.Cards;
-using Financial.Control.Domain.Models.Cards.Response;
+using Financial.Control.Domain.Models.Cards.Response.Create;
 
-namespace Financial.Control.Application.Models.Cards.Response
+namespace Financial.Control.Application.Models.Cards.Response.Create
 {
-    public class CardCreateSuccessResponse : BaseSuccessResponse, ICardCreateSuccessResponse
+    public sealed class CardCreateSuccessResponse : BaseSuccessResponse, ICardCreateSuccessResponse
     {
         public ICardModel Result { get; }
         private CardCreateSuccessResponse(Card card)

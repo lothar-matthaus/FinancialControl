@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -10,7 +9,7 @@ namespace Financial.Control.Infra.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<DateTime>(
-                name: "PaymentDueDate",
+                name: "CardInvoiceDay",
                 table: "Card",
                 type: "TIMESTAMP",
                 nullable: true,
@@ -33,7 +32,7 @@ namespace Financial.Control.Infra.Data.Migrations
                 table: "Card");
 
             migrationBuilder.AlterColumn<DateTime>(
-                name: "PaymentDueDate",
+                name: "CardInvoiceDay",
                 table: "Card",
                 type: "timestamp with time zone",
                 nullable: true,

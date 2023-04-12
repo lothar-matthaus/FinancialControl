@@ -1,7 +1,6 @@
 ﻿using Financial.Control.Application.Controllers.Base;
 using Financial.Control.Application.Models.Logon.Commands;
 using Financial.Control.Application.Models.Logon.Response;
-using Financial.Control.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

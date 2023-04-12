@@ -1,8 +1,8 @@
 ﻿using Financial.Control.Domain.Entities.NotificationEntity;
 
-namespace Financial.Control.Domain.Models.Cards.Response
+namespace Financial.Control.Domain.Models.Cards.Response.Get
 {
-    public interface ICardCreateErrorResponse : IBaseErrorResponse
+    public interface ICardGetErrorResponse : IBaseErrorResponse
     {
         public new IReadOnlyCollection<Notification> Errors { get; }
     }

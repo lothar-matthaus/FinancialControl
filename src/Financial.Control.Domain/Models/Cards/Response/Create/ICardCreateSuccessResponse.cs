@@ -1,4 +1,4 @@
-﻿namespace Financial.Control.Domain.Models.Cards.Response
+﻿namespace Financial.Control.Domain.Models.Cards.Response.Create
 {
     public interface ICardCreateSuccessResponse : IBaseSuccessResponse
     {

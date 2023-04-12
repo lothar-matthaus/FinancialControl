@@ -198,7 +198,7 @@ namespace Financial.Control.Infra.Data.Migrations
                     b.Property<decimal>("Limit")
                         .HasColumnType("numeric");
 
-                    b.Property<DateTime>("PaymentDueDate")
+                    b.Property<DateTime>("CardInvoiceDay")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasDiscriminator().HasValue(0);

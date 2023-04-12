@@ -1,9 +1,9 @@
 ﻿using Financial.Control.Domain.Entities.NotificationEntity;
-using Financial.Control.Domain.Models.Cards.Response;
+using Financial.Control.Domain.Models.Cards.Response.Create;
 using System.Net;
 using static Financial.Control.Domain.Constants.Message;
 
-namespace Financial.Control.Application.Models.Cards.Response
+namespace Financial.Control.Application.Models.Cards.Response.Create
 {
     public class CardCreateResponse : BaseResponse<ICardCreateSuccessResponse, ICardCreateErrorResponse>, ICardCreateResponse
     {

@@ -1,6 +1,5 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Interfaces.Services;
-using Financial.Control.Domain.Models.Users.Response.Update;
 using Financial.Control.Domain.Records;
 
 namespace Financial.Control.Domain.Entities
@@ -59,7 +58,7 @@ namespace Financial.Control.Domain.Entities
 
             UserToken token = tokenService.GenerateAccessToken(this);
 
-            Account.SetToken(token);
+            Account?.SetToken(token);
 
             return Account.Token;
         }

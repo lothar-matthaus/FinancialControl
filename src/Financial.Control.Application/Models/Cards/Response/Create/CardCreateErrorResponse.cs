@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Domain.Entities.NotificationEntity;
-using Financial.Control.Domain.Models.Cards.Response;
+using Financial.Control.Domain.Models.Cards.Response.Create;
 
-namespace Financial.Control.Application.Models.Cards.Response
+namespace Financial.Control.Application.Models.Cards.Response.Create
 {
     public class CardCreateErrorResponse : BaseErrorResponse, ICardCreateErrorResponse
     {

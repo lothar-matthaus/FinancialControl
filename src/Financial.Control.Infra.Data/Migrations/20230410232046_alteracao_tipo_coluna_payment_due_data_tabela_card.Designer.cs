@@ -211,7 +211,7 @@ namespace Financial.Control.Infra.Data.Migrations
                     b.Property<decimal>("Limit")
                         .HasColumnType("numeric");
 
-                    b.Property<DateTime>("PaymentDueDate")
+                    b.Property<DateTime>("CardInvoiceDay")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");

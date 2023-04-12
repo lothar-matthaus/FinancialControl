@@ -14,6 +14,7 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.HasKey(card => card.Id);
 
             builder.Property(card => card.CardType).IsRequired(true);
+            builder.Property(card => card.Name).IsRequired(true);
             builder.Property(card => card.Flag).IsRequired(true);
             builder.Property(card => card.CardNumber).IsRequired(true).HasMaxLength(16);
 
@@ -28,8 +29,7 @@ namespace Financial.Control.Infra.Data.Config.Types
         public void Configure(EntityTypeBuilder<CreditCard> builder)
         {
             builder.Property(card => card.Limit).IsRequired(true);
-            builder.Property(card => card.PaymentDueDate).IsRequired(true).HasColumnType("TIMESTAMP");
-
+            builder.Property(card => card.CardInvoiceDay).IsRequired(true).HasColumnName("CardInvoiceDay");
         }
 
         public void Configure(EntityTypeBuilder<DebitCard> builder)

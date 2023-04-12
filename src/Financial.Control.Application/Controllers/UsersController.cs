@@ -4,7 +4,6 @@ using Financial.Control.Application.Models.Users.Queries;
 using Financial.Control.Application.Models.Users.Response.Create;
 using Financial.Control.Application.Models.Users.Response.Get;
 using Financial.Control.Application.Models.Users.Response.Update;
-using Financial.Control.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -28,7 +27,7 @@ namespace Financial.Control.Application.Controllers
         /// <response code="409">O usuário já existe no sistema</response>
         /// <response code="500">Erro interno ocorrido no servidor</response>
         [HttpPost]
-        public async Task<UserCreateResponse> CreateUser([FromQuery] UserCreateRequest request)
+        public async Task<UserCreateResponse> CreateUser([FromBody] UserCreateRequest request)
         {
             request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
@@ -43,7 +42,7 @@ namespace Financial.Control.Application.Controllers
         /// <response code="500">Erro interno ocorrido no servidor</response>
         [HttpPut]
         [Authorize]
-        public async Task<UserUpdateResponse> UpdateUser([FromQuery] UserUpdateRequest request)
+        public async Task<UserUpdateResponse> UpdateUser([FromBody] UserUpdateRequest request)
         {
             request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);

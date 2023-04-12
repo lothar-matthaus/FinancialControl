@@ -1,9 +1,5 @@
-﻿using Financial.Control.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
+﻿using System.ComponentModel.DataAnnotations;
 using static Financial.Control.Domain.Constants.FieldLenght;
-using static Financial.Control.Domain.Constants.Patterns;
 
 namespace Financial.Control.Application.Validation.Cards
 {

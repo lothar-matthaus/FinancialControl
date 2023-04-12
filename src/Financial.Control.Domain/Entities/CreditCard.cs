@@ -5,17 +5,34 @@ namespace Financial.Control.Domain.Entities
     public class CreditCard : Card
     {
         #region Properties
-        public decimal Limit { get; }
-        public DateTime PaymentDueDate { get; }
+        public decimal Limit { get; private set; }
+        public int CardInvoiceDay { get; private set; }
         #endregion
 
         protected CreditCard() : base() { }
-        private CreditCard(string name, decimal limit, string number, DateTime paymentDueDate) : base(name, CardType.Credit, number)
+        private CreditCard(string name, decimal limit, string number, int cardInvoiceDate) : base(name, CardType.Credit, number)
         {
             Limit = limit;
-            PaymentDueDate = paymentDueDate;
+            CardInvoiceDay = cardInvoiceDate;
         }
 
-        public static CreditCard Create(string name, decimal limit, string number, DateTime paymentDueDate) => new CreditCard(name, limit, number, paymentDueDate);
+        #region Behaviors
+        public void SetCardInvoiceDate(int? cardInvoiceDate)
+        {
+            if (cardInvoiceDate is null)
+                return;
+
+            CardInvoiceDay = cardInvoiceDate.Value;
+        }
+
+        public void SetLimit(decimal? limit)
+        {
+            if (limit is null)
+                return;
+
+            Limit = limit.Value;
+        }
+        #endregion
+        public static CreditCard Create(string name, decimal limit, string number, int CardInvoiceDay) => new CreditCard(name, limit, number, CardInvoiceDay);
     }
 }

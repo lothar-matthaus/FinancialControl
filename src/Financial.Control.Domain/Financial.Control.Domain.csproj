@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Repository\Base\" />
-    <Folder Include="Models\Cards\Queries\" />
   </ItemGroup>
 
 </Project>

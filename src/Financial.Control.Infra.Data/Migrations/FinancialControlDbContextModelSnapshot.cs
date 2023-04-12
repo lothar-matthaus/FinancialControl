@@ -17,7 +17,7 @@ namespace Financial.Control.Infra.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.15")
+                .HasAnnotation("ProductVersion", "6.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -30,8 +30,18 @@ namespace Financial.Control.Infra.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("CreationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
                     b.Property<bool>("IsEnable")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TIMESTAMP")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
@@ -63,6 +73,7 @@ namespace Financial.Control.Infra.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdateDate")
@@ -225,11 +236,12 @@ namespace Financial.Control.Infra.Data.Migrations
                 {
                     b.HasBaseType("Financial.Control.Domain.Entities.Card");
 
+                    b.Property<int>("CardInvoiceDay")
+                        .HasColumnType("integer")
+                        .HasColumnName("CardInvoiceDay");
+
                     b.Property<decimal>("Limit")
                         .HasColumnType("numeric");
-
-                    b.Property<DateTime>("PaymentDueDate")
-                        .HasColumnType("TIMESTAMP");
 
                     b.HasDiscriminator().HasValue(0);
                 });

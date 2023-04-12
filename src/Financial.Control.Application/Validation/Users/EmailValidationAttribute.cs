@@ -1,8 +1,5 @@
-﻿using Financial.Control.Domain.Interfaces;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
-using static Financial.Control.Domain.Constants.Message;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Financial.Control.Application.Validation.Users
 {

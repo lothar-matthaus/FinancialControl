@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using static Financial.Control.Domain.Constants.FieldLenght;
 
 namespace Financial.Control.Application.Validation.Cards
 {
     public class NameValidationAttribute : ValidationAttribute
     {
-        protected bool IsRequired { get;}
+        protected bool IsRequired { get; }
 
         public NameValidationAttribute(bool isRequired = false)
         {

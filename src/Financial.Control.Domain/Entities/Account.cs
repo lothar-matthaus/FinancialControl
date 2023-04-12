@@ -1,11 +1,5 @@
 ﻿using Financial.Control.Domain.Entities.Base;
-using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Records;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Domain.Entities
 {

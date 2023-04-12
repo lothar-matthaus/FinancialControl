@@ -1,16 +1,10 @@
 ﻿using Financial.Control.Application.Controllers.Base;
 using Financial.Control.Application.Models.Cards.Commands;
-using Financial.Control.Application.Models.Cards.Response;
-using Financial.Control.Application.Models.Users.Queries;
-using Financial.Control.Application.Models.Users.Response.Get;
+using Financial.Control.Application.Models.Cards.Response.Create;
+using Financial.Control.Application.Models.Cards.Response.Update;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Application.Controllers
 {
@@ -31,7 +25,21 @@ namespace Financial.Control.Application.Controllers
         /// <response code="404">Usuário não encontrado</response>
         [HttpPost]
         [Authorize]
-        public async Task<CardCreateResponse> CreateCard([FromQuery] CardCreateRequest request)
+        public async Task<CardCreateResponse> CreateCard([FromBody] CardCreateRequest request)
+        {
+            request.SetModelState(ModelState);
+            return await _mediatR.Send(request, HttpContext.RequestAborted);
+        }
+       
+        /// <summary>
+        /// Atualiza um cartão existente;
+        /// </summary>
+        /// <response code="200">O cartão foi atualizado com sucesso.</response>
+        /// <response code="404">O cartão não existe no sistema</response>
+        /// <response code="500">Erro interno ocorrido no servidor</response>
+        [HttpPut]
+        [Authorize]
+        public async Task<CardUpdateResponse> UpdateCard([FromBody] CardUpdateRequest request)
         {
             request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);

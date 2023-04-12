@@ -10,7 +10,7 @@ namespace Financial.Control.Application.Models.Cards
         public string CardNumber { get; }
         public string Name { get; }
         public KeyValuePair<CardFlag, string> Flag { get; }
-        public DateTime? PaymentDueDate { get; }
+        public int? CardInvoiceDay { get; }
         public KeyValuePair<CardType, string> Type { get; }
         public decimal? Limit { get; }
 
@@ -20,7 +20,7 @@ namespace Financial.Control.Application.Models.Cards
             Name = card.Name;
             Flag = new KeyValuePair<CardFlag, string>(card.Flag, card.Flag.GetDescription());
             Type = new KeyValuePair<CardType, string>(card.CardType, card.CardType.GetDescription());
-            PaymentDueDate = (card as CreditCard)?.PaymentDueDate;
+            CardInvoiceDay = (card as CreditCard)?.CardInvoiceDay;
             Limit = (card as CreditCard)?.Limit;
         }
 

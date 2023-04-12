@@ -209,7 +209,7 @@ namespace Financial.Control.Infra.Data.Migrations
                     b.Property<decimal>("Limit")
                         .HasColumnType("numeric");
 
-                    b.Property<DateTime>("PaymentDueDate")
+                    b.Property<DateTime>("CardInvoiceDay")
                         .HasColumnType("TIMESTAMP");
 
                     b.HasDiscriminator().HasValue(0);

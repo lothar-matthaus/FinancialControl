@@ -16,7 +16,7 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.Property(user => user.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(user => user.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            builder.HasOne(user => user.Account).WithMany(account => account.Users).HasForeignKey(user => user.AccountId);
+            builder.HasOne(user => user.Account).WithMany(account => account.Users).HasForeignKey(user => user.AccountId); ;
             builder.HasMany(user => user.Cards).WithOne(user => user.User).HasForeignKey(card => card.UserId);
             builder.HasMany(user => user.Expenses).WithOne(expense => expense.User).HasForeignKey(expense => expense.UserId);
             builder.HasMany(user => user.Revenues).WithOne(revenue => revenue.User).HasForeignKey(revenue => revenue.UserId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);

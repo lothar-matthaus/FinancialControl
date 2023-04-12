@@ -1,11 +1,6 @@
 ﻿using Financial.Control.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Infra.Data.Config.Types
 {
@@ -33,6 +28,9 @@ namespace Financial.Control.Infra.Data.Config.Types
             {
                 profilePicture.Property(pass => pass.Value).IsRequired(true).HasColumnName("ProfilePictureURL");
             });
+
+            builder.Property(card => card.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            builder.Property(card => card.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
     }
 }

@@ -1,11 +1,5 @@
-﻿using Financial.Control.Application.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Application.Validation.Users
 {

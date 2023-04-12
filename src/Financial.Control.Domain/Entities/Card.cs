@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Enums;
-using static Financial.Control.Domain.Constants.Patterns;
 using System.Text.RegularExpressions;
+using static Financial.Control.Domain.Constants.Patterns;
 
 namespace Financial.Control.Domain.Entities
 {
@@ -33,7 +33,7 @@ namespace Financial.Control.Domain.Entities
             Name = name;
         }
 
-        #region Behaviors
+        #region Private Methods
         protected CardFlag SetCardFlag(string cardNumber)
         {
             if (Regex.IsMatch(CardNumber, CardFlagPattern.Mastercard)) return CardFlag.MasterCard;
@@ -42,6 +42,16 @@ namespace Financial.Control.Domain.Entities
             else if (Regex.IsMatch(CardNumber, CardFlagPattern.JBC)) return CardFlag.JBC;
 
             return CardFlag.Alelo;
+        }
+        #endregion
+
+        #region Behaviors
+        public void SetName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return;
+
+            Name = name;
         }
         #endregion
     }
