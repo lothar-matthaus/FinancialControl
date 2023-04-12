@@ -1,10 +1,12 @@
 ﻿using Financial.Control.Application.Controllers.Base;
 using Financial.Control.Application.Models.Cards.Commands;
 using Financial.Control.Application.Models.Cards.Response.Create;
+using Financial.Control.Application.Models.Cards.Response.Delete;
 using Financial.Control.Application.Models.Cards.Response.Update;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Web.Http.Description;
 
 namespace Financial.Control.Application.Controllers
 {
@@ -41,6 +43,23 @@ namespace Financial.Control.Application.Controllers
         [Authorize]
         public async Task<CardUpdateResponse> UpdateCard([FromBody] CardUpdateRequest request)
         {
+            request.SetModelState(ModelState);
+            return await _mediatR.Send(request, HttpContext.RequestAborted);
+        }
+
+        /// <summary>
+        /// Remove um cartão existente;
+        /// </summary>
+        /// <param name="id">Id do cartão a ser removido</param>
+        /// <response code="200" >O cartão foi removido com sucesso.</response>
+        /// <response code="404">O cartão não existe no sistema</response>
+        /// <response code="500">Erro interno ocorrido no servidor</response>
+        [HttpDelete]
+        [Authorize]
+        [Route("{id}")]
+        public async Task<CardDeleteResponse> RemoveCard([FromRoute] long id)
+        {
+            CardDeleteRequest request = CardDeleteRequest.Create(id);
             request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }

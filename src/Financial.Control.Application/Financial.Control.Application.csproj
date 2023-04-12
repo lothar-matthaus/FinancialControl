@@ -10,7 +10,6 @@
   <ItemGroup>
     <Folder Include="Models\Cards\Queries\" />
     <Folder Include="Models\Cards\Response\Get\" />
-    <Folder Include="Models\Cards\Response\Delete\" />
   </ItemGroup>
 
   <ItemGroup>

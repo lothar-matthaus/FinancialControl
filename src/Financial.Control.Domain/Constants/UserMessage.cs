@@ -20,6 +20,8 @@
             public static string CardCreateSuccess() => "Cartão criado com sucesso.";
             public static string CardUpdateError() => "Erro ao atualizar os dados do cartão.";
             public static string CardUpdateSuccess() => "Cartão atualizado com sucesso.";
+            public static string CardDeleteError() => "Erro ao remover o cartão o usuário.";
+            public static string CardDeleteSuccess() => "Cartão removido com sucesso.";
             public static string CardNotFound() => $"O cartão não foi encontrado. ";
             public static string CardAlreadyExists(string cardNumber) => $"O cartão '{cardNumber}' já existe na base de dados.";
         }

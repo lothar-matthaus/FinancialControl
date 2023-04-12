@@ -34,6 +34,30 @@ namespace Financial.Control.Domain.Entities
 
             Name = name;
         }
+        public void AddCard(Card card)
+        {
+            Cards ??= new List<Card>();
+            Cards.Add(card);
+        }
+        public void RemoveCard(Card card)
+        {
+            Cards ??= new List<Card>();
+            Cards.Remove(card);
+        }
+
+        public void AddExpense(Expense expense)
+        {
+            Expenses ??= new List<Expense>();
+            Expenses.Add(expense);
+        }
+        public void AddRevenue(Revenue revenue)
+        {
+            Revenues ??= new List<Revenue>();
+            Revenues.Add(revenue);
+        }
+        #endregion
+
+
         #region Account Behaviors
         public void SetEmail(string email)
         {
@@ -63,21 +87,6 @@ namespace Financial.Control.Domain.Entities
             return Account.Token;
         }
         #endregion
-
-
-        public void AddCard(Card card)
-        {
-            Cards ??= new List<Card>();
-            Cards.Add(card);
-        }
-        public void AddExpense(Expense expense)
-        {
-            Expenses ??= new List<Expense>();
-            Expenses.Add(expense);
-        }
-
-        #endregion
-
 
         public static User Create(string name, string email, string profilePictureURL, string plainPassword) => new User(name, email, profilePictureURL, plainPassword);
     }
