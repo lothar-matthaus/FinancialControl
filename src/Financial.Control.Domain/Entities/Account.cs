@@ -37,7 +37,7 @@ namespace Financial.Control.Domain.Entities
 
         public void SetProfilePicture(string profilePictureUrl)
         {
-            if (!string.IsNullOrWhiteSpace(profilePictureUrl))
+            if (string.IsNullOrWhiteSpace(profilePictureUrl))
                 return;
 
             ProfilePicture = ProfilePicture.Create(profilePictureUrl);

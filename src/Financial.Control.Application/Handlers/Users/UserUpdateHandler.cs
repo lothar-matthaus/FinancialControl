@@ -4,6 +4,7 @@ using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.NotificationEntity;
 using Financial.Control.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static Financial.Control.Domain.Constants.Message;
 

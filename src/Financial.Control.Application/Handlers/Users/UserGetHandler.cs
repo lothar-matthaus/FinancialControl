@@ -4,6 +4,7 @@ using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.NotificationEntity;
 using Financial.Control.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static Financial.Control.Domain.Constants.Message;
 
@@ -17,7 +18,7 @@ namespace Financial.Control.Application.Handlers.Users
 
         public async override Task<UserGetResponse> Handle(UserGetRequest request)
         {
-            User user = _app.UnitOfWork.Users.Query(us => us.Id.Equals(_app.CurrentUser.Id)).FirstOrDefault();
+            User user = _app.UnitOfWork.Users.Query(us => us.Id.Equals(_app.CurrentUser.Id)).Include(user => user.Account).FirstOrDefault();
 
             if (user is null)
                 return UserGetResponse.AsError(UserMessage.UserGetError(), HttpStatusCode.NotFound, UserGetErrorResponse.Create(new List<Notification>()

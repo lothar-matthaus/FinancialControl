@@ -1,6 +1,7 @@
 ﻿using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Interfaces.Repository;
 using Financial.Control.Infra.Data.Repository.Base;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Linq.Expressions;
 
@@ -17,7 +18,7 @@ namespace Financial.Control.Infra.Data.Repository
             return _dbContext.Users.Where(user => user.Account.Email.Value.Equals(email)).Any();
         }
 
-        public IQueryable<User> Query(Expression<Func<User, bool>> expression) => _dbContext.Users.Where(expression);
+        public IQueryable<User> Query(Expression<Func<User, bool>> expression) => _dbContext.Users.Where(expression).Include(us => us.Account);
         public void Update(User user) => _dbContext.Update(user);
     }
 }

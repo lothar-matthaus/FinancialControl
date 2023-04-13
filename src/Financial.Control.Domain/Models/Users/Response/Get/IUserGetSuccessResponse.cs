@@ -2,5 +2,6 @@
 {
     public interface IUserGetSuccessResponse : IBaseSuccessResponse
     {
+        public IUserModel Result { get; }
     }
 }
