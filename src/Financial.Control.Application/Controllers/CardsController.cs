@@ -1,12 +1,14 @@
 ﻿using Financial.Control.Application.Controllers.Base;
 using Financial.Control.Application.Models.Cards.Commands;
+using Financial.Control.Application.Models.Cards.Queries;
 using Financial.Control.Application.Models.Cards.Response.Create;
 using Financial.Control.Application.Models.Cards.Response.Delete;
+using Financial.Control.Application.Models.Cards.Response.Get;
+using Financial.Control.Application.Models.Cards.Response.List;
 using Financial.Control.Application.Models.Cards.Response.Update;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Web.Http.Description;
 
 namespace Financial.Control.Application.Controllers
 {
@@ -32,7 +34,7 @@ namespace Financial.Control.Application.Controllers
             request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
-       
+
         /// <summary>
         /// Atualiza um cartão existente;
         /// </summary>
@@ -60,6 +62,39 @@ namespace Financial.Control.Application.Controllers
         public async Task<CardDeleteResponse> RemoveCard([FromRoute] long id)
         {
             CardDeleteRequest request = CardDeleteRequest.Create(id);
+            request.SetModelState(ModelState);
+            return await _mediatR.Send(request, HttpContext.RequestAborted);
+        }
+
+        /// <summary>
+        /// Coleta dados de um cartão existente;
+        /// </summary>
+        /// <param name="id">Id do cartão a ter seus dados coletado</param>
+        /// <response code="200" >O cartão foi encontrado com sucesso.</response>
+        /// <response code="404">O cartão não existe no sistema</response>
+        /// <response code="500">Erro interno ocorrido no servidor</response>
+        [HttpGet]
+        [Authorize]
+        [Route("{id}")]
+        public async Task<CardGetResponse> GetCard([FromRoute] long id)
+        {
+            CardGetRequest request = CardGetRequest.Create(id);
+            request.SetModelState(ModelState);
+            return await _mediatR.Send(request, HttpContext.RequestAborted);
+        }
+
+        /// <summary>
+        /// Retorna todos os cartões de um usuário;
+        /// </summary>
+        /// <response code="200" >O cartão foi encontrado com sucesso.</response>
+        /// <response code="404">O cartão não existe no sistema</response>
+        /// <response code="500">Erro interno ocorrido no servidor</response>
+        [HttpGet]
+        [Authorize]
+        [Route("List")]
+        public async Task<CardListResponse> GetCardList()
+        {
+            CardListRequest request = CardListRequest.Create();
             request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }

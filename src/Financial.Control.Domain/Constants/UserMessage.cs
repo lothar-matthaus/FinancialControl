@@ -22,6 +22,11 @@
             public static string CardUpdateSuccess() => "Cartão atualizado com sucesso.";
             public static string CardDeleteError() => "Erro ao remover o cartão o usuário.";
             public static string CardDeleteSuccess() => "Cartão removido com sucesso.";
+            public static string CardGetError() => "Erro ao coletar os dados do cartão.";
+            public static string CardGetSuccess() => "Dados do cartão coletados com sucesso.";
+            public static string CardListError() => "Erro ao listar os cartões do usuário.";
+            public static string CardListSuccess() => "Os cartões do usuário foram coletados com sucesso.";
+            public static string CardListNotFound(string name) => $"O usuário '{name}' não possui cartões.";
             public static string CardNotFound() => $"O cartão não foi encontrado. ";
             public static string CardAlreadyExists(string cardNumber) => $"O cartão '{cardNumber}' já existe na base de dados.";
         }

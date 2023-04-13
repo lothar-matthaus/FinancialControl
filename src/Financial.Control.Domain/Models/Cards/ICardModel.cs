@@ -2,8 +2,9 @@
 
 namespace Financial.Control.Domain.Models.Cards
 {
-    public interface ICardModel
+    public interface ICardModel : IBaseModel
     {
+        public new long Id { get; }
         public string CardNumber { get; }
         public string Name { get; }
         public KeyValuePair<CardFlag, string> Flag { get; }
