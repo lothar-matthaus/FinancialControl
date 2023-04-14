@@ -6,7 +6,7 @@ using Financial.Control.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
-using static Financial.Control.Domain.Constants.Message;
+using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Logon
 {

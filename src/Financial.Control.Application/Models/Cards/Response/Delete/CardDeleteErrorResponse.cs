@@ -1,10 +1,5 @@
 ﻿using Financial.Control.Domain.Entities.NotificationEntity;
 using Financial.Control.Domain.Models.Cards.Response.Delete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Application.Models.Cards.Response.Delete
 {

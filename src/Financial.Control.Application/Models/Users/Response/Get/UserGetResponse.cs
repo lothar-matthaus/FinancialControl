@@ -2,7 +2,7 @@
 using Financial.Control.Domain.Models;
 using Financial.Control.Domain.Models.Users.Response.Get;
 using System.Net;
-using static Financial.Control.Domain.Constants.Message;
+using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Users.Response.Get
 {

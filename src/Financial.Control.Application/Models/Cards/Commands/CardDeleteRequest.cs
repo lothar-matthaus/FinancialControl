@@ -10,7 +10,7 @@ namespace Financial.Control.Application.Models.Cards.Commands
         {
             CardId = cardId;
         }
-        
+
         public static CardDeleteRequest Create(long id) => new CardDeleteRequest(id);
     }
 }

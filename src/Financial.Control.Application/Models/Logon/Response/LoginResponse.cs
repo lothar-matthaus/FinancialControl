@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Domain.Entities.NotificationEntity;
-using Financial.Control.Domain.Models;
 using Financial.Control.Domain.Models.Logon.Response;
 using System.Net;
 

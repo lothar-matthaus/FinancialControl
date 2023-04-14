@@ -4,13 +4,8 @@ using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.NotificationEntity;
 using Financial.Control.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using static Financial.Control.Domain.Constants.Message;
+using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Cards
 {
@@ -37,7 +32,7 @@ namespace Financial.Control.Application.Handlers.Cards
 
             _app.UnitOfWork.Users.Update(user);
 
-            return CardDeleteResponse.AsSuccess(CardMessage.CardDeleteSuccess(), HttpStatusCode.OK, CardDeleteSuccessResponse.Create(string.Empty));
+            return CardDeleteResponse.AsSuccess(CardMessage.CardDeleteSuccess(), HttpStatusCode.OK, CardDeleteSuccessResponse.Create(card));
         }
     }
 }

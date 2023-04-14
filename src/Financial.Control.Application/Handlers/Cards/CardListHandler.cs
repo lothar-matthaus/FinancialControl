@@ -5,7 +5,7 @@ using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Models.Cards;
 using Microsoft.AspNetCore.Http;
-using static Financial.Control.Domain.Constants.Message;
+using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Cards
 {
@@ -18,7 +18,7 @@ namespace Financial.Control.Application.Handlers.Cards
             IQueryable<Card> cards = _app.UnitOfWork.Cards.Query(card => card.UserId.Equals(_app.CurrentUser.Id));
             IReadOnlyCollection<ICardModel> cardsList = cards.ToList().ConvertAll(card => CardModel.Create(card));
 
-            return CardListResponse.AsSuccess(cardsList.Any() ? CardMessage.CardListSuccess() : CardMessage.CardListNotFound(_app.CurrentUser.Nome), 
+            return CardListResponse.AsSuccess(cardsList.Any() ? CardMessage.CardListSuccess() : CardMessage.CardListNotFound(_app.CurrentUser.Nome),
                 System.Net.HttpStatusCode.OK, CardListSuccessResponse.Create(cardsList));
         }
     }

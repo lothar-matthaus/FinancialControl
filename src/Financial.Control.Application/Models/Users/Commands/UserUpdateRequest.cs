@@ -2,7 +2,6 @@
 using Financial.Control.Application.Validation.Users;
 using Financial.Control.Domain.Models.Users.Commands;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace Financial.Control.Application.Models.Users.Commands
 {

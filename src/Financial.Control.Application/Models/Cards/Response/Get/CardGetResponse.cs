@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Domain.Entities.NotificationEntity;
 using Financial.Control.Domain.Models.Cards.Response.Get;
 using System.Net;
-using static Financial.Control.Domain.Constants.Message;
+using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Cards.Response.Get
 {

@@ -2,6 +2,6 @@
 {
     public interface ICardDeleteSuccessResponse : IBaseSuccessResponse
     {
-        public string Message { get; }
+        public ICardModel Result { get; }
     }
 }

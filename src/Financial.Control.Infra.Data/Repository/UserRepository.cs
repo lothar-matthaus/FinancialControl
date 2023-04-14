@@ -2,7 +2,6 @@
 using Financial.Control.Domain.Interfaces.Repository;
 using Financial.Control.Infra.Data.Repository.Base;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Linq.Expressions;
 
 namespace Financial.Control.Infra.Data.Repository

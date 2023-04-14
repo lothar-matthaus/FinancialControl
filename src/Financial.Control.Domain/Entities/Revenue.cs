@@ -4,6 +4,7 @@ namespace Financial.Control.Domain.Entities
 {
     public class Revenue : BaseEntity
     {
+        public string Name { get; }
         public decimal Value { get; }
 
         #region Navigation
@@ -12,11 +13,12 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         protected Revenue() { }
-        private Revenue(decimal value)
+        private Revenue(string name, decimal value)
         {
+            Name = name;
             Value = value;
         }
 
-        public static Revenue Create(decimal revenue) => new Revenue(revenue);
+        public static Revenue Create(string name, decimal revenue) => new Revenue(name, revenue);
     }
 }

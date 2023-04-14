@@ -11,10 +11,11 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.ToTable(nameof(Revenue));
             builder.HasKey(rev => rev.Id);
 
+            builder.Property(rev => rev.Value).IsRequired(true);
+            builder.Property(rev => rev.Name).IsRequired(true);
+
             builder.Property(rev => rev.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(rev => rev.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-            builder.Property(rev => rev.Value).IsRequired(true);
         }
     }
 }

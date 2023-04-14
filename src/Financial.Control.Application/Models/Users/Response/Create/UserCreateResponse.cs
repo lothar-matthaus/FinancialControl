@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Domain.Entities.NotificationEntity;
 using Financial.Control.Domain.Models.Users.Response.Create;
 using System.Net;
-using static Financial.Control.Domain.Constants.Message;
+using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Users.Response.Create
 {
@@ -16,7 +16,7 @@ namespace Financial.Control.Application.Models.Users.Response.Create
         {
         }
 
-        #region Behaviors
+        #region Factory
         public static UserCreateResponse AsSuccess(string message, HttpStatusCode statusCode, IUserCreateSuccessResponse success) => new UserCreateResponse(message, statusCode, success);
         public static UserCreateResponse AsError(string message, HttpStatusCode statusCode, IUserCreateErrorResponse error) => new UserCreateResponse(message, statusCode, error);
         #endregion

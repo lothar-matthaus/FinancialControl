@@ -1,6 +1,6 @@
 ﻿namespace Financial.Control.Domain.Constants
 {
-    public class Message
+    public class ApplicationMessage
     {
         public class UserMessage
         {
@@ -36,6 +36,12 @@
             public static string UserOrPasswordInvalid() => "Usuário ou senha inválidos.";
             public static string LoginSuccess() => "Login realizado com sucesso.";
             public static string LoginError() => "Erro ao realizar o login.";
+        }
+
+        public class RevenueMessage
+        {
+            public static string RevenueCreateError() => "Erro ao criar a receita.";
+            public static string RevenueCreateSuccess() => "Receita criada com sucesso.";
         }
     }
 }

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Repository\Base\" />
+    <Folder Include="Models\Revenues\Queries\" />
   </ItemGroup>
 
 </Project>
