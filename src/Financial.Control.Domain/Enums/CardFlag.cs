@@ -10,9 +10,9 @@ namespace Financial.Control.Domain.Enums
         Visa = 2,
         [Description("Hipercard")]
         Hipercard = 3,
-        [Description("Alelo")]
-        Alelo = 4,
-        [Description("JDC")]
-        JBC = 5
+        [Description("Elo")]
+        Elo = 4,
+        [Description("JCB")]
+        JCB = 5
     }
 }

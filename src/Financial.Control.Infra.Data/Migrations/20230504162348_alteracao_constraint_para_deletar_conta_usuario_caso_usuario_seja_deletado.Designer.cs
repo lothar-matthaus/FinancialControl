@@ -3,6 +3,7 @@ using System;
 using Financial.Control.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Financial.Control.Infra.Data.Migrations
 {
     [DbContext(typeof(FinancialControlDbContext))]
-    partial class FinancialControlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230504162348_alteracao_constraint_para_deletar_conta_usuario_caso_usuario_seja_deletado")]
+    partial class alteracao_constraint_para_deletar_conta_usuario_caso_usuario_seja_deletado
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

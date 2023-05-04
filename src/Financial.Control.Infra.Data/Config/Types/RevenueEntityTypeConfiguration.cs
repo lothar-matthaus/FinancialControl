@@ -16,6 +16,8 @@ namespace Financial.Control.Infra.Data.Config.Types
 
             builder.Property(rev => rev.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(rev => rev.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            builder.HasOne(rev => rev.User).WithMany(user => user.Revenues).HasForeignKey(revenue => revenue.UserId);
         }
     }
 }

@@ -29,8 +29,10 @@ namespace Financial.Control.Infra.Data.Config.Types
                 profilePicture.Property(pass => pass.Value).IsRequired(true).HasColumnName("ProfilePictureURL");
             });
 
-            builder.Property(card => card.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
-            builder.Property(card => card.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            builder.Property(account => account.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            builder.Property(account => account.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            builder.HasOne(account => account.User).WithOne(user => user.Account).HasForeignKey<Account>(user => user.UserId);
         }
     }
 }

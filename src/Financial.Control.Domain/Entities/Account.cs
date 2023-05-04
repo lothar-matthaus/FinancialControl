@@ -14,7 +14,8 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         #region Navigation
-        public IReadOnlyCollection<User> Users { get; }
+        public long UserId { get; }
+        public User User { get; }
         #endregion
 
 

@@ -20,7 +20,7 @@ namespace Financial.Control.Application.Handlers.Cards
             User user = _app.UnitOfWork.Users.Query(us => us.Id.Equals(_app.CurrentUser.Id))
                 .FirstOrDefault();
 
-            bool cardAlreadyExists = _app.UnitOfWork.Cards.Query(card => card.CardNumber.Equals(request.CardNumber)).Any();
+            bool cardAlreadyExists = _app.UnitOfWork.Cards.Query(card => card.CardNumber.Equals(request.CardNumber.Replace(" ", ""))).Any();
 
             if (cardAlreadyExists)
                 return CardCreateResponse.AsError(CardMessage.CardCreateError(), HttpStatusCode.Conflict, CardCreateErrorResponse.Create(new List<Notification>()

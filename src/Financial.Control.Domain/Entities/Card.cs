@@ -1,5 +1,6 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Enums;
+using System.Linq;
 using System.Text.RegularExpressions;
 using static Financial.Control.Domain.Constants.Patterns;
 
@@ -34,15 +35,7 @@ namespace Financial.Control.Domain.Entities
         }
 
         #region Private Methods
-        protected CardFlag SetCardFlag(string cardNumber)
-        {
-            if (Regex.IsMatch(CardNumber, CardFlagPattern.Mastercard)) return CardFlag.MasterCard;
-            else if (Regex.IsMatch(CardNumber, CardFlagPattern.Hipercard)) return CardFlag.Hipercard;
-            else if (Regex.IsMatch(CardNumber, CardFlagPattern.Visa)) return CardFlag.Visa;
-            else if (Regex.IsMatch(CardNumber, CardFlagPattern.JBC)) return CardFlag.JBC;
-
-            return CardFlag.Alelo;
-        }
+        protected CardFlag SetCardFlag(string cardNumber) => CardFlagPattern.Patterns.Where(pattern => Regex.IsMatch(cardNumber, pattern.Value)).Select(pattern => pattern.Key).FirstOrDefault();
         #endregion
 
         #region Behaviors

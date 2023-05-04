@@ -18,12 +18,12 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.Property(card => card.Flag).IsRequired(true);
             builder.Property(card => card.CardNumber).IsRequired(true).HasMaxLength(16);
 
-            builder.HasDiscriminator<CardType>("CardType")
-                .HasValue<CreditCard>(CardType.Credit)
-                .HasValue<DebitCard>(CardType.Debit);
+            builder.HasDiscriminator<CardType>("CardType").HasValue<CreditCard>(CardType.Credit).HasValue<DebitCard>(CardType.Debit);
 
             builder.Property(card => card.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(card => card.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            builder.HasOne(card => card.User).WithMany(user => user.Cards).HasForeignKey(card => card.UserId);
         }
 
         public void Configure(EntityTypeBuilder<CreditCard> builder)
