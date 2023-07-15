@@ -1,12 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Financial.Control.Infra.Data.Migrations
 {
-    public partial class Initial : Migration
+    /// <inheritdoc />
+    public partial class Initial_database : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -16,8 +19,8 @@ namespace Financial.Control.Infra.Data.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -31,15 +34,38 @@ namespace Financial.Control.Infra.Data.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    ProfilePictureURL = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Password = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Account",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    ProfilePictureURL = table.Column<string>(type: "text", nullable: true),
+                    PasswordSalt = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Password = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    IsEnable = table.Column<bool>(type: "boolean", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Account", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Account_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,15 +74,15 @@ namespace Financial.Control.Infra.Data.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Flag = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Flag = table.Column<int>(type: "integer", nullable: false),
                     CardType = table.Column<int>(type: "integer", nullable: false),
+                    CardNumber = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    Credit = table.Column<string>(type: "text", nullable: true),
-                    Debit = table.Column<string>(type: "text", nullable: false),
                     Limit = table.Column<decimal>(type: "numeric", nullable: true),
-                    CardInvoiceDay = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CardInvoiceDay = table.Column<int>(type: "integer", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -70,21 +96,22 @@ namespace Financial.Control.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Revenues",
+                name: "Revenue",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     Value = table.Column<decimal>(type: "numeric", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Revenues", x => x.Id);
+                    table.PrimaryKey("PK_Revenue", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Revenues_User_UserId",
+                        name: "FK_Revenue_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
@@ -99,14 +126,14 @@ namespace Financial.Control.Infra.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     PaidOut = table.Column<bool>(type: "boolean", nullable: false),
-                    Payment_Value = table.Column<decimal>(type: "numeric", nullable: true),
-                    Payment_PaymentType = table.Column<int>(type: "integer", nullable: true),
-                    Payment_Instalment = table.Column<int>(type: "integer", nullable: true, defaultValue: 1),
+                    Value = table.Column<decimal>(type: "numeric", nullable: true),
+                    PaymentType = table.Column<int>(type: "integer", nullable: true),
+                    Instalment = table.Column<int>(type: "integer", nullable: true, defaultValue: 1),
                     CardId = table.Column<long>(type: "bigint", nullable: false),
                     CategoryId = table.Column<long>(type: "bigint", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreationDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdateDate = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -132,6 +159,18 @@ namespace Financial.Control.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Account_Email",
+                table: "Account",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Account_UserId",
+                table: "Account",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Card_UserId",
                 table: "Card",
                 column: "UserId");
@@ -152,18 +191,22 @@ namespace Financial.Control.Infra.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Revenues_UserId",
-                table: "Revenues",
+                name: "IX_Revenue_UserId",
+                table: "Revenue",
                 column: "UserId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Account");
+
             migrationBuilder.DropTable(
                 name: "Expense");
 
             migrationBuilder.DropTable(
-                name: "Revenues");
+                name: "Revenue");
 
             migrationBuilder.DropTable(
                 name: "Card");

@@ -3,19 +3,20 @@ using Financial.Control.Application.Models.Users.Response.Update;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.NotificationEntity;
 using Financial.Control.Domain.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Users
 {
-    public class UserUpdateHandler : AppRequestHandler<UserUpdateRequest, UserUpdateResponse>
+    public class UserUpdateHandler : BaseRequestHandler<UserUpdateRequest, UserUpdateResponse>
     {
         public UserUpdateHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor)
         {
         }
 
-        public async override Task<UserUpdateResponse> Handle(UserUpdateRequest request)
+        public async override Task<UserUpdateResponse> Handle(UserUpdateRequest request, CancellationToken cancellationToken)
         {
             User user = _app.UnitOfWork.Users
                 .Query(us => us.Id.Equals(_app.CurrentUser.Id))

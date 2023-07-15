@@ -9,12 +9,12 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Cards
 {
-    public class CardDeleteHandler : AppRequestHandler<CardDeleteRequest, CardDeleteResponse>
+    public class CardDeleteHandler : BaseRequestHandler<CardDeleteRequest, CardDeleteResponse>
     {
         public CardDeleteHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor)
         {
         }
-        public async override Task<CardDeleteResponse> Handle(CardDeleteRequest request)
+        public async override Task<CardDeleteResponse> Handle(CardDeleteRequest request, CancellationToken cancellationToken)
         {
             User user = _app.UnitOfWork.Users.Query(user => user.Id.Equals(_app.CurrentUser.Id))
                 .FirstOrDefault();

@@ -57,7 +57,6 @@ namespace Financial.Control.Domain.Entities
         }
         #endregion
 
-
         #region Account Behaviors
         public void SetEmail(string email)
         {

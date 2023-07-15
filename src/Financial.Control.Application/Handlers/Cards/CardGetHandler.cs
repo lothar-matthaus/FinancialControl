@@ -9,11 +9,11 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Cards
 {
-    public class CardGetHandler : AppRequestHandler<CardGetRequest, CardGetResponse>
+    public class CardGetHandler : BaseRequestHandler<CardGetRequest, CardGetResponse>
     {
         public CardGetHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor) { }
 
-        public async override Task<CardGetResponse> Handle(CardGetRequest request)
+        public async override Task<CardGetResponse> Handle(CardGetRequest request, CancellationToken cancellationToken)
         {
             Card card = _app.UnitOfWork.Cards.Query(card => card.Id.Equals(request.CardId) && card.UserId.Equals(_app.CurrentUser.Id))
                 .FirstOrDefault();

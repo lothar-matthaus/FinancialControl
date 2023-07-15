@@ -19,6 +19,6 @@ namespace Financial.Control.Infra.Data
         public IUserRepository Users => _userRepository ?? new UserRepository(_dbContext);
         public ICardRepository Cards => _cardRepository ?? new CardRepository(_dbContext);
 
-        public void Commit() => _dbContext.SaveChanges();
+        public async void Commit(CancellationToken cancellationToken) => await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

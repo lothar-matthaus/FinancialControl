@@ -1,6 +1,5 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Enums;
-using System.Linq;
 using System.Text.RegularExpressions;
 using static Financial.Control.Domain.Constants.Patterns;
 

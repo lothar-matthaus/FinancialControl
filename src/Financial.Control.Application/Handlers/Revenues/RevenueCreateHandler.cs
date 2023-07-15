@@ -9,11 +9,11 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Revenues
 {
-    public class RevenueCreateHandler : AppRequestHandler<RevenueCreateRequest, RevenueCreateResponse>
+    public class RevenueCreateHandler : BaseRequestHandler<RevenueCreateRequest, RevenueCreateResponse>
     {
         public RevenueCreateHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor) { }
 
-        public async override Task<RevenueCreateResponse> Handle(RevenueCreateRequest request)
+        public async override Task<RevenueCreateResponse> Handle(RevenueCreateRequest request, CancellationToken cancellationToken)
         {
             User user = _app.UnitOfWork.Users.Query(us => us.Id.Equals(_app.CurrentUser.Id))
                 .FirstOrDefault();

@@ -10,13 +10,13 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Users
 {
-    public class UserGetHandler : AppRequestHandler<UserGetRequest, UserGetResponse>
+    public class UserGetHandler : BaseRequestHandler<UserGetRequest, UserGetResponse>
     {
         public UserGetHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor)
         {
         }
 
-        public async override Task<UserGetResponse> Handle(UserGetRequest request)
+        public async override Task<UserGetResponse> Handle(UserGetRequest request, CancellationToken cancellationToken)
         {
             User user = _app.UnitOfWork.Users.Query(us => us.Id.Equals(_app.CurrentUser.Id)).Include(user => user.Account).FirstOrDefault();
 

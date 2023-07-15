@@ -9,14 +9,14 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Users
 {
-    public class UserCreateHandler : AppRequestHandler<UserCreateRequest, UserCreateResponse>
+    public class UserCreateHandler : BaseRequestHandler<UserCreateRequest, UserCreateResponse>
     {
         public UserCreateHandler(IApplication application,
             IHttpContextAccessor httpContextAccessor) :
             base(application, httpContextAccessor)
         { }
 
-        public async override Task<UserCreateResponse> Handle(UserCreateRequest request)
+        public async override Task<UserCreateResponse> Handle(UserCreateRequest request, CancellationToken cancellationToken)
         {
             bool emailAlreadyExists = _app.UnitOfWork.Users.EmailAlreadyExists(request.Email);
 

@@ -10,13 +10,13 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Logon
 {
-    public class LoginHandler : AppRequestHandler<LoginRequest, LoginResponse>
+    public class LoginHandler : BaseRequestHandler<LoginRequest, LoginResponse>
     {
         public LoginHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor)
         {
         }
 
-        public async override Task<LoginResponse> Handle(LoginRequest request)
+        public async override Task<LoginResponse> Handle(LoginRequest request, CancellationToken cancellationToken)
         {
             User user = _app.UnitOfWork.Users
                  .Query(us => us.Account.Email.Value.Equals(request.Email))

@@ -17,7 +17,7 @@ namespace Financial.Control.Infra.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.16")
+                .HasAnnotation("ProductVersion", "7.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -97,6 +97,8 @@ namespace Financial.Control.Infra.Data.Migrations
                     b.ToTable("Card", (string)null);
 
                     b.HasDiscriminator<int>("CardType");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Financial.Control.Domain.Entities.Category", b =>

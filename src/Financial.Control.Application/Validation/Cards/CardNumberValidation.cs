@@ -1,6 +1,4 @@
-﻿using Financial.Control.Domain.Constants;
-using Financial.Control.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using static Financial.Control.Domain.Constants.FieldLenght;
 using static Financial.Control.Domain.Constants.Patterns;

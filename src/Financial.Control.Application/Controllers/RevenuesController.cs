@@ -1,6 +1,4 @@
 ﻿using Financial.Control.Application.Controllers.Base;
-using Financial.Control.Application.Models.Logon.Commands;
-using Financial.Control.Application.Models.Logon.Response;
 using Financial.Control.Application.Models.Revenues.Commands;
 using Financial.Control.Application.Models.Revenues.Response.Create;
 using MediatR;

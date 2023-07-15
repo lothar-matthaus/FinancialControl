@@ -26,6 +26,7 @@ builder.Services.ConfigureApiBehavior();
 
 
 builder.Services.AddApplicationMediatR();
+builder.Services.AddBaseRequestHandlerBehavior();
 
 #region Configure Controllers
 var assembly = Assembly.Load("Financial.Control.Application");

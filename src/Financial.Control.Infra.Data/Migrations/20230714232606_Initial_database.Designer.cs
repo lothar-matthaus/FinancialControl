@@ -12,14 +12,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Financial.Control.Infra.Data.Migrations
 {
     [DbContext(typeof(FinancialControlDbContext))]
-    [Migration("20230412013757_adicao_coluna_name_tabela_card")]
-    partial class adicao_coluna_name_tabela_card
+    [Migration("20230714232606_Initial_database")]
+    partial class Initial_database
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.16")
+                .HasAnnotation("ProductVersion", "7.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -45,7 +46,13 @@ namespace Financial.Control.Infra.Data.Migrations
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Account", (string)null);
                 });
@@ -93,6 +100,8 @@ namespace Financial.Control.Infra.Data.Migrations
                     b.ToTable("Card", (string)null);
 
                     b.HasDiscriminator<int>("CardType");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Financial.Control.Domain.Entities.Category", b =>
@@ -183,6 +192,10 @@ namespace Financial.Control.Infra.Data.Migrations
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
@@ -209,9 +222,6 @@ namespace Financial.Control.Infra.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("AccountId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TIMESTAMP")
@@ -229,8 +239,6 @@ namespace Financial.Control.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
-
                     b.ToTable("User", (string)null);
                 });
 
@@ -238,8 +246,9 @@ namespace Financial.Control.Infra.Data.Migrations
                 {
                     b.HasBaseType("Financial.Control.Domain.Entities.Card");
 
-                    b.Property<DateTime>("CardInvoiceDay")
-                        .HasColumnType("TIMESTAMP");
+                    b.Property<int>("CardInvoiceDay")
+                        .HasColumnType("integer")
+                        .HasColumnName("CardInvoiceDay");
 
                     b.Property<decimal>("Limit")
                         .HasColumnType("numeric");
@@ -256,6 +265,12 @@ namespace Financial.Control.Infra.Data.Migrations
 
             modelBuilder.Entity("Financial.Control.Domain.Entities.Account", b =>
                 {
+                    b.HasOne("Financial.Control.Domain.Entities.User", "User")
+                        .WithOne("Account")
+                        .HasForeignKey("Financial.Control.Domain.Entities.Account", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.OwnsOne("Financial.Control.Domain.Records.Email", "Email", b1 =>
                         {
                             b1.Property<long>("AccountId")
@@ -326,6 +341,8 @@ namespace Financial.Control.Infra.Data.Migrations
                     b.Navigation("Password");
 
                     b.Navigation("ProfilePicture");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Financial.Control.Domain.Entities.Card", b =>
@@ -400,25 +417,10 @@ namespace Financial.Control.Infra.Data.Migrations
                     b.HasOne("Financial.Control.Domain.Entities.User", "User")
                         .WithMany("Revenues")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Financial.Control.Domain.Entities.User", b =>
-                {
-                    b.HasOne("Financial.Control.Domain.Entities.Account", "Account")
-                        .WithMany("Users")
-                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Account");
-                });
-
-            modelBuilder.Entity("Financial.Control.Domain.Entities.Account", b =>
-                {
-                    b.Navigation("Users");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Financial.Control.Domain.Entities.Card", b =>
@@ -433,6 +435,8 @@ namespace Financial.Control.Infra.Data.Migrations
 
             modelBuilder.Entity("Financial.Control.Domain.Entities.User", b =>
                 {
+                    b.Navigation("Account");
+
                     b.Navigation("Cards");
 
                     b.Navigation("Expenses");

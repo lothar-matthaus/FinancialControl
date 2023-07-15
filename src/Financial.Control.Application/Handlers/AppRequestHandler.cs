@@ -10,54 +10,19 @@ using System.Net;
 
 namespace Financial.Control.Application.Handlers
 {
-    public abstract class AppRequestHandler<TRequest, TResponse> : IRequestHandler<TRequest, TResponse>
+    public abstract class BaseRequestHandler<TRequest, TResponse> : IRequestHandler<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
         where TResponse : IBaseResponse, new()
     {
         protected readonly IApplication _app;
         private readonly HttpContext _httpContext;
 
-        public AppRequestHandler(IApplication application, IHttpContextAccessor httpContextAccessor)
+        public BaseRequestHandler(IApplication application, IHttpContextAccessor httpContextAccessor)
         {
             _app = application;
             _httpContext = httpContextAccessor.HttpContext;
         }
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken)
-        {
-            try
-            {
-                TResponse response = await Handle(request);
 
-                ModelStateDictionary modelState = (request as BaseRequest<TResponse>).GetModelState();
-
-                if (!modelState.IsValid)
-                {
-                    IReadOnlyCollection<Notification> _notifications = modelState.CreateNotifications(request.GetType().Name);
-
-                    response = new TResponse();
-                    response.SetInvalidState(_notifications);
-                    _httpContext.Response.SetStatusCode(response.StatusCode);
-
-                    return response;
-                }
-
-                _httpContext.Response.SetStatusCode(response.StatusCode);
-                _app.UnitOfWork.Commit();
-
-                return response;
-            }
-            catch (Exception ex)
-            {
-                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create("Internal Server Error", ex.GetType().Name, new string[] { ex.InnerException?.Message ?? ex.Message }) };
-                TResponse response = new TResponse();
-
-                response.SetInvalidState(notifications, HttpStatusCode.InternalServerError);
-                _httpContext.Response.SetStatusCode(HttpStatusCode.InternalServerError);
-
-                return response;
-            }
-        }
-
-        public abstract Task<TResponse> Handle(TRequest request);
+        public abstract Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken);
     }
 }
