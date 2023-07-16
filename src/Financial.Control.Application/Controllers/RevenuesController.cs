@@ -9,9 +9,9 @@ namespace Financial.Control.Application.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RevenusController : BaseController
+    public class RevenuesController : BaseController
     {
-        public RevenusController(IMediator mediatR) : base(mediatR) { }
+        public RevenuesController(IMediator mediatR) : base(mediatR) { }
 
         /// <summary>
         /// Cadastra uma nova receita para o usuário
