@@ -6,6 +6,6 @@ namespace Financial.Control.Domain.Models.Cards.Response.Delete
     {
         public new string Message { get; }
         public new IReadOnlyCollection<Notification> Errors { get; }
-        
+
     }
 }

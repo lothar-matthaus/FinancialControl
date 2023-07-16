@@ -1,5 +1,4 @@
-﻿using Financial.Control.Application.Models.Revenues.Response.Create;
-using Financial.Control.Domain.Entities.Notifications;
+﻿using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Models.Revenues.Response.Get;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;

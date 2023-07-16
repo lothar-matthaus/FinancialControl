@@ -49,10 +49,10 @@ namespace Financial.Control.Application.Middlewares
             }
             catch (Exception ex)
             {
-                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create(ex.GetType().Name, string.Empty, new string[] {ex.Message, ex.InnerException?.Message }) };
+                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create(ex.GetType().Name, string.Empty, new string[] { ex.Message, ex.InnerException?.Message }) };
                 TResponse response = new TResponse();
 
-                response.SetInvalidState(ServerMessage.InternalServerError() , notifications, HttpStatusCode.InternalServerError);
+                response.SetInvalidState(ServerMessage.InternalServerError(), notifications, HttpStatusCode.InternalServerError);
                 _httpContext.Response.SetStatusCode(HttpStatusCode.InternalServerError);
 
                 return response;

@@ -21,7 +21,7 @@ namespace Financial.Control.Application.Handlers.Cards
 
             if (card is null)
                 return CardGetResponse.AsError(CardMessage.CardGetError(), HttpStatusCode.NotFound, CardGetErrorResponse
-                    .Create(CardMessage.CardNotFound() , new List<Notification> { Notification.Create(request.GetType().Name, "CardId", new string[] { GenericMessage.IdNotExists(request.CardId) }) }));
+                    .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "CardId", new string[] { GenericMessage.IdNotExists(request.CardId) }) }));
 
             return CardGetResponse.AsSuccess(CardMessage.CardGetSuccess(), HttpStatusCode.OK, CardGetSuccessResponse.Create(card));
         }

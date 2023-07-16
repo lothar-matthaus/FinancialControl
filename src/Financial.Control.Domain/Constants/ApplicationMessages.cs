@@ -1,7 +1,4 @@
-﻿using Financial.Control.Domain.Enums;
-using Financial.Control.Domain.Extensions;
-
-namespace Financial.Control.Domain.Constants
+﻿namespace Financial.Control.Domain.Constants
 {
     public class ApplicationMessage
     {

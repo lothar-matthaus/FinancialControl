@@ -3,8 +3,6 @@ using Financial.Control.Application.Models.Revenues.Response.Create;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
-using Financial.Control.Domain.Models.Revenues.Commands;
-using Financial.Control.Domain.Models.Revenues.Response.Create;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -24,7 +22,7 @@ namespace Financial.Control.Application.Handlers.Revenues
             if (user is null)
                 return RevenueCreateResponse.AsError(RevenueMessage.RevenueCreateError(), HttpStatusCode.NotFound, RevenueCreateErrorResponse
                     .Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, string.Empty, new string[] { GenericMessage.IdNotExists(_app.CurrentUser.Id) }) }));
-           
+
             Revenue revenue = request;
 
             user.AddRevenue(revenue);

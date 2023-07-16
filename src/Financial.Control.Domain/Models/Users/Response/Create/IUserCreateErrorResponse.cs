@@ -7,6 +7,6 @@ namespace Financial.Control.Domain.Models.Users.Response.Create
     {
         public new string Message { get; }
         public new IReadOnlyCollection<Notification> Errors { get; }
-        
+
     }
 }

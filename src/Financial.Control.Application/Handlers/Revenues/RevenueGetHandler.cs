@@ -1,12 +1,8 @@
-﻿using Financial.Control.Application.Models.Revenues.Commands;
-using Financial.Control.Application.Models.Revenues.Queries.Get;
-using Financial.Control.Application.Models.Revenues.Response.Create;
+﻿using Financial.Control.Application.Models.Revenues.Queries.Get;
 using Financial.Control.Application.Models.Revenues.Response.Get;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
-using Financial.Control.Domain.Models.Revenues.Commands;
-using Financial.Control.Domain.Models.Revenues.Response.Create;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
