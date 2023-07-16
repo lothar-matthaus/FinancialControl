@@ -1,4 +1,5 @@
 ﻿using Financial.Control.Domain.Entities.Base;
+using Financial.Control.Domain.Enums;
 using Financial.Control.Domain.Records;
 
 namespace Financial.Control.Domain.Entities
@@ -10,7 +11,7 @@ namespace Financial.Control.Domain.Entities
         public ProfilePicture ProfilePicture { get; protected set; }
         public Password Password { get; protected set; }
         public UserToken Token { get; protected set; }
-        public bool IsEnable { get; private set; }
+        public AccountStatus Status { get; private set; }
         #endregion
 
         #region Navigation
@@ -25,6 +26,7 @@ namespace Financial.Control.Domain.Entities
             Email = Email.Create(email);
             ProfilePicture = ProfilePicture.Create(profilePictureUrl);
             Password = Password.Create(plainTextPassword);
+            Status = AccountStatus.Blocked;
         }
 
         #region Behaviors

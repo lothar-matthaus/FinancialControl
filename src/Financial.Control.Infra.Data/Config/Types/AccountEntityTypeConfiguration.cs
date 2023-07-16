@@ -29,6 +29,8 @@ namespace Financial.Control.Infra.Data.Config.Types
                 profilePicture.Property(pass => pass.Value).IsRequired(true).HasColumnName("ProfilePictureURL");
             });
 
+            builder.Property(account => account.Status).IsRequired();
+
             builder.Property(account => account.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(account => account.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
 
