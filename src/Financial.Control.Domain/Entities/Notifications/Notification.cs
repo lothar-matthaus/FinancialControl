@@ -1,4 +1,4 @@
-﻿namespace Financial.Control.Domain.Entities.NotificationEntity
+﻿namespace Financial.Control.Domain.Entities.Notifications
 {
     public class Notification
     {
@@ -15,6 +15,6 @@
             Field = field;
         }
 
-        public static Notification Create(string context, string field, ICollection<string> errors) => new Notification(field, context, errors);
+        public static Notification Create(string context, string field = null, ICollection<string> errors = null) => new Notification(field, context, errors);
     }
 }
