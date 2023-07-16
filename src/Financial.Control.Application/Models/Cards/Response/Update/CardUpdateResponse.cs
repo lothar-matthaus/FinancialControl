@@ -1,4 +1,4 @@
-﻿using Financial.Control.Domain.Entities.NotificationEntity;
+﻿using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Models;
 using Financial.Control.Domain.Models.Cards.Response.Update;
 using System.Net;
@@ -23,11 +23,11 @@ namespace Financial.Control.Application.Models.Cards.Response.Update
         public static CardUpdateResponse AsSuccess(string message, HttpStatusCode statusCode, ICardUpdateSuccessResponse success) => new CardUpdateResponse(message, statusCode, success);
         public static CardUpdateResponse AsError(string message, HttpStatusCode statusCode, ICardUpdateErrorResponse error) => new CardUpdateResponse(message, statusCode, error);
         #endregion
-        public void SetInvalidState(IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
+        public void SetInvalidState(string message, IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
         {
             Message = CardMessage.CardCreateError();
             StatusCode = statusCode ?? HttpStatusCode.BadRequest;
-            Error = CardUpdateErrorResponse.Create(errors);
+            Error = CardUpdateErrorResponse.Create(message, errors);
         }
     }
 }

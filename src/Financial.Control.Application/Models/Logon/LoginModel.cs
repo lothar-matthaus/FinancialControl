@@ -6,6 +6,7 @@ namespace Financial.Control.Application.Models.Logon
 {
     public class LoginModel : ILoginModel
     {
+        public long Id => 0;
         public string Name { get; }
         public string Email { get; }
         public UserToken Token { get; }

@@ -1,4 +1,5 @@
-﻿using Financial.Control.Domain.Entities.NotificationEntity;
+﻿
+using Financial.Control.Domain.Entities.Notifications;
 using System.Net;
 
 namespace Financial.Control.Domain.Models
@@ -11,11 +12,10 @@ namespace Financial.Control.Domain.Models
         public HttpStatusCode StatusCode { get; }
         public TSuccess Success { get; }
         public TError Error { get; }
-
     }
     public interface IBaseResponse
     {
         public HttpStatusCode StatusCode { get; }
-        public abstract void SetInvalidState(IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null);
+        public abstract void SetInvalidState(string message, IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null);
     }
 }

@@ -1,4 +1,4 @@
-﻿using Financial.Control.Domain.Entities.NotificationEntity;
+﻿using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Models;
 using Financial.Control.Domain.Models.Users.Response.Get;
 using System.Net;
@@ -24,11 +24,11 @@ namespace Financial.Control.Application.Models.Users.Response.Get
         public static UserGetResponse AsSuccess(string message, HttpStatusCode statusCode, IUserGetSuccessResponse success) => new UserGetResponse(message, statusCode, success);
         public static UserGetResponse AsError(string message, HttpStatusCode statusCode, IUserGetErrorResponse error) => new UserGetResponse(message, statusCode, error);
 
-        public void SetInvalidState(IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
+        public void SetInvalidState(string message, IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
         {
             Message = UserMessage.UserGetError();
             StatusCode = statusCode ?? HttpStatusCode.BadRequest;
-            Error = UserGetErrorResponse.Create(errors);
+            Error = UserGetErrorResponse.Create(message, errors);
         }
         #endregion
     }

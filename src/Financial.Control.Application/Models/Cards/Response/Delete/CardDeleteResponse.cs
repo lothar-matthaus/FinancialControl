@@ -1,4 +1,4 @@
-﻿using Financial.Control.Domain.Entities.NotificationEntity;
+﻿using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Models.Cards.Response.Delete;
 using System.Net;
 
@@ -15,7 +15,7 @@ namespace Financial.Control.Application.Models.Cards.Response.Delete
         public static CardDeleteResponse AsError(string message, HttpStatusCode statusCode, ICardDeleteErrorResponse error) => new CardDeleteResponse(message, statusCode, error);
         #endregion
 
-        public void SetInvalidState(IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
+        public void SetInvalidState(string message, IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
         {
             throw new NotImplementedException();
         }

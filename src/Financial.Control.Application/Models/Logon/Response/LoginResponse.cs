@@ -1,6 +1,7 @@
-﻿using Financial.Control.Domain.Entities.NotificationEntity;
+﻿using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Models.Logon.Response;
 using System.Net;
+using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Logon.Response
 {
@@ -14,11 +15,11 @@ namespace Financial.Control.Application.Models.Logon.Response
         public static LoginResponse AsSuccess(string message, HttpStatusCode statusCode, ILoginSuccessResponse success) => new LoginResponse(message, statusCode, success);
         public static LoginResponse AsError(string message, HttpStatusCode statusCode, ILoginErrorResponse error) => new LoginResponse(message, statusCode, error);
 
-        public void SetInvalidState(IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
+        public void SetInvalidState(string message, IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
         {
-            Message = "Erro ao fazer login";
+            Message = LoginMessage.LoginError();
             StatusCode = statusCode ?? HttpStatusCode.BadRequest;
-            Error = LoginErrorResponse.Create(errors);
+            Error = LoginErrorResponse.Create(message, errors);
         }
     }
 }

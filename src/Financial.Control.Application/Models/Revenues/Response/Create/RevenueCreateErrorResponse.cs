@@ -1,13 +1,14 @@
-﻿using Financial.Control.Domain.Entities.NotificationEntity;
+﻿using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Models.Revenues.Response.Create;
 
 namespace Financial.Control.Application.Models.Revenues.Response.Create
 {
     public sealed class RevenueCreateErrorResponse : BaseErrorResponse, IRevenueCreateErrorResponse
     {
-        private RevenueCreateErrorResponse(IReadOnlyCollection<Notification> errors) : base(errors) { }
+        private RevenueCreateErrorResponse(string message, IReadOnlyCollection<Notification> errors) : base(message, errors) { }
+       
         #region Factory
-        public static RevenueCreateErrorResponse Create(IReadOnlyCollection<Notification> errors) => new RevenueCreateErrorResponse(errors);
+        public static RevenueCreateErrorResponse Create(string message, IReadOnlyCollection<Notification> errors) => new RevenueCreateErrorResponse(message, errors);
         #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿using Financial.Control.Domain.Entities.NotificationEntity;
+﻿using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Models.Revenues.Response.Create;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
@@ -16,11 +16,11 @@ namespace Financial.Control.Application.Models.Revenues.Response.Create
         public static RevenueCreateResponse AsError(string message, HttpStatusCode statusCode, IRevenueCreateErrorResponse error) => new RevenueCreateResponse(message, statusCode, error);
         #endregion
 
-        public void SetInvalidState(IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
+        public void SetInvalidState(string message, IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
         {
             Message = RevenueMessage.RevenueCreateError();
             StatusCode = statusCode ?? HttpStatusCode.BadRequest;
-            Error = RevenueCreateErrorResponse.Create(errors);
+            Error = RevenueCreateErrorResponse.Create(message, errors);
         }
     }
 }
