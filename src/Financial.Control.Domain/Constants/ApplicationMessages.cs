@@ -45,7 +45,8 @@
             public static string RevenueGetError() => "Erro ao coletar dados da a receita.";
             public static string RevenueNotFound() => "A receita não foi encontrada.";
             public static string RevenueCreateSuccess() => "Receita criada com sucesso.";
-            public static string RevenueGetSuccessful() => "a receita foi encontrada com sucesso.";
+            public static string RevenueGetSuccess() => "A receita do usuário foi encontrada com sucesso.";
+            public static string RevenueListSuccess() => "As receitas do usuário foram coletadas com sucesso.";
         }
 
         public class ServerMessage
