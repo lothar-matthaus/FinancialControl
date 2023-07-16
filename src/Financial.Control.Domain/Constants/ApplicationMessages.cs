@@ -45,7 +45,10 @@ namespace Financial.Control.Domain.Constants
         public class RevenueMessage
         {
             public static string RevenueCreateError() => "Erro ao criar a receita.";
+            public static string RevenueGetError() => "Erro ao coletar dados da a receita.";
+            public static string RevenueNotFound() => "A receita não foi encontrada.";
             public static string RevenueCreateSuccess() => "Receita criada com sucesso.";
+            public static string RevenueGetSuccessful() => "a receita foi encontrada com sucesso.";
         }
 
         public class ServerMessage

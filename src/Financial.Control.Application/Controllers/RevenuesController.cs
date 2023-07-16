@@ -1,6 +1,8 @@
 ﻿using Financial.Control.Application.Controllers.Base;
 using Financial.Control.Application.Models.Revenues.Commands;
+using Financial.Control.Application.Models.Revenues.Queries.Get;
 using Financial.Control.Application.Models.Revenues.Response.Create;
+using Financial.Control.Application.Models.Revenues.Response.Get;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,11 +21,25 @@ namespace Financial.Control.Application.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         /// <response code="201">A receita foi criada.</response>
-        /// <response code="404">O usuário não foi encontrado.</response>
         /// <response code="500">Erro interno do sistema.</response>
         [HttpPost]
         [Authorize]
         public Task<RevenueCreateResponse> CreateRevenue([FromBody] RevenueCreateRequest request)
+        {
+            request.SetModelState(ModelState);
+            return _mediatR.Send(request, HttpContext.RequestAborted);
+        }
+
+        /// <summary>
+        /// Busca uma receita específica no sistema
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <response code="200">A receita foi encontrada.</response>
+        /// <response code="500">Erro interno do sistema.</response>
+        [HttpGet]
+        [Authorize]
+        public Task<RevenueGetResponse> GetRevenue([FromQuery] RevenueGetRequest request)
         {
             request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);

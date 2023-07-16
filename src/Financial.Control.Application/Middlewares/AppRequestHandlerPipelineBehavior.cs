@@ -43,7 +43,7 @@ namespace Financial.Control.Application.Middlewares
                 }
 
                 _httpContext.Response.SetStatusCode(response.StatusCode);
-                _app.UnitOfWork.Commit(cancellationToken);
+                await _app.UnitOfWork.Commit(cancellationToken);
 
                 return response;
             }

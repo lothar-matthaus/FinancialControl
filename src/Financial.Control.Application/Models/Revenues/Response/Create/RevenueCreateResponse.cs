@@ -5,7 +5,7 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Revenues.Response.Create
 {
-    public sealed class RevenueCreateResponse : BaseResponse<IRevenueCreateSuccessResponse, IRevenueCreateErrorResponse>, IRevenueCreateResponse
+    public class RevenueCreateResponse : BaseResponse<IRevenueCreateSuccessResponse, IRevenueCreateErrorResponse>, IRevenueCreateResponse
     {
         public RevenueCreateResponse() { }
         private RevenueCreateResponse(string message, HttpStatusCode statusCode, IRevenueCreateSuccessResponse success) : base(message, statusCode, success) { }

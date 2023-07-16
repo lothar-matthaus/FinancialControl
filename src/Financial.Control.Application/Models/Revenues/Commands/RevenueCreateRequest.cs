@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Financial.Control.Application.Models.Revenues.Commands
 {
-    public sealed class RevenueCreateRequest : BaseRequest<RevenueCreateResponse>, IRevenueCreateRequest
+    public class RevenueCreateRequest : BaseRequest<RevenueCreateResponse>, IRevenueCreateRequest
     {
         /// <summary>
         /// Nome para identificar a receita

@@ -6,6 +6,7 @@ namespace Financial.Control.Domain.Repository
     {
         public IUserRepository Users { get; }
         public ICardRepository Cards { get; }
+        public IRevenueRepository Revenues { get; }
 
         public Task Commit(CancellationToken cancellationToken);
     }

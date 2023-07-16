@@ -7,6 +7,5 @@ namespace Financial.Control.Domain.Interfaces.Repository
     {
         public IQueryable<Card> Query(Expression<Func<Card, bool>> expression);
         public void Update(Card user);
-        public bool CardAlreadyExists(string cardNumber);
     }
 }
