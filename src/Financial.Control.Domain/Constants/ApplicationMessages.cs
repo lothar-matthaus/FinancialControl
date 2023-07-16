@@ -1,4 +1,7 @@
-﻿namespace Financial.Control.Domain.Constants
+﻿using Financial.Control.Domain.Enums;
+using Financial.Control.Domain.Extensions;
+
+namespace Financial.Control.Domain.Constants
 {
     public class ApplicationMessage
     {
@@ -27,8 +30,9 @@
             public static string CardListError() => "Erro ao listar os cartões do usuário.";
             public static string CardListSuccess() => "Os cartões do usuário foram coletados com sucesso.";
             public static string CardListNotFound(string name) => $"O usuário '{name}' não possui cartões.";
-            public static string CardNotFound() => $"O cartão não foi encontrado. ";
+            public static string CardNotFound() => "O cartão não foi encontrado.";
             public static string CardAlreadyExists(string cardNumber) => $"O cartão '{cardNumber}' já existe na base de dados.";
+            public static string CardFlagNotSupported() => $"A bandeira do cartão inserido não é suportado pelo sistema.";
         }
 
         public class LoginMessage
@@ -42,6 +46,23 @@
         {
             public static string RevenueCreateError() => "Erro ao criar a receita.";
             public static string RevenueCreateSuccess() => "Receita criada com sucesso.";
+        }
+
+        public class ServerMessage
+        {
+            public static string InternalServerError() => "Internal Server Error.";
+        }
+
+        public class ValidationMessage
+        {
+            public static string ValidationFailed() => "O formulário possui um ou mais erros. Verifique os campos informados.";
+        }
+
+        public class GenericMessage
+        {
+            public static string IdNotExists(long id) => $"O ID '{id}' informado é inválido.";
+            public static string EmailConflict() => $"Conflito ao cadastrar o e-mail.";
+
         }
     }
 }
