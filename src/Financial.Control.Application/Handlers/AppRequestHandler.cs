@@ -1,12 +1,7 @@
-﻿using Financial.Control.Application.Extensions;
-using Financial.Control.Application.Models;
-using Financial.Control.Domain.Entities.NotificationEntity;
-using Financial.Control.Domain.Interfaces;
+﻿using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Net;
 
 namespace Financial.Control.Application.Handlers
 {

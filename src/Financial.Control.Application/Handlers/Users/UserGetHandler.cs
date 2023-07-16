@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Application.Models.Users.Queries;
 using Financial.Control.Application.Models.Users.Response.Get;
 using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Entities.NotificationEntity;
+using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -18,13 +18,13 @@ namespace Financial.Control.Application.Handlers.Users
 
         public async override Task<UserGetResponse> Handle(UserGetRequest request, CancellationToken cancellationToken)
         {
-            User user = _app.UnitOfWork.Users.Query(us => us.Id.Equals(_app.CurrentUser.Id)).Include(user => user.Account).FirstOrDefault();
+            User user = await _app.UnitOfWork.Users
+                .Query(us => us.Id.Equals(_app.CurrentUser.Id)).Include(user => user.Account)
+                .FirstOrDefaultAsync();
 
             if (user is null)
-                return UserGetResponse.AsError(UserMessage.UserGetError(), HttpStatusCode.NotFound, UserGetErrorResponse.Create(new List<Notification>()
-                {
-                    Notification.Create(request.GetType().Name, string.Empty, new string[] { UserMessage.UserNotFound() })
-                }));
+                return UserGetResponse.AsError(UserMessage.UserGetError(), HttpStatusCode.NotFound, UserGetErrorResponse
+                    .Create(UserMessage.UserNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(_app.CurrentUser.Id) }) }));
 
             return UserGetResponse.AsSuccess(UserMessage.UserGetSuccess(), HttpStatusCode.OK, UserGetSuccessResponse.Create(user));
         }

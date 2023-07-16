@@ -5,6 +5,7 @@ using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Models.Cards;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Cards
@@ -15,7 +16,7 @@ namespace Financial.Control.Application.Handlers.Cards
 
         public async override Task<CardListResponse> Handle(CardListRequest request, CancellationToken cancellationToken)
         {
-            IQueryable<Card> cards = _app.UnitOfWork.Cards.Query(card => card.UserId.Equals(_app.CurrentUser.Id));
+            IReadOnlyCollection<Card> cards = await _app.UnitOfWork.Cards.Query(card => card.UserId.Equals(_app.CurrentUser.Id)).ToListAsync();
             IReadOnlyCollection<ICardModel> cardsList = cards.ToList().ConvertAll(card => CardModel.Create(card));
 
             return CardListResponse.AsSuccess(cardsList.Any() ? CardMessage.CardListSuccess() : CardMessage.CardListNotFound(_app.CurrentUser.Nome),

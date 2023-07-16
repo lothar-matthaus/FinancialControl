@@ -1,4 +1,4 @@
-﻿using Financial.Control.Domain.Entities.NotificationEntity;
+﻿using Financial.Control.Domain.Entities.Notifications;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Financial.Control.Application.Extensions

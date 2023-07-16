@@ -1,12 +1,13 @@
 ﻿using Financial.Control.Application.Extensions;
 using Financial.Control.Application.Models;
-using Financial.Control.Domain.Entities.NotificationEntity;
+using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Net;
+using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Middlewares
 {
@@ -35,7 +36,7 @@ namespace Financial.Control.Application.Middlewares
                     IReadOnlyCollection<Notification> _notifications = modelState.CreateNotifications(request.GetType().Name);
 
                     response = new TResponse();
-                    response.SetInvalidState(_notifications);
+                    response.SetInvalidState(ValidationMessage.ValidationFailed(), _notifications);
                     _httpContext.Response.SetStatusCode(response.StatusCode);
 
                     return response;
@@ -48,10 +49,10 @@ namespace Financial.Control.Application.Middlewares
             }
             catch (Exception ex)
             {
-                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create("Internal Server Error", ex.GetType().Name, new string[] { ex.InnerException?.Message ?? ex.Message }) };
+                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create(ex.GetType().Name, string.Empty, new string[] {ex.Message, ex.InnerException?.Message }) };
                 TResponse response = new TResponse();
 
-                response.SetInvalidState(notifications, HttpStatusCode.InternalServerError);
+                response.SetInvalidState(ServerMessage.InternalServerError() , notifications, HttpStatusCode.InternalServerError);
                 _httpContext.Response.SetStatusCode(HttpStatusCode.InternalServerError);
 
                 return response;
