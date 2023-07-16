@@ -10,11 +10,11 @@ namespace Financial.Control.Infra.Data.Repository
     {
         public UserRepository(FinancialControlDbContext dbContext) : base(dbContext) { }
 
-        public void Add(User user) => _dbContext.Add(user);
+        public async void Add(User user) => await _dbContext.AddAsync(user);
 
-        public bool EmailAlreadyExists(string email)
+        public async Task<bool> EmailAlreadyExists(string email)
         {
-            return _dbContext.Users.Where(user => user.Account.Email.Value.Equals(email)).Any();
+            return await _dbContext.Users.Where(user => user.Account.Email.Value.Equals(email)).AnyAsync();
         }
 
         public IQueryable<User> Query(Expression<Func<User, bool>> expression) => _dbContext.Users.Where(expression).Include(us => us.Account);

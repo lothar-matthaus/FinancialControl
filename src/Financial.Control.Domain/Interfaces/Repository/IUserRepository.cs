@@ -7,7 +7,7 @@ namespace Financial.Control.Domain.Interfaces.Repository
     {
         public IQueryable<User> Query(Expression<Func<User, bool>> expression);
         public void Add(User user);
-        public bool EmailAlreadyExists(string email);
+        public Task<bool> EmailAlreadyExists(string email);
         public void Update(User user);
     }
 }
