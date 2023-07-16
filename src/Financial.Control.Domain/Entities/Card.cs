@@ -1,6 +1,8 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Enums;
+using Financial.Control.Domain.Exceptions;
 using System.Text.RegularExpressions;
+using static Financial.Control.Domain.Constants.ApplicationMessage;
 using static Financial.Control.Domain.Constants.Patterns;
 
 namespace Financial.Control.Domain.Entities
@@ -34,7 +36,18 @@ namespace Financial.Control.Domain.Entities
         }
 
         #region Private Methods
-        protected CardFlag SetCardFlag(string cardNumber) => CardFlagPattern.Patterns.Where(pattern => Regex.IsMatch(cardNumber, pattern.Value)).Select(pattern => pattern.Key).FirstOrDefault();
+        protected CardFlag SetCardFlag(string cardNumber)
+        {
+            CardFlag? flag = CardFlagPattern.Patterns
+                .Where(pattern => Regex.IsMatch(cardNumber, pattern.Value))
+                .Select(pattern => pattern.Key)
+                .FirstOrDefault();
+
+            if (flag is null)
+                throw new InvalidInputException(CardMessage.CardFlagNotSupported());
+
+            return flag.Value;
+        }
         #endregion
 
         #region Behaviors

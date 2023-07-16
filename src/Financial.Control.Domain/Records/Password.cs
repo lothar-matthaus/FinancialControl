@@ -31,7 +31,9 @@ namespace Financial.Control.Domain.Records
 
             using (HMACSHA256 hmac = new HMACSHA256(key))
             {
-                byte[] hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(plainTextPassword));
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(plainTextPassword);
+                byte[] hash = hmac.ComputeHash(passwordBytes);
+
                 hashString = Convert.ToHexString(hash);
             }
 
