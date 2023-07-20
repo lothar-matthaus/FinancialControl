@@ -2,7 +2,7 @@
 
 namespace Financial.Control.Domain.Models.Logon
 {
-    public interface ILoginModel : IBaseModel
+    public interface ILoginModel
     {
         public string Name { get; }
         public string Email { get; }

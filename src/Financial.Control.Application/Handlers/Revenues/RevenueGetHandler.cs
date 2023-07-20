@@ -1,4 +1,4 @@
-﻿using Financial.Control.Application.Models.Revenues.Queries.Get;
+﻿using Financial.Control.Application.Models.Revenues.Queries;
 using Financial.Control.Application.Models.Revenues.Response.Get;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
@@ -22,7 +22,7 @@ namespace Financial.Control.Application.Handlers.Revenues
 
             if (revenue is null)
                 return RevenueGetResponse.AsError(RevenueMessage.RevenueGetError(), HttpStatusCode.NotFound, RevenueGetErrorResponse
-                    .Create(RevenueMessage.RevenueNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "RevenueId", new string[] { GenericMessage.IdNotExists(request.RevenueId) }) }));
+                    .Create(RevenueMessage.RevenueGetNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "RevenueId", new string[] { GenericMessage.IdNotExists(request.RevenueId) }) }));
 
             return RevenueGetResponse.AsSuccess(RevenueMessage.RevenueGetSuccess(), HttpStatusCode.Created, RevenueGetSuccessResponse.Create(revenue));
         }

@@ -3,17 +3,17 @@ using Financial.Control.Domain.Models.Revenues;
 
 namespace Financial.Control.Application.Models.Revenues
 {
-    public sealed class RevenueModel : IRevenueModel
+    public sealed class RevenueModel : BaseModel, IRevenueModel
     {
-        public long Id { get; }
         public string Name { get; }
         public decimal Value { get; }
+        public string Month { get; }
 
-        private RevenueModel(Revenue revenue)
+        private RevenueModel(Revenue revenue) : base(revenue.Id, revenue.CreationDate, revenue.UpdateDate)
         {
-            Id = revenue.Id;
             Name = revenue.Name;
             Value = revenue.Value;
+            Month = revenue.Date.ToString("MM/yyyy");
         }
 
         #region Factory

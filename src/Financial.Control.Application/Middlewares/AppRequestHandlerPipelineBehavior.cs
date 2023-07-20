@@ -27,7 +27,7 @@ namespace Financial.Control.Application.Middlewares
         {
             try
             {
-                TResponse response = await next();
+                TResponse response;
 
                 ModelStateDictionary modelState = (request as BaseRequest<TResponse>).GetModelState();
 
@@ -42,6 +42,8 @@ namespace Financial.Control.Application.Middlewares
                     return response;
                 }
 
+                response = await next();
+
                 _httpContext.Response.SetStatusCode(response.StatusCode);
                 await _app.UnitOfWork.Commit(cancellationToken);
 
@@ -49,7 +51,7 @@ namespace Financial.Control.Application.Middlewares
             }
             catch (Exception ex)
             {
-                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create(ex.GetType().Name, string.Empty, new string[] { ex.Message, ex.InnerException?.Message }) };
+                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create(ex.GetType().Name, string.Empty, new string[] { ex.Message, ex.InnerException?.Message ?? string.Empty }) };
                 TResponse response = new TResponse();
 
                 response.SetInvalidState(ServerMessage.InternalServerError(), notifications, HttpStatusCode.InternalServerError);

@@ -11,7 +11,7 @@ namespace Financial.Control.Application.Models.Users
         public string ProfilePictureUrl { get; }
         #endregion
 
-        private UserModel(User user) : base(user.Id)
+        private UserModel(User user) : base(user.Id, user.CreationDate, user.UpdateDate)
         {
             Name = user.Name;
             Email = user.Account.Email.Value;

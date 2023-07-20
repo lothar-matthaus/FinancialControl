@@ -3,6 +3,7 @@ using System;
 using Financial.Control.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Financial.Control.Infra.Data.Migrations
 {
     [DbContext(typeof(FinancialControlDbContext))]
-    partial class FinancialControlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230720232403_alteracao_coluna_month_para_date")]
+    partial class alteracao_coluna_month_para_date
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,7 +193,7 @@ namespace Financial.Control.Infra.Data.Migrations
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("DATE");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -36,18 +36,10 @@ namespace Financial.Control.Domain.Entities
         }
 
         #region Private Methods
-        protected CardFlag SetCardFlag(string cardNumber)
-        {
-            CardFlag? flag = CardFlagPattern.Patterns
-                .Where(pattern => Regex.IsMatch(cardNumber, pattern.Value))
-                .Select(pattern => pattern.Key)
-                .FirstOrDefault();
-
-            if (flag is null)
-                throw new InvalidInputException(CardMessage.CardFlagNotSupported());
-
-            return flag.Value;
-        }
+        protected CardFlag SetCardFlag(string cardNumber) => CardFlagPattern.Patterns
+                    .Where(pattern => Regex.IsMatch(cardNumber, pattern.Value))
+                    .Select(pattern => pattern.Key)
+                    .FirstOrDefault();
         #endregion
 
         #region Behaviors

@@ -12,10 +12,4 @@
     <None Remove="Interfaces\NewFolder\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Revenues\Response\List\" />
-    <Folder Include="Models\Revenues\Response\Delete\" />
-    <Folder Include="Models\Revenues\Response\Update\" />
-  </ItemGroup>
-
 </Project>

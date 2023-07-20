@@ -17,15 +17,13 @@ namespace Financial.Control.Application.Handlers.Revenues
         public async override Task<RevenueCreateResponse> Handle(RevenueCreateRequest request, CancellationToken cancellationToken)
         {
             User user = await _app.UnitOfWork.Users.Query(us => us.Id.Equals(_app.CurrentUser.Id))
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken);
 
             if (user is null)
                 return RevenueCreateResponse.AsError(RevenueMessage.RevenueCreateError(), HttpStatusCode.NotFound, RevenueCreateErrorResponse
-                    .Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, string.Empty, new string[] { GenericMessage.IdNotExists(_app.CurrentUser.Id) }) }));
+                    .Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(_app.CurrentUser.Id) }) }));
 
-            Revenue revenue = request;
-
-            user.AddRevenue(revenue);
+            user.AddRevenue(request);
 
             return RevenueCreateResponse.AsSuccess(RevenueMessage.RevenueCreateSuccess(), HttpStatusCode.Created, RevenueCreateSuccessResponse.Create(request));
         }

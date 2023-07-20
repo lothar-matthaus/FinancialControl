@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Application.Models.Revenues.Response.Get;
 using Financial.Control.Domain.Models.Revenues.Queries;
 
-namespace Financial.Control.Application.Models.Revenues.Queries.Get
+namespace Financial.Control.Application.Models.Revenues.Queries
 {
     public sealed class RevenueGetRequest : BaseRequest<RevenueGetResponse>, IRevenueGetRequest
     {

@@ -14,7 +14,7 @@ namespace Financial.Control.Application.Models.Cards
         public KeyValuePair<CardType, string> Type { get; }
         public decimal? Limit { get; }
 
-        public CardModel(Card card) : base(card.Id)
+        public CardModel(Card card) : base(card.Id, card.CreationDate, card.UpdateDate)
         {
             CardNumber = card.CardNumber;
             Name = card.Name;

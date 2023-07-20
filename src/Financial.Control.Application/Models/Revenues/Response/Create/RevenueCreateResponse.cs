@@ -18,7 +18,7 @@ namespace Financial.Control.Application.Models.Revenues.Response.Create
 
         public void SetInvalidState(string message, IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)
         {
-            Message = RevenueMessage.RevenueCreateError();
+            Message = message;
             StatusCode = statusCode ?? HttpStatusCode.BadRequest;
             Error = RevenueCreateErrorResponse.Create(message, errors);
         }

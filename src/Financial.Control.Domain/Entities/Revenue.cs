@@ -6,6 +6,7 @@ namespace Financial.Control.Domain.Entities
     {
         public string Name { get; }
         public decimal Value { get; }
+        public DateTime Date { get; }
 
         #region Navigation
         public long UserId { get; }
@@ -13,12 +14,14 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         protected Revenue() { }
-        private Revenue(string name, decimal value)
+        private Revenue(string name, decimal value, DateTime date)
         {
+
             Name = name;
             Value = value;
+            Date = date;
         }
 
-        public static Revenue Create(string name, decimal revenue) => new Revenue(name, revenue);
+        public static Revenue Create(string name, decimal revenue, DateTime date) => new Revenue(name, revenue, date);
     }
 }

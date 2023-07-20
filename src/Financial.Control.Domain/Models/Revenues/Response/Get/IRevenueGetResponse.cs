@@ -2,5 +2,6 @@
 {
     public interface IRevenueGetResponse : IBaseResponse<IRevenueGetSuccessResponse, IRevenueGetErrorResponse>, IBaseResponse
     {
+        
     }
 }

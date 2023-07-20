@@ -13,6 +13,7 @@ namespace Financial.Control.Infra.Data.Config.Types
 
             builder.Property(rev => rev.Value).IsRequired(true);
             builder.Property(rev => rev.Name).IsRequired(true);
+            builder.Property(rev => rev.Date).IsRequired(true).HasColumnType("DATE");
 
             builder.Property(rev => rev.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(rev => rev.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");

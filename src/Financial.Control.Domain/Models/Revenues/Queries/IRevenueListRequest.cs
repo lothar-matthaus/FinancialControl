@@ -2,5 +2,7 @@
 {
     public interface IRevenueListRequest : IBaseRequest
     {
+        public short Month { get; }
+        public short Year { get; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Financial.Control.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Financial.Control.Infra.Data.Migrations
 {
     [DbContext(typeof(FinancialControlDbContext))]
-    partial class FinancialControlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230720232850_alteracao_coluna_month_para_date_tipo_date")]
+    partial class alteracao_coluna_month_para_date_tipo_date
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

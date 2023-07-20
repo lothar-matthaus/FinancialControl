@@ -1,4 +1,5 @@
 ﻿using Financial.Control.Application.Models.Revenues.Response.Create;
+using Financial.Control.Application.Validation.Cards;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Models.Revenues.Commands;
 using System.ComponentModel;
@@ -22,9 +23,14 @@ namespace Financial.Control.Application.Models.Revenues.Commands
         [DefaultValue(0)]
         public decimal Value { get; set; }
 
+        [Required(ErrorMessage = "O campo 'Month' é obrigatório.")]
+        [RevenueMonthValidation]
+        public string Date { get; set; }
+
+
         public static implicit operator Revenue(RevenueCreateRequest request)
         {
-            return Revenue.Create(request.Name, request.Value);
+            return Revenue.Create(request.Name, request.Value, DateTime.Parse(request.Date));
         }
     }
 }
