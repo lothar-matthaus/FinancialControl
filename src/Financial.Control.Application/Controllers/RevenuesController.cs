@@ -4,6 +4,7 @@ using Financial.Control.Application.Models.Revenues.Queries;
 using Financial.Control.Application.Models.Revenues.Response.Create;
 using Financial.Control.Application.Models.Revenues.Response.Get;
 using Financial.Control.Application.Models.Revenues.Response.List;
+using Financial.Control.Application.Models.Revenues.Response.Update;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace Financial.Control.Application.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     public class RevenuesController : BaseController
     {
         public RevenuesController(IMediator mediatR) : base(mediatR) { }
@@ -54,6 +55,21 @@ namespace Financial.Control.Application.Controllers
         [HttpGet()]
         public Task<RevenueListResponse> Get([FromQuery] RevenueListRequest request)
         {
+            request.SetModelState(ModelState);
+            return _mediatR.Send(request, HttpContext.RequestAborted);
+        }
+
+        /// <summary>
+        /// Atauliza uma receita específica no sistema
+        /// </summary>
+        /// <returns model="RevenueUpdateResponse"></returns>
+        /// <response code="200">Receita ataulizada com sucesso</response>
+        /// <response code="400">A receita não foi encontrada, pois o ID informado é inválido</response>
+        /// <response code="500">Erro interno do sistema.</response>
+        [HttpPatch("{id}")]
+        public Task<RevenueUpdateResponse> Update([FromRoute] long id, [FromBody] RevenueUpdateRequest request)
+        {
+            request.SetRequestId(id);
             request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }

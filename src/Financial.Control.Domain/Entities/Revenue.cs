@@ -4,8 +4,8 @@ namespace Financial.Control.Domain.Entities
 {
     public class Revenue : BaseEntity
     {
-        public string Name { get; }
-        public decimal Value { get; }
+        public string Name { get; private set; }
+        public decimal Value { get; private set; }
         public DateTime Date { get; }
 
         #region Navigation
@@ -22,6 +22,25 @@ namespace Financial.Control.Domain.Entities
             Date = date;
         }
 
+        #region Behaviors
+        public void SetName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return;
+            
+            Name = name;
+        }
+        public void SetValue(decimal value)
+        {
+            if(value is 0)
+                return;
+
+            Value = value;
+        }
+        #endregion
+
+        #region Factory
         public static Revenue Create(string name, decimal revenue, DateTime date) => new Revenue(name, revenue, date);
+        #endregion
     }
 }

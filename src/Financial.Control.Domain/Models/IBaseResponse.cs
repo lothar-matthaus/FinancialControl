@@ -1,5 +1,6 @@
 ﻿
 using Financial.Control.Domain.Entities.Notifications;
+using Financial.Control.Domain.Models.Revenues.Response.Update;
 using System.Net;
 
 namespace Financial.Control.Domain.Models
