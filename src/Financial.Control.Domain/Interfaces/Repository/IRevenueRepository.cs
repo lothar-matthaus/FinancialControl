@@ -6,6 +6,7 @@ namespace Financial.Control.Domain.Interfaces.Repository
     public interface IRevenueRepository
     {
         public IQueryable<Revenue> Query(Expression<Func<Revenue, bool>> expression);
-        public void Update(Revenue user);
+        public void Update(Revenue revenue);
+        public void Delete(Revenue revenue);
     }
 }

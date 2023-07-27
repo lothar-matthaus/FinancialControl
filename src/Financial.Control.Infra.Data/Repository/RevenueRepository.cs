@@ -9,6 +9,7 @@ namespace Financial.Control.Infra.Data.Repository
     {
         public RevenueRepository(FinancialControlDbContext dbContext) : base(dbContext) { }
 
+        public void Delete(Revenue revenue) => _dbContext.Revenues.Remove(revenue);
         public IQueryable<Revenue> Query(Expression<Func<Revenue, bool>> expression) => _dbContext.Revenues.Where(expression);
         public void Update(Revenue revenue) => _dbContext.Update(revenue);
     }

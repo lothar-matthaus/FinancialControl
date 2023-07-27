@@ -19,12 +19,12 @@ namespace Financial.Control.Application.Handlers.Cards
         public async override Task<CardUpdateResponse> Handle(CardUpdateRequest request, CancellationToken cancellationToken)
         {
             Card card = await _app.UnitOfWork.Cards
-                .Query(card => card.Id.Equals(request.CardId) && card.UserId.Equals(_app.CurrentUser.Id))
+                .Query(card => card.Id.Equals(request.Id) && card.UserId.Equals(_app.CurrentUser.Id))
                 .FirstOrDefaultAsync();
 
             if (card is null)
                 return CardUpdateResponse.AsError(CardMessage.CardUpdateError(), HttpStatusCode.NotFound, CardUpdateErrorResponse
-                    .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name) }));
+                    .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(request.Id) }) }));
 
             card.SetName(request.CardName);
             (card as CreditCard).SetCardInvoiceDate(request.CardInvoiceDay);

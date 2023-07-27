@@ -28,7 +28,7 @@ namespace Financial.Control.Application.Controllers
         /// <response code="409">O cartão já existe no sistema</response>
         /// <response code="500">Erro interno ocorrido no servidor</response>
         [HttpPost]
-        
+
         public async Task<CardCreateResponse> Post([FromBody] CardCreateRequest request)
         {
             request.SetModelState(ModelState);
@@ -39,11 +39,12 @@ namespace Financial.Control.Application.Controllers
         /// Atualiza um cartão existente;
         /// </summary>
         /// <response code="200">O cartão foi atualizado com sucesso.</response>
-        /// <response code="200">O cartão não existe no sistema</response>
+        /// <response code="400">O cartão não existe foi encontrado no sistema</response>
         /// <response code="500">Erro interno ocorrido no servidor</response>
-        [HttpPut]
-        public async Task<CardUpdateResponse> Put([FromBody] CardUpdateRequest request)
+        [HttpPatch("{id}")]
+        public async Task<CardUpdateResponse> Patch([FromRoute] long id, [FromBody] CardUpdateRequest request)
         {
+            request.SetRequestId(id);
             request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
@@ -52,8 +53,8 @@ namespace Financial.Control.Application.Controllers
         /// Remove um cartão existente;
         /// </summary>
         /// <param name="id">Id do cartão a ser removido</param>
-        /// <response code="200" >O cartão foi removido com sucesso.</response>
-        /// <response code="200">O cartão não existe no sistema</response>
+        /// <response code="200">O cartão foi removido com sucesso.</response>
+        /// <response code="400">O cartão não existe foi encontrado no sistema</response>
         /// <response code="500">Erro interno ocorrido no servidor</response>
         [HttpDelete]
         [Route("{id}")]
@@ -69,7 +70,7 @@ namespace Financial.Control.Application.Controllers
         /// </summary>
         /// <param name="id">Id do cartão a ter seus dados coletado</param>
         /// <response code="200" >O cartão foi encontrado com sucesso.</response>
-        /// <response code="404">O cartão não existe no sistema</response>
+        /// <response code="400">O cartão não existe foi encontrado no sistema</response>
         /// <response code="500">Erro interno ocorrido no servidor</response>
         [HttpGet]
         [Route("{id}")]
@@ -84,12 +85,12 @@ namespace Financial.Control.Application.Controllers
         /// Retorna todos os cartões de um usuário;
         /// </summary>
         /// <response code="200" >O cartão foi encontrado com sucesso.</response>
-        /// <response code="404">O cartão não existe no sistema</response>
+        /// <response code="400">O cartão não existe foi encontrado no sistema</response>
         /// <response code="500">Erro interno ocorrido no servidor</response>
         [HttpGet]
         public async Task<CardListResponse> Get()
         {
-            CardListRequest request = CardListRequest.Create();
+            CardListRequest request = new CardListRequest();
             request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }

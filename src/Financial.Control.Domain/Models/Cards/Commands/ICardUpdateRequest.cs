@@ -2,10 +2,8 @@
 
 namespace Financial.Control.Domain.Models.Cards.Commands
 {
-    public interface ICardUpdateRequest : IBaseRequest
+    public interface ICardUpdateRequest : IBaseRequest, IBaseIdRequest
     {
-        [Required]
-        public long CardId { get; }
         public string CardName { get; }
         public decimal? Limit { get; }
         public int? CardInvoiceDay { get; }

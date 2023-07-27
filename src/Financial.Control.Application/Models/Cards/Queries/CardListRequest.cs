@@ -4,10 +4,6 @@ namespace Financial.Control.Application.Models.Cards.Queries
 {
     public sealed class CardListRequest : BaseRequest<CardListResponse>, ICardListRequest
     {
-        private CardListRequest() { }
-
-        #region Factory
-        public static CardListRequest Create() => new CardListRequest();
-        #endregion
+        public CardListRequest() { }
     }
 }

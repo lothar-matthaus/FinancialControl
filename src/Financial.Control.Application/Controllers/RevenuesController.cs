@@ -2,6 +2,7 @@
 using Financial.Control.Application.Models.Revenues.Commands;
 using Financial.Control.Application.Models.Revenues.Queries;
 using Financial.Control.Application.Models.Revenues.Response.Create;
+using Financial.Control.Application.Models.Revenues.Response.Delete;
 using Financial.Control.Application.Models.Revenues.Response.Get;
 using Financial.Control.Application.Models.Revenues.Response.List;
 using Financial.Control.Application.Models.Revenues.Response.Update;
@@ -60,7 +61,7 @@ namespace Financial.Control.Application.Controllers
         }
 
         /// <summary>
-        /// Atauliza uma receita específica no sistema
+        /// Atualiza uma receita específica no sistema
         /// </summary>
         /// <returns model="RevenueUpdateResponse"></returns>
         /// <response code="200">Receita ataulizada com sucesso</response>
@@ -70,6 +71,21 @@ namespace Financial.Control.Application.Controllers
         public Task<RevenueUpdateResponse> Update([FromRoute] long id, [FromBody] RevenueUpdateRequest request)
         {
             request.SetRequestId(id);
+            request.SetModelState(ModelState);
+            return _mediatR.Send(request, HttpContext.RequestAborted);
+        }
+
+        /// <summary>
+        /// Remove uma receita específica no sistema
+        /// </summary>
+        /// <returns model="RevenueUpdateResponse"></returns>
+        /// <response code="200">Receita deletada com sucesso</response>
+        /// <response code="400">A receita não foi encontrada, pois o ID informado é inválido</response>
+        /// <response code="500">Erro interno do sistema.</response>
+        [HttpDelete("{id}")]
+        public Task<RevenueDeleteResponse> Delete([FromRoute] long id)
+        {
+            RevenueDeleteRequest request = new RevenueDeleteRequest(id);
             request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }

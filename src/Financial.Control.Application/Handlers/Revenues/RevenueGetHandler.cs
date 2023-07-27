@@ -21,7 +21,7 @@ namespace Financial.Control.Application.Handlers.Revenues
                 .FirstOrDefaultAsync();
 
             if (revenue is null)
-                return RevenueGetResponse.AsError(RevenueMessage.RevenueGetError(), HttpStatusCode.NotFound, RevenueGetErrorResponse
+                return RevenueGetResponse.AsError(RevenueMessage.RevenueGetError(), HttpStatusCode.BadRequest, RevenueGetErrorResponse
                     .Create(RevenueMessage.RevenueGetNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "RevenueId", new string[] { GenericMessage.IdNotExists(request.RevenueId) }) }));
 
             return RevenueGetResponse.AsSuccess(RevenueMessage.RevenueGetSuccess(), HttpStatusCode.Created, RevenueGetSuccessResponse.Create(revenue));

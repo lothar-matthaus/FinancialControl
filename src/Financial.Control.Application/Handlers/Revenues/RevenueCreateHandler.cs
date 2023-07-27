@@ -20,7 +20,7 @@ namespace Financial.Control.Application.Handlers.Revenues
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (user is null)
-                return RevenueCreateResponse.AsError(RevenueMessage.RevenueCreateError(), HttpStatusCode.NotFound, RevenueCreateErrorResponse
+                return RevenueCreateResponse.AsError(RevenueMessage.RevenueCreateError(), HttpStatusCode.BadRequest, RevenueCreateErrorResponse
                     .Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(_app.CurrentUser.Id) }) }));
 
             user.AddRevenue(request);

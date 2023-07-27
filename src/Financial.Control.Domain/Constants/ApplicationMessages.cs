@@ -44,6 +44,8 @@
             public static string RevenueCreateError() => "Erro ao criar a receita/renda.";
             public static string RevenueUpdateError() => "Erro ao atualizar a receita/renda.";
             public static string RevenueUpdateSuccess() => "Receita/renda atualizada com sucesso.";
+            public static string RevenueDeleteError() => "Erro ao remover Receita/renda.";
+            public static string RevenueDeleteSuccess() => "Receita/renda foi removida com sucesso.";
             public static string RevenueGetError() => "Erro ao coletar dados da receita.";
             public static string RevenueGetNotFound() => "A receita não foi encontrada.";
             public static string RevenueCreateSuccess() => "Receita criada com sucesso.";

@@ -1,7 +1,7 @@
 ﻿namespace Financial.Control.Domain.Models.Revenues.Commands
 {
-    public interface IRevenueDeleteRequest : IBaseRequest
+    public interface IRevenueDeleteRequest : IBaseRequest, IBaseIdRequest
     {
-        public string RevenueId { get; }
+        public new long Id { get; }
     }
 }
