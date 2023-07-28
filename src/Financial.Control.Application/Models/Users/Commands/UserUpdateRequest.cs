@@ -1,4 +1,4 @@
-﻿using Financial.Control.Application.Models.Users.Response.Update;
+﻿using Financial.Control.Application.Models.Users.Response.Update.Users;
 using Financial.Control.Application.Validation.Users;
 using Financial.Control.Domain.Models.Users.Commands;
 using System.ComponentModel;

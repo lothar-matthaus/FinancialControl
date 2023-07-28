@@ -1,8 +1,6 @@
 ﻿using Financial.Control.Application.Models.Revenues.Response.Update;
 using Financial.Control.Domain.Exceptions;
 using Financial.Control.Domain.Models.Revenues.Commands;
-using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace Financial.Control.Application.Models.Revenues.Commands
 {
@@ -16,7 +14,7 @@ namespace Financial.Control.Application.Models.Revenues.Commands
         {
             if (id == default)
                 throw new InvalidInputException("O campo 'Id' precisa ter um valor válido.");
-           
+
             Id = id;
         }
     }

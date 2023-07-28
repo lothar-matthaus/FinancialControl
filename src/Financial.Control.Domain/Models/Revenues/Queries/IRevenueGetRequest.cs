@@ -2,6 +2,6 @@
 {
     public interface IRevenueGetRequest : IBaseRequest
     {
-        public long RevenueId { get; set; }
+        public long Id { get; }
     }
 }

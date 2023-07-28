@@ -27,12 +27,12 @@ namespace Financial.Control.Domain.Entities
         {
             if (string.IsNullOrWhiteSpace(name))
                 return;
-            
+
             Name = name;
         }
         public void SetValue(decimal value)
         {
-            if(value is 0)
+            if (value is 0)
                 return;
 
             Value = value;

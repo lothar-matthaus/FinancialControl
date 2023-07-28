@@ -53,12 +53,19 @@ namespace Financial.Control.Domain.Entities
             Token = UserToken.Create(userToken.AccessToken, userToken.ExpirationTime);
         }
 
-        public void SetPassword(string plainTextPassword)
+        public bool SetPassword(string plainTextPassword, string currentPasswordPlainText)
         {
             if (string.IsNullOrWhiteSpace(plainTextPassword))
-                return;
+                return false;
+
+            Password currentPassword = Password.Create(currentPasswordPlainText, Password.Salt);
+
+            if (!currentPassword.Value.Equals(Password.Value))
+                return false;
 
             Password = Password.Create(plainTextPassword);
+
+            return true;
         }
 
         #endregion

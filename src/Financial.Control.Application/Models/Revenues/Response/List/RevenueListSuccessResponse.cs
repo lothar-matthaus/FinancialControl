@@ -1,10 +1,5 @@
 ﻿using Financial.Control.Domain.Models.Revenues;
 using Financial.Control.Domain.Models.Revenues.Response.List;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Application.Models.Revenues.Response.List
 {

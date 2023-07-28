@@ -16,12 +16,12 @@ namespace Financial.Control.Application.Handlers.Cards
 
         public async override Task<CardGetResponse> Handle(CardGetRequest request, CancellationToken cancellationToken)
         {
-            Card card = await _app.UnitOfWork.Cards.Query(card => card.Id.Equals(request.CardId) && card.UserId.Equals(_app.CurrentUser.Id))
+            Card card = await _app.UnitOfWork.Cards.Query(card => card.Id.Equals(request.Id) && card.UserId.Equals(_app.CurrentUser.Id))
                 .FirstOrDefaultAsync();
 
             if (card is null)
                 return CardGetResponse.AsError(CardMessage.CardGetError(), HttpStatusCode.NotFound, CardGetErrorResponse
-                    .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "CardId", new string[] { GenericMessage.IdNotExists(request.CardId) }) }));
+                    .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(request.Id) }) }));
 
             return CardGetResponse.AsSuccess(CardMessage.CardGetSuccess(), HttpStatusCode.OK, CardGetSuccessResponse.Create(card));
         }

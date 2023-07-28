@@ -1,11 +1,5 @@
 ﻿using Financial.Control.Application.Models.Revenues.Response.Delete;
 using Financial.Control.Domain.Exceptions;
-using Financial.Control.Domain.Models.Revenues.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Application.Models.Revenues.Commands
 {

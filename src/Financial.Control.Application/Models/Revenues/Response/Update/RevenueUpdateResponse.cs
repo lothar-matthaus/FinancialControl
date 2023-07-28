@@ -1,13 +1,6 @@
 ﻿using Financial.Control.Domain.Entities.Notifications;
-using Financial.Control.Domain.Models;
 using Financial.Control.Domain.Models.Revenues.Response.Update;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Revenues.Response.Update

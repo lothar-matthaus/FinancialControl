@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Financial.Control.Domain.Models.Cards.Commands
+﻿namespace Financial.Control.Domain.Models.Cards.Commands
 {
     public interface ICardUpdateRequest : IBaseRequest, IBaseIdRequest
     {

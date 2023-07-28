@@ -1,8 +1,6 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Enums;
-using Financial.Control.Domain.Exceptions;
 using System.Text.RegularExpressions;
-using static Financial.Control.Domain.Constants.ApplicationMessage;
 using static Financial.Control.Domain.Constants.Patterns;
 
 namespace Financial.Control.Domain.Entities

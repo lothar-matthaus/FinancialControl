@@ -7,7 +7,6 @@ using Financial.Control.Application.Models.Revenues.Response.Get;
 using Financial.Control.Application.Models.Revenues.Response.List;
 using Financial.Control.Application.Models.Revenues.Response.Update;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Financial.Control.Application.Controllers
@@ -41,8 +40,9 @@ namespace Financial.Control.Application.Controllers
         /// <response code="200">A receita foi encontrada.</response>
         /// <response code="500">Erro interno do sistema.</response>
         [HttpGet("{id}")]
-        public Task<RevenueGetResponse> Get([FromRoute] RevenueGetRequest request)
+        public Task<RevenueGetResponse> Get([FromRoute] long id)
         {
+            RevenueGetRequest request = new RevenueGetRequest(id);
             request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }

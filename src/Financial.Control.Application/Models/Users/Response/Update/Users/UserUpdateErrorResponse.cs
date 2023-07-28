@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Domain.Entities.Notifications;
-using Financial.Control.Domain.Models.Users.Response.Update;
+using Financial.Control.Domain.Models.Users.Response.Update.User;
 
-namespace Financial.Control.Application.Models.Users.Response.Update
+namespace Financial.Control.Application.Models.Users.Response.Update.Users
 {
     public class UserUpdateErrorResponse : BaseErrorResponse, IUserUpdateErrorResponse
     {

@@ -1,10 +1,10 @@
 ﻿using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Models;
-using Financial.Control.Domain.Models.Users.Response.Update;
+using Financial.Control.Domain.Models.Users.Response.Update.User;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
-namespace Financial.Control.Application.Models.Users.Response.Update
+namespace Financial.Control.Application.Models.Users.Response.Update.Users
 {
     public class UserUpdateResponse : BaseResponse<IUserUpdateSuccessResponse, IUserUpdateErrorResponse>, IBaseResponse
     {

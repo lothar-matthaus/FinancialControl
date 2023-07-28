@@ -6,13 +6,20 @@
         {
             public static string UserCreateError() => "Erro ao cadastrar o usuário.";
             public static string UserCreateSuccess() => "Usuário criado com sucesso.";
+
             public static string UserUpdateError() => "Erro ao atualizar o usuário";
-            public static string UserNotFound() => "O usuário não foi encontrado";
-            public static string UserOrPasswordInvalid() => "Usuário ou senha inválidos.";
-            public static string UserEmailAlreadyExists(string email) => $"O e-mail '{email}' informado já está cadastrado no sistema.";
             public static string UserUpdateSuccess() => "Usuário atualizado com sucesso.";
+
             public static string UserGetSuccess() => "Usuário encontrado.";
             public static string UserGetError() => "Erro ao buscar o usuário.";
+
+            public static string UserUpdatePasswordSuccess() => "Senha do usuário atualizada com sucess.";
+            public static string UserUpdatePasswordError() => "Erro ao atualizar a senha do usuário.";
+
+            public static string UserNotFound() => "O usuário não foi encontrado";
+            public static string UserOrPasswordInvalid() => "Usuário ou senha inválidos.";
+            public static string PasswordNotEquals() => "A senha atual informada não corresponde.";
+            public static string UserEmailAlreadyExists(string email) => $"O e-mail '{email}' informado já está cadastrado no sistema.";
         }
         public class CardMessage
         {
@@ -67,7 +74,7 @@
 
         public class GenericMessage
         {
-            public static string IdNotExists(long id) => $"O ID '{id}' informado é inválido.";
+            public static string IdNotExists(long? id) => $"O ID {id} informado é inválido.";
             public static string EmailConflict() => $"Conflito ao cadastrar o e-mail.";
 
         }

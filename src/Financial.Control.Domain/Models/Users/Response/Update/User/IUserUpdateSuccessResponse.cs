@@ -1,4 +1,4 @@
-﻿namespace Financial.Control.Domain.Models.Users.Response.Update
+﻿namespace Financial.Control.Domain.Models.Users.Response.Update.User
 {
     public interface IUserUpdateSuccessResponse : IBaseSuccessResponse
     {

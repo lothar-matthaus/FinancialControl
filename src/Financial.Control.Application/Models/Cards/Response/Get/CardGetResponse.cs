@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Domain.Entities.Notifications;
-using Financial.Control.Domain.Models;
 using Financial.Control.Domain.Models.Cards.Response.Get;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;

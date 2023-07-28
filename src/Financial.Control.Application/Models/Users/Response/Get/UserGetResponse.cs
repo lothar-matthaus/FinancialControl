@@ -20,7 +20,7 @@ namespace Financial.Control.Application.Models.Users.Response.Get
         {
         }
 
-        #region Behaviors
+        #region Factory
         public static UserGetResponse AsSuccess(string message, HttpStatusCode statusCode, IUserGetSuccessResponse success) => new UserGetResponse(message, statusCode, success);
         public static UserGetResponse AsError(string message, HttpStatusCode statusCode, IUserGetErrorResponse error) => new UserGetResponse(message, statusCode, error);
 

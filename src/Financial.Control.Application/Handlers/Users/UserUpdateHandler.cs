@@ -1,5 +1,5 @@
 ﻿using Financial.Control.Application.Models.Users.Commands;
-using Financial.Control.Application.Models.Users.Response.Update;
+using Financial.Control.Application.Models.Users.Response.Update.Users;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;

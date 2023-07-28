@@ -10,9 +10,13 @@ namespace Financial.Control.Domain.Records
         public string PlainText { get; }
 
         protected Password() { }
-        private Password(string plainText)
+        private Password(string plainText, string salt)
         {
-            Salt = GeneratePasswordSalt();
+            if (string.IsNullOrWhiteSpace(salt))
+                Salt = GeneratePasswordSalt();
+            else
+                Salt = salt;
+
             Value = GenerateHash(plainText);
         }
 
@@ -50,7 +54,9 @@ namespace Financial.Control.Domain.Records
         }
         #endregion
 
-        public static Password Create(string plainText) => new Password(plainText);
-        public static Password Create() => new Password("");
+        #region Factory
+        public static Password Create(string plainText, string salt = "") => new Password(plainText, salt);
+        public static Password Create() => new Password(string.Empty, string.Empty);
+        #endregion
     }
 }

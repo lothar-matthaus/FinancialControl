@@ -1,7 +1,6 @@
 ﻿using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Models.Revenues.Response.Create;
 using System.Net;
-using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Revenues.Response.Create
 {
