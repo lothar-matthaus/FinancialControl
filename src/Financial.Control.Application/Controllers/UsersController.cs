@@ -14,7 +14,7 @@ namespace Financial.Control.Application.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : BaseController
+    public class UsersController : FinancialControlController
     {
         public UsersController(IMediator mediatR) : base(mediatR)
         {

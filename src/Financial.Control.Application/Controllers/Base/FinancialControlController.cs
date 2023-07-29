@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace Financial.Control.Application.Controllers.Base
 {
     [ApiController]
-    public abstract class BaseController : ControllerBase
+    [Route("api/[controller]")]
+    public abstract class FinancialControlController : ControllerBase
     {
         protected readonly IMediator _mediatR;
 
-        public BaseController(IMediator mediatR)
+        public FinancialControlController(IMediator mediatR)
         {
             _mediatR = mediatR;
         }

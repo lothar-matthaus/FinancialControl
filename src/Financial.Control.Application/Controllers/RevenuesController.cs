@@ -14,7 +14,7 @@ namespace Financial.Control.Application.Controllers
     [ApiController]
     [Route("api/[controller]")]
     //[Authorize]
-    public class RevenuesController : BaseController
+    public class RevenuesController : FinancialControlController
     {
         public RevenuesController(IMediator mediatR) : base(mediatR) { }
 

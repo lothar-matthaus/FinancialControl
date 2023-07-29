@@ -8,7 +8,7 @@ namespace Financial.Control.Application.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class LoginController : BaseController
+    public class LoginController : FinancialControlController
     {
         public LoginController(IMediator mediatR) : base(mediatR) { }
 

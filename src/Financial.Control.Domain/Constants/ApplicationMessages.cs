@@ -62,6 +62,13 @@
             public static string RevenueListSuccess() => "As receitas do usuário foram coletadas com sucesso.";
         }
 
+        public class CategoryMessage
+        {
+            public static string CategoryListError() => "Erro ao listar todas as categorias.";
+            public static string CategoryListsuccess() => "Todas as categorias foram listadas com success.";
+            public static string CategoryListNotFound() => "Não há categorias para listar.";
+        }
+
         public class ServerMessage
         {
             public static string InternalServerError() => "Internal Server Error.";
