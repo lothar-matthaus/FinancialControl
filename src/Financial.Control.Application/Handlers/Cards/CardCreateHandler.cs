@@ -19,10 +19,6 @@ namespace Financial.Control.Application.Handlers.Cards
             User user = await _app.UnitOfWork.Users.Query(us => us.Id.Equals(_app.CurrentUser.Id))
                 .FirstOrDefaultAsync();
 
-            if (user is null)
-                return CardCreateResponse.AsError(UserMessage.UserUpdateError(), HttpStatusCode.NotFound, CardCreateErrorResponse
-                    .Create(UserMessage.UserNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(_app.CurrentUser.Id) }) }));
-
             bool cardAlreadyExists = _app.UnitOfWork.Cards.Query(card => card.CardNumber.Equals(request.CardNumber.Replace(" ", ""))).Any();
 
             if (cardAlreadyExists)

@@ -20,15 +20,12 @@ namespace Financial.Control.Application.Handlers.Cards
             User user = await _app.UnitOfWork.Users.Query(user => user.Id.Equals(_app.CurrentUser.Id))
                 .FirstOrDefaultAsync();
 
-            if (user is null)
-                return CardDeleteResponse.AsError(CardMessage.CardDeleteError(), HttpStatusCode.NotFound, CardDeleteErrorResponse.Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name) }));
-
             Card card = _app.UnitOfWork.Cards
                 .Query(card => card.Id.Equals(request.CardId))
                 .FirstOrDefault();
 
             if (card is null)
-                return CardDeleteResponse.AsError(CardMessage.CardDeleteError(), HttpStatusCode.NotFound, CardDeleteErrorResponse
+                return CardDeleteResponse.AsError(CardMessage.CardDeleteError(), HttpStatusCode.BadRequest, CardDeleteErrorResponse
                     .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name) }));
 
             user.RemoveCard(card);

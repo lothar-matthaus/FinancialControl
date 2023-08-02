@@ -3,7 +3,7 @@ using Financial.Control.Application.Models.Categories.Queries;
 using Financial.Control.Application.Models.Categories.Response;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Interfaces;
-using Financial.Control.Domain.Models.Category;
+using Financial.Control.Domain.Models.Categories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Net;

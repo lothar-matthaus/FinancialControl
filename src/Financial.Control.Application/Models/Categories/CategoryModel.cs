@@ -1,5 +1,5 @@
 ﻿using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Models.Category;
+using Financial.Control.Domain.Models.Categories;
 
 namespace Financial.Control.Application.Models.Categories
 {

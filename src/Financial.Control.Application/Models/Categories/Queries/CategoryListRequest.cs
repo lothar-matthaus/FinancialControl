@@ -1,6 +1,6 @@
 ﻿using Financial.Control.Application.Models.Categories.Response;
 using Financial.Control.Domain.Models;
-using Financial.Control.Domain.Models.Category.Queries;
+using Financial.Control.Domain.Models.Categories.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;

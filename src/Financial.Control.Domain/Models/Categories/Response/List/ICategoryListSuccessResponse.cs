@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Financial.Control.Domain.Models.Category.Response.List
+namespace Financial.Control.Domain.Models.Categories.Response.List
 {
     public interface ICategoryListSuccessResponse : IBaseSuccessResponse
     {

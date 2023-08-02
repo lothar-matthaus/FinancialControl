@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Financial.Control.Domain.Models.Category
+namespace Financial.Control.Domain.Models.Categories.Queries
 {
-    public interface ICategoryModel : IBaseModel
+    public interface ICategoryListRequest : IBaseRequest
     {
-        public new long Id { get; }
         public string Name { get; }
     }
 }

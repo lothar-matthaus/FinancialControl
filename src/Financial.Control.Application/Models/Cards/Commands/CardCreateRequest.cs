@@ -13,7 +13,7 @@ namespace Financial.Control.Application.Models.Cards.Commands
         [NameValidation(isRequired: true)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O número do cartão é obrigatório.")]
         [CardNumberValidation]
         public string CardNumber { get; set; }
 

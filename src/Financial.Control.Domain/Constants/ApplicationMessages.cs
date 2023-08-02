@@ -67,6 +67,26 @@
             public static string CategoryListError() => "Erro ao listar todas as categorias.";
             public static string CategoryListsuccess() => "Todas as categorias foram listadas com success.";
             public static string CategoryListNotFound() => "Não há categorias para listar.";
+
+            public static string CategoryGetError() => "Erro ao coletar dados da categoria.";
+            public static string CategoryGetNotFound() => "A categoria não foi encontrada.";
+
+        }
+
+        public class ExpenseMessage
+        {
+            public static string ExpenseCreateError() => "Erro ao criar uma nova despesa.";
+            public static string ExpenseUpdateError() => "Erro ao atualizar a despesa.";
+            public static string ExpenseUpdateSuccess() => "Despesa atualizada com sucesso.";
+            public static string ExpenseDeleteError() => "Erro ao remover despesa.";
+            public static string ExpenseDeleteSuccess() => "A despesa foi removida com sucesso.";
+            public static string ExpenseGetSuccess() => "A despesa do usuário foi encontrada com sucesso.";
+            public static string ExpenseGetError() => "Erro ao coletar dados da despesa.";
+            public static string ExpenseGetNotFound() => "A despesa não foi encontrada.";
+            public static string ExpenseCreateSuccess() => "Receita criada com sucesso.";
+            public static string ExpenseListError() => "Erro ao listas as despesas do usuário.";
+            public static string ExpenseListNotFound() => "Não foram encontradas despesas do usuário.";
+            public static string ExpenseListSuccess() => "As despesas do usuário foram coletadas com sucesso.";
         }
 
         public class ServerMessage

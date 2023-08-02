@@ -5,7 +5,7 @@ namespace Financial.Control.Domain.Entities
 {
     public class Expense : BaseEntity
     {
-        #region MyRegion
+        #region Properties
         public string Description { get; }
         public bool PaidOut { get; }
         public Payment Payment { get; }
@@ -21,15 +21,15 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         protected Expense() { }
-        private Expense(string description, User user, Category category, Card card, Payment payment)
+        private Expense(string description, Category category, Card? card, Payment payment)
         {
             Description = description;
             Category = category;
             Card = card;
             Payment = payment;
-            User = user;
+            PaidOut = false;
         }
 
-        public static Expense Create(string description, User user, Category category, Card card, Payment payment) => new Expense(description, user, category, card, payment);
+        public static Expense Create(string description, Category category, Card card, Payment payment) => new Expense(description, category, card, payment);
     }
 }

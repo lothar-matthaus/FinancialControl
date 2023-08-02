@@ -1,11 +1,14 @@
 ﻿using Financial.Control.Application.Extensions;
 using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Logon.Commands;
+using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
@@ -28,6 +31,15 @@ namespace Financial.Control.Application.Middlewares
             try
             {
                 TResponse response;
+                User user = await _app.UnitOfWork.Users.Query(us => us.Id.Equals(_app.CurrentUser.Id)).FirstOrDefaultAsync(cancellationToken);
+
+                if (_httpContext.User.Identity.IsAuthenticated && user is null)
+                {
+                    response = new TResponse();
+                    response.SetInvalidState(UserMessage.UserGetError(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", new string[] { UserMessage.UserNotFound() }) }, HttpStatusCode.BadRequest);
+
+                    return response;
+                }
 
                 ModelStateDictionary modelState = (request as BaseRequest<TResponse>).GetModelState();
 
@@ -41,6 +53,8 @@ namespace Financial.Control.Application.Middlewares
 
                     return response;
                 }
+
+
 
                 response = await next();
 

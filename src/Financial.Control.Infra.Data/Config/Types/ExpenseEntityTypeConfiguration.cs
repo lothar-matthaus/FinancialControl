@@ -12,7 +12,7 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.HasKey(ex => ex.Id);
 
             builder.Property(ex => ex.Description).IsRequired(true).HasMaxLength(300);
-            builder.Property(ex => ex.PaidOut).ValueGeneratedOnAdd();
+            builder.Property(ex => ex.PaidOut).IsRequired().HasDefaultValue(false);
 
             builder.OwnsOne(ex => ex.Payment, payment =>
             {
@@ -25,7 +25,7 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.Property(ex => ex.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             builder.HasOne(ex => ex.Category).WithMany(cat => cat.Expenses).HasForeignKey(ex => ex.CategoryId);
-            builder.HasOne(ex => ex.Card).WithMany(card => card.Expenses).HasForeignKey(ex => ex.CardId);
+            builder.HasOne(ex => ex.Card).WithMany(card => card.Expenses).HasForeignKey(ex => ex.CardId).IsRequired(false);
             builder.HasOne(ex => ex.User).WithMany(user => user.Expenses).HasForeignKey(ex => ex.UserId);
         }
     }

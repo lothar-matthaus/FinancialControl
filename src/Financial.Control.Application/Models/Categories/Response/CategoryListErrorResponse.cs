@@ -1,5 +1,5 @@
 ﻿using Financial.Control.Domain.Entities.Notifications;
-using Financial.Control.Domain.Models.Category.Response.List;
+using Financial.Control.Domain.Models.Categories.Response.List;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -14,4 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Financial.Control.Domain\Financial.Control.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Expenses\Queries\" />
+  </ItemGroup>
 </Project>
