@@ -13,7 +13,7 @@ namespace Financial.Control.Domain.Entities
 
         #region Navigation
         public Card Card { get; }
-        public long CardId { get; }
+        public long? CardId { get; }
         public Category Category { get; }
         public long CategoryId { get; }
         public long UserId { get; }
@@ -21,7 +21,7 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         protected Expense() { }
-        private Expense(string description, Category category, Card? card, Payment payment)
+        private Expense(string description, Category category, Card card, Payment payment)
         {
             Description = description;
             Category = category;

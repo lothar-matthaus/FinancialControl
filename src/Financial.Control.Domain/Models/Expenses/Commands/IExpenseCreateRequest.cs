@@ -1,9 +1,4 @@
 ﻿using Financial.Control.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Domain.Models.Expenses.Commands
 {
@@ -13,7 +8,7 @@ namespace Financial.Control.Domain.Models.Expenses.Commands
         public string CardNumber { get; }
         public decimal Value { get; }
         public PaymentType PaymentType { get; }
-        public int Instalment { get; }
+        public int Installment { get; }
         public long CategoryId { get; }
     }
 }

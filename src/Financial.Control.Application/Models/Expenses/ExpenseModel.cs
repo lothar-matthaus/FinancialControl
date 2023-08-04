@@ -9,7 +9,7 @@ namespace Financial.Control.Application.Models.Expenses
         public string Description { get; }
         public bool PaidOut { get; }
         public Payment Payment { get; }
-       
+
         private ExpenseModel(Expense expense) : base(expense.Id, expense.CreationDate, expense.UpdateDate)
         {
             Description = expense.Description;
@@ -18,7 +18,7 @@ namespace Financial.Control.Application.Models.Expenses
         }
 
         #region Factory
-        public static IExpenseModel Create(Expense expense) => new ExpenseModel(expense);   
+        public static IExpenseModel Create(Expense expense) => new ExpenseModel(expense);
         #endregion
     }
 }

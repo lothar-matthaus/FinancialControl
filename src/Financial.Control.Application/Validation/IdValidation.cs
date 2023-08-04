@@ -1,7 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
-using static Financial.Control.Domain.Constants.FieldLenght;
-using static Financial.Control.Domain.Constants.Patterns;
 
 namespace Financial.Control.Application.Validation.Cards
 {

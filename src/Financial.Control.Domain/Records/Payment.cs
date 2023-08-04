@@ -8,28 +8,34 @@ namespace Financial.Control.Domain.Records
         public decimal Value { get; }
         public decimal TotalValue { get; }
         public PaymentType PaymentType { get; }
-        public int Instalment { get; }
+        public int Installment { get; }
         #endregion
 
         protected Payment() { }
-        public Payment(decimal value, PaymentType paymentType)
+        private Payment(decimal value, PaymentType paymentType)
         {
             Value = value;
             PaymentType = paymentType;
         }
-        public Payment(decimal value, int installment, PaymentType paymentType)
+        private Payment(decimal value, int installment, PaymentType paymentType)
         {
             Value = value;
             PaymentType = paymentType;
-            Instalment = installment;
+            Installment = installment;
         }
 
         #region Behaviors
-        public decimal GetTotalValue() => Math.Round(Value * Instalment);
+        public decimal GetTotalValue() => Math.Round(Value * Installment);
         #endregion
 
         #region Factory
-        public static Payment Create(decimal value, int installment, PaymentType paymentType) => new Payment(value, installment, paymentType);
+        public static Payment Create(decimal value, int installment, PaymentType paymentType)
+        {
+            if (installment > 1)
+                return new Payment((value / installment), installment, paymentType);
+            else
+                return new Payment(value, paymentType);
+        }
         #endregion
     }
 }

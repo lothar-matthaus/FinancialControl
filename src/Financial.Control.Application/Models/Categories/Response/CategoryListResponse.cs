@@ -1,7 +1,5 @@
-﻿using Financial.Control.Application.Models.Logon.Response;
-using Financial.Control.Domain.Entities.Notifications;
+﻿using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Models.Categories.Response.List;
-using Financial.Control.Domain.Models.Logon.Response;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 

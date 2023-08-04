@@ -1,15 +1,8 @@
 ﻿using Financial.Control.Application.Controllers.Base;
-using Financial.Control.Application.Models.Cards.Commands;
-using Financial.Control.Application.Models.Cards.Response.Create;
 using Financial.Control.Application.Models.Expenses.Commands;
 using Financial.Control.Application.Models.Expenses.Response;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Application.Controllers
 {

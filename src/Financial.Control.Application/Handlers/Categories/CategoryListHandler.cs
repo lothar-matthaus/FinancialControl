@@ -24,7 +24,7 @@ namespace Financial.Control.Application.Handlers.Categories
             IReadOnlyCollection<ICategoryModel> categories = query.Select(cat => CategoryModel.Create(cat))
                 .ToList();
 
-            return CategoryListResponse.AsSuccess(categories.Any() ? CategoryMessage.CategoryListsuccess() : CategoryMessage.CategoryListNotFound(), 
+            return CategoryListResponse.AsSuccess(categories.Any() ? CategoryMessage.CategoryListsuccess() : CategoryMessage.CategoryListNotFound(),
                 HttpStatusCode.OK, CategoryListSuccessResponse.Create(categories));
         }
     }

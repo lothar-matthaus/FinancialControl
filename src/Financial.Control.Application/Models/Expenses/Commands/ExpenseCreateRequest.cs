@@ -1,15 +1,8 @@
 ﻿using Financial.Control.Application.Models.Expenses.Response;
 using Financial.Control.Application.Validation.Cards;
-using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Enums;
-using Financial.Control.Domain.Models;
 using Financial.Control.Domain.Models.Expenses.Commands;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Application.Models.Expenses.Commands
 {
@@ -27,7 +20,7 @@ namespace Financial.Control.Application.Models.Expenses.Commands
 
         [Required(ErrorMessage = "A forma de pagamento é obrigatória.")]
         public PaymentType PaymentType { get; set; }
-        public int Instalment { get; set; }
+        public int Installment { get; set; }
 
         [Required(ErrorMessage = "O identificador da categoria é obrigatória.")]
         [IdValidation]

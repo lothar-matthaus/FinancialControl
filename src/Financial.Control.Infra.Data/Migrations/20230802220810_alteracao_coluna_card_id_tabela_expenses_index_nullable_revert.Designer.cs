@@ -3,6 +3,7 @@ using System;
 using Financial.Control.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Financial.Control.Infra.Data.Migrations
 {
     [DbContext(typeof(FinancialControlDbContext))]
-    partial class FinancialControlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230802220810_alteracao_coluna_card_id_tabela_expenses_index_nullable_revert")]
+    partial class alteracao_coluna_card_id_tabela_expenses_index_nullable_revert
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -380,11 +383,11 @@ namespace Financial.Control.Infra.Data.Migrations
                             b1.Property<long>("ExpenseId")
                                 .HasColumnType("bigint");
 
-                            b1.Property<int>("Installment")
+                            b1.Property<int>("Instalment")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("integer")
                                 .HasDefaultValue(1)
-                                .HasColumnName("Installment");
+                                .HasColumnName("Instalment");
 
                             b1.Property<int>("PaymentType")
                                 .HasColumnType("integer")

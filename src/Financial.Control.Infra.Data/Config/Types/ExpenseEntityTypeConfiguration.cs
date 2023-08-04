@@ -17,7 +17,7 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.OwnsOne(ex => ex.Payment, payment =>
             {
                 payment.Property(pay => pay.PaymentType).IsRequired(true).HasColumnName("PaymentType");
-                payment.Property(pay => pay.Instalment).IsRequired(true).HasColumnName("Instalment").HasDefaultValue(1);
+                payment.Property(pay => pay.Installment).IsRequired(true).HasColumnName("Installment").HasDefaultValue(1);
                 payment.Property(pay => pay.Value).IsRequired(true).HasColumnName("Value");
             });
 
