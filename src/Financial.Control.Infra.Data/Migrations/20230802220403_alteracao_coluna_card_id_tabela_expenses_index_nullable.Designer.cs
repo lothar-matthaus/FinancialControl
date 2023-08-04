@@ -3,6 +3,7 @@ using System;
 using Financial.Control.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Financial.Control.Infra.Data.Migrations
 {
     [DbContext(typeof(FinancialControlDbContext))]
-    partial class FinancialControlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230802220403_alteracao_coluna_card_id_tabela_expenses_index_nullable")]
+    partial class alteracao_coluna_card_id_tabela_expenses_index_nullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,7 +140,7 @@ namespace Financial.Control.Infra.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("CardId")
+                    b.Property<long>("CardId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("CategoryId")
@@ -361,7 +364,8 @@ namespace Financial.Control.Infra.Data.Migrations
                 {
                     b.HasOne("Financial.Control.Domain.Entities.Card", "Card")
                         .WithMany("Expenses")
-                        .HasForeignKey("CardId");
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Financial.Control.Domain.Entities.Category", "Category")
                         .WithMany("Expenses")
@@ -380,11 +384,11 @@ namespace Financial.Control.Infra.Data.Migrations
                             b1.Property<long>("ExpenseId")
                                 .HasColumnType("bigint");
 
-                            b1.Property<int>("Installment")
+                            b1.Property<int>("Instalment")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("integer")
                                 .HasDefaultValue(1)
-                                .HasColumnName("Installment");
+                                .HasColumnName("Instalment");
 
                             b1.Property<int>("PaymentType")
                                 .HasColumnType("integer")

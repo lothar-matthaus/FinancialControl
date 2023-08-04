@@ -1,4 +1,6 @@
-﻿namespace Financial.Control.Domain.Entities.Base
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Financial.Control.Domain.Entities.Base
 {
     public class BaseEntity
     {

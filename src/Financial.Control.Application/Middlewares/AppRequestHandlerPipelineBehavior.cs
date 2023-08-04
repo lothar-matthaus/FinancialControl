@@ -1,6 +1,5 @@
 ﻿using Financial.Control.Application.Extensions;
 using Financial.Control.Application.Models;
-using Financial.Control.Application.Models.Logon.Commands;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;

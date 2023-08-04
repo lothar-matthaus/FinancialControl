@@ -1,10 +1,5 @@
 ﻿using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Models.Categories.Response.List;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Application.Models.Categories.Response
 {

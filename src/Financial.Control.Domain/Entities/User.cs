@@ -87,6 +87,8 @@ namespace Financial.Control.Domain.Entities
         }
         #endregion
 
+        #region Factory
         public static User Create(string name, string email, string profilePictureURL, string plainPassword) => new User(name, email, profilePictureURL, plainPassword);
+        #endregion
     }
 }
