@@ -1,6 +1,8 @@
 ﻿using Financial.Control.Domain.Interfaces;
+using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Repository;
 using Financial.Control.Infra.Data;
+using Financial.Control.Infra.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,8 +12,8 @@ namespace Financial.Control.Infra.IoC.Services
     {
         public static IServiceCollection ConfigureApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IApplication, Infra.Config.Application>();
-
+            services.AddScoped<IApplication, Config.Application>();
+            services.AddScoped<INotificationManager, NotificationManager>();
             return services;
         }
 

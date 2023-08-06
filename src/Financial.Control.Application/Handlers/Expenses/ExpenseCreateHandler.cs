@@ -34,7 +34,7 @@ namespace Financial.Control.Application.Handlers.Expenses
                 card = await _app.UnitOfWork.Cards.Query(card => card.CardNumber.Equals(request.CardNumber))
                     .FirstOrDefaultAsync(cancellationToken);
 
-            Expense expense = Expense.Create(request.Description, category, card, Payment.Create(request.Value, request.Instalment, request.PaymentType));
+            Expense expense = Expense.Create(request.Description, category, card, Payment.Create(request.Value, request.Installment, request.PaymentType));
 
             user.AddExpense(expense);
 

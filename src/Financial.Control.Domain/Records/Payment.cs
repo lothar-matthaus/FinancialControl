@@ -31,7 +31,7 @@ namespace Financial.Control.Domain.Records
         #region Factory
         public static Payment Create(decimal value, int installment, PaymentType paymentType)
         {
-            if (installment > 1)
+            if (paymentType == PaymentType.CreditCard)
                 return new Payment((value / installment), installment, paymentType);
             else
                 return new Payment(value, paymentType);

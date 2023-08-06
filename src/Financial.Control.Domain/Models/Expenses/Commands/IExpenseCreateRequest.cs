@@ -1,8 +1,9 @@
 ﻿using Financial.Control.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Financial.Control.Domain.Models.Expenses.Commands
 {
-    public interface IExpenseCreateRequest : IBaseRequest
+    public interface IExpenseCreateRequest : IBaseRequest, IValidatableObject
     {
         public string Description { get; }
         public string CardNumber { get; }

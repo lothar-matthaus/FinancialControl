@@ -1,11 +1,10 @@
 ﻿using Financial.Control.Domain.Entities;
-using System.Linq.Expressions;
+using Financial.Control.Domain.Interfaces.Repository.Base;
 
 namespace Financial.Control.Domain.Interfaces.Repository
 {
-    public interface IRevenueRepository
+    public interface IRevenueRepository : IRepository<Revenue>
     {
-        public IQueryable<Revenue> Query(Expression<Func<Revenue, bool>> expression);
         public void Update(Revenue revenue);
         public void Delete(Revenue revenue);
     }

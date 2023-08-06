@@ -1,17 +1,13 @@
 ﻿using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Interfaces.Repository;
 using Financial.Control.Infra.Data.Repository.Base;
-using System.Linq.Expressions;
 
 namespace Financial.Control.Infra.Data.Repository
 {
-    public class CardRepository : BaseRepository<FinancialControlDbContext>, ICardRepository
+    public class CardRepository : BaseRepository<Card, FinancialControlDbContext>, ICardRepository
     {
         public CardRepository(FinancialControlDbContext dbContext) : base(dbContext) { }
 
-        public bool CardAlreadyExists(string cardNumber) => _dbContext.Cards.Where(card => card.CardNumber.Equals(cardNumber)).Any();
-
-        public IQueryable<Card> Query(Expression<Func<Card, bool>> expression) => _dbContext.Cards.Where(expression);
-        public void Update(Card card) => _dbContext.Update(card);
+        public bool CardAlreadyExists(string cardNumber) => _dbContext.Where(card => card.CardNumber.Equals(cardNumber)).Any();
     }
 }

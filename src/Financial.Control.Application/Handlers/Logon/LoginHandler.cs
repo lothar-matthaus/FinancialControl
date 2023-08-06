@@ -12,18 +12,15 @@ namespace Financial.Control.Application.Handlers.Logon
 {
     public class LoginHandler : BaseRequestHandler<LoginRequest, LoginResponse>
     {
-        public LoginHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor)
-        {
-        }
+        public LoginHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor) { }
 
         public async override Task<LoginResponse> Handle(LoginRequest request, CancellationToken cancellationToken)
         {
             User user = await _app.UnitOfWork.Users
                  .Query(us => us.Account.Email.Value.Equals(request.Email))
-                 .Include(us => us.Account)
-                 .FirstOrDefaultAsync();
+                 .FirstOrDefaultAsync(cancellationToken);
 
-            user?.Login(_app.Services.TokenService, request.Password);
+            _app.Services.AuthenticationService.Login(user, request.Password, cancellationToken);
 
             if (user is null || user.Account.Token is null)
                 return LoginResponse.AsError(LoginMessage.LoginError(), HttpStatusCode.BadRequest, LoginErrorResponse

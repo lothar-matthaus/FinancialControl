@@ -12,9 +12,9 @@ namespace Financial.Control.Infra.Services
 
         #region Private
         private readonly IAppConfig _appConfig;
-        private ITokenService _tokenService;
+        private IAuthenticationService _authenticationService;
         #endregion
 
-        public ITokenService TokenService => _tokenService ?? new TokenService(_appConfig);
+        public IAuthenticationService AuthenticationService => _authenticationService ?? new AuthenticationService(_appConfig);
     }
 }

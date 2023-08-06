@@ -1,6 +1,4 @@
 ﻿using Financial.Control.Domain.Entities.Base;
-using Financial.Control.Domain.Interfaces.Services;
-using Financial.Control.Domain.Records;
 
 namespace Financial.Control.Domain.Entities
 {
@@ -72,18 +70,6 @@ namespace Financial.Control.Domain.Entities
                 return;
 
             Account.SetProfilePicture(profilePictureUrl);
-        }
-
-        public UserToken Login(ITokenService tokenService, string plainTextPassword)
-        {
-            if (!Account.Password.IsMatchPassword(plainTextPassword))
-                return null;
-
-            UserToken token = tokenService.GenerateAccessToken(this);
-
-            Account?.SetToken(token);
-
-            return Account.Token;
         }
         #endregion
 

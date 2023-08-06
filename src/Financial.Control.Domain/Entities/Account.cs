@@ -19,7 +19,6 @@ namespace Financial.Control.Domain.Entities
         public User User { get; }
         #endregion
 
-
         public Account() { }
         private Account(string email, string profilePictureUrl, string plainTextPassword)
         {

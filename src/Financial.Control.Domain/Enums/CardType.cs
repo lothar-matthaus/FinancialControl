@@ -5,8 +5,8 @@ namespace Financial.Control.Domain.Enums
     public enum CardType
     {
         [Description("Crédito")]
-        Credit,
+        Credit = 1,
         [Description("Débito")]
-        Debit
+        Debit = 2
     }
 }

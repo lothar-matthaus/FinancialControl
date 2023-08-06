@@ -1,11 +1,10 @@
 ﻿using Financial.Control.Domain.Entities;
-using System.Linq.Expressions;
+using Financial.Control.Domain.Interfaces.Repository.Base;
 
 namespace Financial.Control.Domain.Interfaces.Repository
 {
-    public interface ICardRepository
+    public interface ICardRepository : IRepository<Card>
     {
-        public IQueryable<Card> Query(Expression<Func<Card, bool>> expression);
-        public void Update(Card user);
+        public bool CardAlreadyExists(string cardNumber);
     }
 }

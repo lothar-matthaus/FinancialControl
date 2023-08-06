@@ -2,6 +2,6 @@
 {
     public interface IApplicationServices
     {
-        public ITokenService TokenService { get; }
+        public IAuthenticationService AuthenticationService { get; }
     }
 }

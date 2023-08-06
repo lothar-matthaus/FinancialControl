@@ -5,10 +5,10 @@ namespace Financial.Control.Domain.Enums
     public enum PaymentType
     {
         [Description("Cartão de crédito")]
-        CreditCard,
+        CreditCard = 1,
         [Description("Cartão de débito")]
-        DebitCard,
+        DebitCard = 2,
         [Description("Dinheiro físico")]
-        Money
+        Money = 3
     }
 }

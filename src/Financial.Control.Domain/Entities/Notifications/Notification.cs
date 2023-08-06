@@ -15,6 +15,9 @@
             Field = field;
         }
 
+        #region Factory
+
+        #endregion
         public static Notification Create(string context, string field = null, ICollection<string> errors = null) => new Notification(field, context, errors);
     }
 }

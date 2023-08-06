@@ -25,6 +25,8 @@ namespace Financial.Control.Application.Handlers.Revenues
 
             user.AddRevenue(request);
 
+            _app.UnitOfWork.Users.Update(user);
+
             return RevenueCreateResponse.AsSuccess(RevenueMessage.RevenueCreateSuccess(), HttpStatusCode.Created, RevenueCreateSuccessResponse.Create(request));
         }
     }

@@ -6,15 +6,7 @@ namespace Financial.Control.Infra.Data
 {
     public class FinancialControlDbContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Card> Cards { get; set; }
-        public DbSet<Revenue> Revenues { get; set; }
-        public DbSet<Expense> Expenses { get; set; }
-        public DbSet<Account> Accounts { get; set; }
-
         public FinancialControlDbContext(DbContextOptions options) : base(options) { }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

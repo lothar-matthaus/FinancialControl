@@ -25,7 +25,7 @@ namespace Financial.Control.Application.Handlers.Users
                     .Create(UserMessage.UserEmailAlreadyExists(request.Email), new List<Notification>() { Notification.Create(request.GetType().Name, nameof(request.Email), new string[] { GenericMessage.EmailConflict() }) }));
 
             User user = request;
-            _app.UnitOfWork.Users.Add(user);
+            _app.UnitOfWork.Users.AddAsync(user, cancellationToken);
 
             return UserCreateResponse.AsSuccess(UserMessage.UserCreateSuccess(), HttpStatusCode.Created, UserCreateSuccessResponse.Create(user));
         }

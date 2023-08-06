@@ -1,12 +1,11 @@
 ﻿using Financial.Control.Application.Models.Expenses.Response;
 using Financial.Control.Application.Validation.Cards;
 using Financial.Control.Domain.Enums;
-using Financial.Control.Domain.Models.Expenses.Commands;
 using System.ComponentModel.DataAnnotations;
 
 namespace Financial.Control.Application.Models.Expenses.Commands
 {
-    public class ExpenseCreateRequest : BaseRequest<ExpenseCreateResponse>, IExpenseCreateRequest
+    public class ExpenseCreateRequest : BaseRequest<ExpenseCreateResponse>
     {
         [Required(ErrorMessage = "Uma descrição para a despesa é obrigatório.")]
         [MinLength(5, ErrorMessage = "A descrição precisa ter pelo menos 5 carateres.")]

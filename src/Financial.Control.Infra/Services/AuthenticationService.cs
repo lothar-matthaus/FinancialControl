@@ -9,11 +9,11 @@ using System.Text;
 
 namespace Financial.Control.Infra.Services
 {
-    public class TokenService : ITokenService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly IAppConfig _config;
 
-        public TokenService(IAppConfig config)
+        public AuthenticationService(IAppConfig config)
         {
             _config = config;
         }
@@ -38,6 +38,18 @@ namespace Financial.Control.Infra.Services
             string tokenString = tokenHandler.WriteToken(token);
 
             return UserToken.Create(tokenString, tokenDescriptor.Expires.Value);
+        }
+
+        public UserToken Login(User user, string plainTextPassword, CancellationToken cancellationToken)
+        {
+            if (!user.Account.Password.IsMatchPassword(plainTextPassword))
+                return null;
+
+            UserToken token = GenerateAccessToken(user);
+
+            user.Account?.SetToken(token);
+
+            return user.Account.Token;
         }
     }
 }

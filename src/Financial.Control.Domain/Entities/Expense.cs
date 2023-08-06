@@ -6,7 +6,14 @@ namespace Financial.Control.Domain.Entities
     public class Expense : BaseEntity
     {
         #region Properties
-        public string Description { get; }
+        private string _description;
+
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; }
+        }
+
         public bool PaidOut { get; }
         public Payment Payment { get; }
         #endregion

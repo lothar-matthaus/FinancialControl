@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-#region Services
+#region Configuration API
 builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.AddUnitOfWork();
 builder.Services.ConfigureApplicationServices(builder.Configuration);
