@@ -1,4 +1,4 @@
-﻿namespace Financial.Control.Domain.Records
+﻿namespace Financial.Control.Domain.ValueObjects
 {
     public record ProfilePicture
     {

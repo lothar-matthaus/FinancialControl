@@ -3,5 +3,6 @@
     public interface IApplicationServices
     {
         public IAuthenticationService AuthenticationService { get; }
+        public INotificationManager NotificationManager { get; }
     }
 }

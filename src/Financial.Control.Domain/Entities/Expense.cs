@@ -1,17 +1,25 @@
 ﻿using Financial.Control.Domain.Entities.Base;
-using Financial.Control.Domain.Records;
+using Financial.Control.Domain.Entities.Notifications;
+using Financial.Control.Domain.Extensions;
+using Financial.Control.Domain.ValueObjects;
 
 namespace Financial.Control.Domain.Entities
 {
     public class Expense : BaseEntity
     {
-        #region Properties
+        #region Private Properties
         private string _description;
+        #endregion
 
+        #region Properties
         public string Description
         {
             get { return _description; }
-            set { _description = value; }
+            set
+            {
+                Validate(string.IsNullOrWhiteSpace(value), () => Notification.Create(this.GetType().Name, nameof(Description), new string[] { "A despesa deve ter uma descrição" }), () => _description = value);
+                Validate(value.Length > 5, () => Notification.Create(this.GetType().Name, nameof(Description), new string[] { "A descrição da despesa deve conter ao menos 5 caracteres." }), () => _description = value);
+            }
         }
 
         public bool PaidOut { get; }

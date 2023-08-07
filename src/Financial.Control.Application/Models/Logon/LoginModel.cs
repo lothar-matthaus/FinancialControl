@@ -1,6 +1,6 @@
 ﻿using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Models.Logon;
-using Financial.Control.Domain.Records;
+using Financial.Control.Domain.ValueObjects;
 
 namespace Financial.Control.Application.Models.Logon
 {

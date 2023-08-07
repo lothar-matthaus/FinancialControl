@@ -2,9 +2,9 @@
 using Financial.Control.Domain.Interfaces.Config;
 using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Repository;
-using Financial.Control.Infra.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Financial.Control.Infra.Config
 {
@@ -19,17 +19,19 @@ namespace Financial.Control.Infra.Config
         private IHttpContextAccessor _httpContext;
         #endregion
 
-        public Application(IConfiguration configuration, IUnitOfWork unitOfWork, IHttpContextAccessor httpContext)
+        public Application(IConfiguration configuration, IUnitOfWork unitOfWork, IApplicationServices applicationServices, IAppConfig appConfig, IHttpContextAccessor httpContextAccessor)
         {
             _configuration = configuration;
             _unitOfWork = unitOfWork;
-            _httpContext = httpContext;
+            _services = applicationServices;
+            _appConfig = appConfig;
+            _httpContext = httpContextAccessor;
         }
 
         #region Properties
-        public IAppConfig AppConfig => _appConfig ?? new AppConfig(_configuration);
+        public IAppConfig AppConfig => _appConfig;
         public IUnitOfWork UnitOfWork => _unitOfWork;
-        public IApplicationServices Services => _services ?? new ApplicationServices(AppConfig);
+        public IApplicationServices Services => _services;
         public IApplicationUser CurrentUser => _currentUser ?? new ApplicationUser(_httpContext);
         #endregion
     }

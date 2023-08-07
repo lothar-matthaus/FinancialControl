@@ -1,5 +1,7 @@
 ﻿using Financial.Control.Domain.Interfaces;
+using Financial.Control.Domain.Interfaces.Config;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -8,16 +10,14 @@ namespace Financial.Control.Infra.IoC.Configurations
 {
     public static class Swagger
     {
-        public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
+        public static IServiceCollection ConfigureSwagger(this IServiceCollection services, IConfiguration configuration)
         {
-            IApplication appService = services.BuildServiceProvider().GetRequiredService<IApplication>();
-
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc(appService.AppConfig.ApiVersion, new OpenApiInfo
+                options.SwaggerDoc(configuration["ApiVersion"], new OpenApiInfo
                 {
-                    Title = appService.AppConfig.ApiName,
-                    Version = appService.AppConfig.ApiVersion,
+                    Title = configuration["ApiName"],
+                    Version = configuration["ApiVersion"],
                     Description = "Uma API para controle financeiro pessoal.",
                     TermsOfService = new Uri("https://github.com/lothar-matthaus/FinancialControl#readme"),
                     Contact = new OpenApiContact
@@ -79,14 +79,13 @@ namespace Financial.Control.Infra.IoC.Configurations
         /// <param name="app"></param>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static WebApplication ConfigureSwagger(this WebApplication app, IServiceCollection services)
+        public static WebApplication ConfigureSwagger(this WebApplication app, IConfiguration configuration)
         {
-            IApplication appService = services.BuildServiceProvider().GetRequiredService<IApplication>();
 
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint($"/swagger/{appService.AppConfig.ApiVersion}/swagger.json", appService.AppConfig.ApiName);
+                options.SwaggerEndpoint($"/swagger/{configuration["ApiVersion"]}/swagger.json", configuration["ApiName"]);
             });
 
             return app;

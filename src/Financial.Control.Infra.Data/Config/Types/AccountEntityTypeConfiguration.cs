@@ -10,6 +10,7 @@ namespace Financial.Control.Infra.Data.Config.Types
         {
             builder.ToTable(nameof(Account));
             builder.HasKey(account => account.Id);
+            builder.Ignore(account => account.IsValid);
 
             builder.Ignore(account => account.Token);
 

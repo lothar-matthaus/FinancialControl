@@ -8,7 +8,6 @@ namespace Financial.Control.Application.Models.Expenses.Commands
     public class ExpenseCreateRequest : BaseRequest<ExpenseCreateResponse>
     {
         [Required(ErrorMessage = "Uma descrição para a despesa é obrigatório.")]
-        [MinLength(5, ErrorMessage = "A descrição precisa ter pelo menos 5 carateres.")]
         public string Description { get; set; }
 
         [CardNumberValidation]

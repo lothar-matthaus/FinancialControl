@@ -1,4 +1,4 @@
-﻿using Financial.Control.Domain.Records;
+﻿using Financial.Control.Domain.ValueObjects;
 
 namespace Financial.Control.Domain.Models.Logon
 {

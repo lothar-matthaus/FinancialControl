@@ -272,7 +272,7 @@ namespace Financial.Control.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Financial.Control.Domain.Records.Email", "Email", b1 =>
+                    b.OwnsOne("Financial.Control.Domain.ValueObjects.Email", "Email", b1 =>
                         {
                             b1.Property<long>("AccountId")
                                 .HasColumnType("bigint");
@@ -294,7 +294,7 @@ namespace Financial.Control.Infra.Data.Migrations
                                 .HasForeignKey("AccountId");
                         });
 
-                    b.OwnsOne("Financial.Control.Domain.Records.Password", "Password", b1 =>
+                    b.OwnsOne("Financial.Control.Domain.ValueObjects.Password", "Password", b1 =>
                         {
                             b1.Property<long>("AccountId")
                                 .HasColumnType("bigint");
@@ -319,7 +319,7 @@ namespace Financial.Control.Infra.Data.Migrations
                                 .HasForeignKey("AccountId");
                         });
 
-                    b.OwnsOne("Financial.Control.Domain.Records.ProfilePicture", "ProfilePicture", b1 =>
+                    b.OwnsOne("Financial.Control.Domain.ValueObjects.ProfilePicture", "ProfilePicture", b1 =>
                         {
                             b1.Property<long>("AccountId")
                                 .HasColumnType("bigint");
@@ -375,7 +375,7 @@ namespace Financial.Control.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Financial.Control.Domain.Records.Payment", "Payment", b1 =>
+                    b.OwnsOne("Financial.Control.Domain.ValueObjects.Payment", "Payment", b1 =>
                         {
                             b1.Property<long>("ExpenseId")
                                 .HasColumnType("bigint");

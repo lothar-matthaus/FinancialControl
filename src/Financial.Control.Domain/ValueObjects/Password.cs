@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Financial.Control.Domain.Records
+namespace Financial.Control.Domain.ValueObjects
 {
     public record Password
     {

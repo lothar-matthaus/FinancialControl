@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Interfaces.Config;
 using Financial.Control.Domain.Interfaces.Services;
-using Financial.Control.Domain.Records;
+using Financial.Control.Domain.ValueObjects;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

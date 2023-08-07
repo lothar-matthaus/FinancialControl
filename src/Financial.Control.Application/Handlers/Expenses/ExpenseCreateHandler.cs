@@ -4,7 +4,7 @@ using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Enums;
 using Financial.Control.Domain.Interfaces;
-using Financial.Control.Domain.Records;
+using Financial.Control.Domain.ValueObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -34,7 +34,14 @@ namespace Financial.Control.Application.Handlers.Expenses
                 card = await _app.UnitOfWork.Cards.Query(card => card.CardNumber.Equals(request.CardNumber))
                     .FirstOrDefaultAsync(cancellationToken);
 
-            Expense expense = Expense.Create(request.Description, category, card, Payment.Create(request.Value, request.Installment, request.PaymentType));
+            Payment payment = Payment.Create(request.Value, request.Installment, request.PaymentType);
+            Expense expense = Expense.Create(request.Description, category, card, payment);
+
+            if (!payment.IsValid)
+                _app.Services.NotificationManager.AddNotifications(payment.GetNotifications());
+
+            if (!expense.IsValid)
+                _app.Services.NotificationManager.AddNotifications(expense.GetNotifications());
 
             user.AddExpense(expense);
 

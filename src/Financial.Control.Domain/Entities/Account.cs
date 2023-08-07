@@ -1,6 +1,6 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Enums;
-using Financial.Control.Domain.Records;
+using Financial.Control.Domain.ValueObjects;
 
 namespace Financial.Control.Domain.Entities
 {

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using System.Web.Http.ModelBinding;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Middlewares
@@ -40,11 +41,11 @@ namespace Financial.Control.Application.Middlewares
                     return response;
                 }
 
-                ModelStateDictionary modelState = (request as BaseRequest<TResponse>).GetModelState();
+                response = await next();
 
-                if (!modelState.IsValid)
+                if (_app.Services.NotificationManager.HasNotifications())
                 {
-                    IReadOnlyCollection<Notification> _notifications = modelState.CreateNotifications(request.GetType().Name);
+                    IReadOnlyCollection<Notification> _notifications = _app.Services.NotificationManager.GetAllNotifications();
 
                     response = new TResponse();
                     response.SetInvalidState(ValidationMessage.ValidationFailed(), _notifications);
@@ -52,10 +53,6 @@ namespace Financial.Control.Application.Middlewares
 
                     return response;
                 }
-
-
-
-                response = await next();
 
                 _httpContext.Response.SetStatusCode(response.StatusCode);
                 await _app.UnitOfWork.Commit(cancellationToken);
