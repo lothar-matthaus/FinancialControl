@@ -24,7 +24,7 @@ namespace Financial.Control.Application.Handlers.Users
 
             if (user is null)
                 return UserGetResponse.AsError(UserMessage.UserGetError(), HttpStatusCode.NotFound, UserGetErrorResponse
-                    .Create(UserMessage.UserNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(_app.CurrentUser.Id) }) }));
+                    .Create(UserMessage.UserNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(_app.CurrentUser.Id)) }));
 
             return UserGetResponse.AsSuccess(UserMessage.UserGetSuccess(), HttpStatusCode.OK, UserGetSuccessResponse.Create(user));
         }

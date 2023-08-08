@@ -5,19 +5,19 @@
         #region Properties
         public string Context { get; }
         public string Field { get; }
-        public ICollection<string> Errors { get; }
+        public string Message { get; }
         #endregion
 
-        private Notification(string field, string context, ICollection<string> errors)
+        private Notification(string field, string context, string message)
         {
             Context = context;
-            Errors = errors;
+            Message = message;
             Field = field;
         }
 
         #region Factory
 
         #endregion
-        public static Notification Create(string context, string field = null, ICollection<string> errors = null) => new Notification(field, context, errors);
+        public static Notification Create(string context, string field = null, string message = null) => new Notification(field, context, message);
     }
 }

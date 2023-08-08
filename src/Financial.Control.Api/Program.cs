@@ -1,6 +1,3 @@
-using Financial.Control.Domain.Interfaces;
-using Financial.Control.Domain.Interfaces.Config;
-using Financial.Control.Infra.Config;
 using Financial.Control.Infra.Data.Extension.Service;
 using Financial.Control.Infra.IoC.Configurations;
 using Financial.Control.Infra.IoC.MediatR;

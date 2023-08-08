@@ -6,9 +6,7 @@ namespace Financial.Control.Domain.ValueObjects.Base
     public abstract record BaseValueObject : IValidation
     {
         protected BaseValueObject() { }
-
         public bool IsValid { get; private set; }
-
         protected List<Notification> _notifications { get; private set; } = new List<Notification>();
 
         public IReadOnlyCollection<Notification> GetNotifications() => _notifications;

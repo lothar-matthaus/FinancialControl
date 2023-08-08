@@ -1,10 +1,4 @@
-﻿using Financial.Control.Domain.Entities.Base;
-using Financial.Control.Domain.Entities.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Financial.Control.Domain.Entities.Notifications;
 
 namespace Financial.Control.Domain.Interfaces.Validation
 {

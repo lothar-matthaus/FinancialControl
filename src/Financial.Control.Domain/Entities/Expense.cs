@@ -1,6 +1,5 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Entities.Notifications;
-using Financial.Control.Domain.Extensions;
 using Financial.Control.Domain.ValueObjects;
 
 namespace Financial.Control.Domain.Entities
@@ -17,8 +16,8 @@ namespace Financial.Control.Domain.Entities
             get { return _description; }
             set
             {
-                Validate(string.IsNullOrWhiteSpace(value), () => Notification.Create(this.GetType().Name, nameof(Description), new string[] { "A despesa deve ter uma descrição" }), () => _description = value);
-                Validate(value.Length > 5, () => Notification.Create(this.GetType().Name, nameof(Description), new string[] { "A descrição da despesa deve conter ao menos 5 caracteres." }), () => _description = value);
+                Validate(string.IsNullOrWhiteSpace(value), () => Notification.Create(this.GetType().Name, nameof(Description), "A despesa deve ter uma descrição"), () => _description = value);
+                Validate(value.Length > 5, () => Notification.Create(this.GetType().Name, nameof(Description), "A descrição da despesa deve conter ao menos 5 caracteres."), () => _description = value);
             }
         }
 

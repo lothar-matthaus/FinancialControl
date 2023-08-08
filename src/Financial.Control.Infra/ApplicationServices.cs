@@ -1,7 +1,4 @@
-﻿using Financial.Control.Domain.Interfaces.Config;
-using Financial.Control.Domain.Interfaces.Services;
-using Financial.Control.Infra.Services;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Financial.Control.Domain.Interfaces.Services;
 
 namespace Financial.Control.Infra
 {

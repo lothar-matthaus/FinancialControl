@@ -29,12 +29,12 @@ namespace Financial.Control.Application.Handlers.Users
             if (emailAlreadyExists)
                 return UserUpdateResponse.AsError(UserMessage.UserUpdateError(), HttpStatusCode.Conflict,
                     UserUpdateErrorResponse.Create(UserMessage.UserEmailAlreadyExists(request.Email), new List<Notification>() { Notification
-                    .Create(request.GetType().Name, nameof(request.Email), new string[] { GenericMessage.EmailConflict()  }) }));
+                    .Create(request.GetType().Name, nameof(request.Email), GenericMessage.EmailConflict()) }));
 
             if (user is null)
                 return UserUpdateResponse.AsError(UserMessage.UserUpdateError(), HttpStatusCode.NotFound,
-                    UserUpdateErrorResponse.Create(UserMessage.UserNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(_app.CurrentUser.Id) }) }));
-
+                    UserUpdateErrorResponse.Create(UserMessage.UserNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(_app.CurrentUser.Id)) }));
+                
             user.SetName(request.Name);
             user.SetEmail(request.Email);
             user.SetProfilePicture(request.ProfilePictureUrl);

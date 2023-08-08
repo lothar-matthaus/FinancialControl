@@ -1,15 +1,12 @@
 ﻿using Financial.Control.Application.Extensions;
-using Financial.Control.Application.Models;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
-using System.Web.Http.ModelBinding;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Middlewares
@@ -36,7 +33,7 @@ namespace Financial.Control.Application.Middlewares
                 if (_httpContext.User.Identity.IsAuthenticated && user is null)
                 {
                     response = new TResponse();
-                    response.SetInvalidState(UserMessage.UserGetError(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", new string[] { UserMessage.UserNotFound() }) }, HttpStatusCode.BadRequest);
+                    response.SetInvalidState(UserMessage.UserGetError(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", UserMessage.UserNotFound()) }, HttpStatusCode.BadRequest);
 
                     return response;
                 }
@@ -61,7 +58,7 @@ namespace Financial.Control.Application.Middlewares
             }
             catch (Exception ex)
             {
-                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create(ex.GetType().Name, string.Empty, new string[] { ex.Message, ex.InnerException?.Message ?? string.Empty }) };
+                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create(ex.GetType().Name, string.Empty, ex.Message + "\n" + ex.InnerException?.Message) };
                 TResponse response = new TResponse();
 
                 response.SetInvalidState(ServerMessage.InternalServerError(), notifications, HttpStatusCode.InternalServerError);

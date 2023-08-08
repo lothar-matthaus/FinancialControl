@@ -22,7 +22,7 @@ namespace Financial.Control.Application.Handlers.Users
 
             if (emailAlreadyExists)
                 return UserCreateResponse.AsError(UserMessage.UserCreateError(), HttpStatusCode.Conflict, UserCreateErrorResponse
-                    .Create(UserMessage.UserEmailAlreadyExists(request.Email), new List<Notification>() { Notification.Create(request.GetType().Name, nameof(request.Email), new string[] { GenericMessage.EmailConflict() }) }));
+                    .Create(UserMessage.UserEmailAlreadyExists(request.Email), new List<Notification>() { Notification.Create(request.GetType().Name, nameof(request.Email), GenericMessage.EmailConflict()) }));
 
             User user = request;
             _app.UnitOfWork.Users.AddAsync(user, cancellationToken);
