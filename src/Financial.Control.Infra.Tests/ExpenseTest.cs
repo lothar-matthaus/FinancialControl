@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Infra.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,14 +14,14 @@ namespace Financial.Control.Infra.Tests
             IServiceCollection services = new ServiceCollection();
             services.AddScoped<INotificationManager, NotificationManager>();
 
-            IServiceProvider serviceProvider = services.BuildServiceProvider(); 
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
 
             var teste = Expense.Create("", null, null, null);
 
             INotificationManager notificationManager = serviceProvider.GetService<INotificationManager>();
 
-            if(!teste.IsValid)
-                notificationManager.AddNotifications(teste.GetNotifications()); 
+            if (!teste.IsValid)
+                notificationManager.AddNotifications(teste.GetNotifications());
         }
     }
 }

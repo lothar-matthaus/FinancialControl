@@ -21,13 +21,13 @@ namespace Financial.Control.Application.Handlers.Users
 
             if (user is null)
                 return UserUpdatePasswordResponse.AsError(UserMessage.UserUpdatePasswordError(), HttpStatusCode.BadRequest, UserUpdatePasswordErrorResponse
-                    .Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(user?.Id) }) }));
+                    .Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(user?.Id)) }));
 
             bool passwordWasUpdated = user.Account.SetPassword(request.NewPassword, request.CurrentPassword);
 
             if (!passwordWasUpdated)
                 return UserUpdatePasswordResponse.AsError(UserMessage.UserUpdatePasswordError(), HttpStatusCode.BadRequest, UserUpdatePasswordErrorResponse
-                    .Create(UserMessage.PasswordNotEquals(), new List<Notification> { Notification.Create(request.GetType().Name, request.CurrentPassword.GetType().Name, new string[] { }) }));
+                    .Create(UserMessage.PasswordNotEquals(), new List<Notification> { Notification.Create(request.GetType().Name, request.CurrentPassword.GetType().Name, "") }));
 
             _app.UnitOfWork.Users.Update(user);
 

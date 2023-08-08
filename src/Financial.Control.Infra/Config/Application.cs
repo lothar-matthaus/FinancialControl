@@ -4,7 +4,6 @@ using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Financial.Control.Infra.Config
 {

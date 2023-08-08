@@ -1,6 +1,4 @@
-﻿using Financial.Control.Domain.Interfaces;
-using Financial.Control.Domain.Interfaces.Config;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;

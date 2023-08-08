@@ -5,7 +5,7 @@ namespace Financial.Control.Infra.Services
 {
     public class NotificationManager : INotificationManager
     {
-        public List<Notification> Notifications { get; private set; } = new List<Notification>();
+        public List<Notification> Notifications { get; set; } = new List<Notification>();
 
         public bool IsValidState => !Notifications.Any();
 
@@ -17,7 +17,7 @@ namespace Financial.Control.Infra.Services
 
         public void AddNotification(string context, string field, string message)
         {
-            Notification notification = Notification.Create(context, field, new string[] { message });
+            Notification notification = Notification.Create(context, field, message);
             Notifications.Add(notification);
 
         }

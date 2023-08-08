@@ -19,7 +19,7 @@ namespace Financial.Control.Domain.ValueObjects
             get { return _value; }
             private set
             {
-                Validate(value == default, () => Notification.Create(this.GetType().Name, nameof(Value), new string[] { "O valor da despesa deve ser informado." }), () => _value = value / Installment);
+                Validate(value == default, () => Notification.Create(this.GetType().Name, nameof(Value), "O valor da despesa deve ser informado."), () => _value = value / Installment);
             }
         }
 
@@ -30,7 +30,7 @@ namespace Financial.Control.Domain.ValueObjects
             get { return _paymentType; }
             private set
             {
-                Validate(!Enum.IsDefined(PaymentType), () => Notification.Create(this.GetType().Name, nameof(Value), new string[] { "A forma de pagamento selectionada não é válida." }), () => _paymentType = value);
+                Validate(!Enum.IsDefined(PaymentType), () => Notification.Create(this.GetType().Name, nameof(Value), "A forma de pagamento selectionada não é válida."), () => _paymentType = value);
             }
         }
 
@@ -39,8 +39,8 @@ namespace Financial.Control.Domain.ValueObjects
             get { return _installment; }
             private set
             {
-                Validate((value < 1), () => Notification.Create(this.GetType().Name, nameof(Value), new string[] { "O pagamento deve ter ao menos uma prestação." }), () => _installment = value);
-                Validate((value == 1 && PaymentType != PaymentType.Money), () => Notification.Create(this.GetType().Name, nameof(Value), new string[] { $"A forma de pagamento {PaymentType.GetDescription()} deve ser à vista." }), () => _installment = value);
+                Validate((value < 1), () => Notification.Create(this.GetType().Name, nameof(Value), "O pagamento deve ter ao menos uma prestação."), () => _installment = value);
+                Validate((value == 1 && PaymentType != PaymentType.Money), () => Notification.Create(this.GetType().Name, nameof(Value), $"A forma de pagamento {PaymentType.GetDescription()} deve ser à vista."), () => _installment = value);
             }
         }
 

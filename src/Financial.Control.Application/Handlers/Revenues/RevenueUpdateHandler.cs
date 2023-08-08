@@ -23,7 +23,7 @@ namespace Financial.Control.Application.Handlers.Revenues
 
             if (revenue is null)
                 return RevenueUpdateResponse.AsError(RevenueMessage.RevenueUpdateError(), HttpStatusCode.BadRequest,
-                    RevenueUpdateErrorResponse.Create(RevenueMessage.RevenueGetNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(request.Id) }) }));
+                    RevenueUpdateErrorResponse.Create(RevenueMessage.RevenueGetNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(request.Id)) }));
 
             revenue.SetName(request.Name);
             revenue.SetValue(request.Value);

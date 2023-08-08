@@ -21,7 +21,7 @@ namespace Financial.Control.Application.Handlers.Revenues
 
             if (user is null)
                 return RevenueCreateResponse.AsError(RevenueMessage.RevenueCreateError(), HttpStatusCode.BadRequest, RevenueCreateErrorResponse
-                    .Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(_app.CurrentUser.Id) }) }));
+                    .Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(_app.CurrentUser.Id)) }));
 
             user.AddRevenue(request);
 

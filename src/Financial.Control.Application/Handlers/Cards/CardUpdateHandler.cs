@@ -24,7 +24,7 @@ namespace Financial.Control.Application.Handlers.Cards
 
             if (card is null)
                 return CardUpdateResponse.AsError(CardMessage.CardUpdateError(), HttpStatusCode.BadRequest, CardUpdateErrorResponse
-                    .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(request.Id) }) }));
+                    .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(request.Id)) }));
 
             card.SetName(request.CardName);
             (card as CreditCard).SetCardInvoiceDate(request.CardInvoiceDay);

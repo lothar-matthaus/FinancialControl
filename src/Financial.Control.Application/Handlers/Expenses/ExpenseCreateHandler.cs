@@ -26,7 +26,7 @@ namespace Financial.Control.Application.Handlers.Expenses
 
             if (category is null)
                 return ExpenseCreateResponse.AsError(ExpenseMessage.ExpenseCreateError(), HttpStatusCode.BadRequest, ExpenseCreateErrorResponse
-                    .Create(CategoryMessage.CategoryGetNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(request.CategoryId) }) }));
+                    .Create(CategoryMessage.CategoryGetNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(request.CategoryId)) }));
 
             Card card = null;
 

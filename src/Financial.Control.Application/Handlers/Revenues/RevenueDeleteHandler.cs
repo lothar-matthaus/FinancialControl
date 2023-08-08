@@ -20,7 +20,7 @@ namespace Financial.Control.Application.Handlers.Revenues
 
             if (revenue is null)
                 return RevenueDeleteResponse.AsError(RevenueMessage.RevenueDeleteError(), HttpStatusCode.BadRequest, RevenueDeleteErrorResponse
-                    .Create(RevenueMessage.RevenueGetNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", new string[] { GenericMessage.IdNotExists(request.Id) }) }));
+                    .Create(RevenueMessage.RevenueGetNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(request.Id)) }));
 
             _app.UnitOfWork.Revenues.Delete(revenue);
 

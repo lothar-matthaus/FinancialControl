@@ -1,15 +1,13 @@
 ﻿using Financial.Control.Application.Extensions;
-using Financial.Control.Application.Models;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 using System.Net;
-using System.Web.Http.ModelBinding;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Middlewares
@@ -28,15 +26,17 @@ namespace Financial.Control.Application.Middlewares
         }
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
+            List<Notification> notifications = new List<Notification>();
+            TResponse response;
+
             try
             {
-                TResponse response;
                 User user = await _app.UnitOfWork.Users.Query(us => us.Id.Equals(_app.CurrentUser.Id)).FirstOrDefaultAsync(cancellationToken);
 
                 if (_httpContext.User.Identity.IsAuthenticated && user is null)
                 {
                     response = new TResponse();
-                    response.SetInvalidState(UserMessage.UserGetError(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", new string[] { UserMessage.UserNotFound() }) }, HttpStatusCode.BadRequest);
+                    response.SetInvalidState(UserMessage.UserGetError(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", UserMessage.UserNotFound()) }, HttpStatusCode.BadRequest);
 
                     return response;
                 }
@@ -61,14 +61,16 @@ namespace Financial.Control.Application.Middlewares
             }
             catch (Exception ex)
             {
-                IReadOnlyCollection<Notification> notifications = new List<Notification>() { Notification.Create(ex.GetType().Name, string.Empty, new string[] { ex.Message, ex.InnerException?.Message ?? string.Empty }) };
-                TResponse response = new TResponse();
-
-                response.SetInvalidState(ServerMessage.InternalServerError(), notifications, HttpStatusCode.InternalServerError);
-                _httpContext.Response.SetStatusCode(HttpStatusCode.InternalServerError);
-
-                return response;
+                notifications.Add(Notification.Create(ex.GetType().Name, ex.Source, $"{ex.Message} - {ex.InnerException?.Message}"));
             }
+            finally
+            {
+                _httpContext.Response.SetStatusCode(HttpStatusCode.InternalServerError);
+                response = new TResponse();
+                response.SetInvalidState(ServerMessage.InternalServerError(), notifications, HttpStatusCode.InternalServerError);
+            }
+
+            return response;
         }
     }
 }
