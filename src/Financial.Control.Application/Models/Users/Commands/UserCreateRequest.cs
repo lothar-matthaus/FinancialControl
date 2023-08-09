@@ -30,9 +30,5 @@ namespace Financial.Control.Application.Models.Users.Commands
         /// Url da foto de perfil do usuário.
         /// </summary>
         public string ProfilePictureUrl { get; set; }
-
-        #region Implict Operator
-        public static implicit operator User(UserCreateRequest request) => User.Create(request.Name, request.Email, request.ProfilePictureUrl, request.Password);
-        #endregion
     }
 }

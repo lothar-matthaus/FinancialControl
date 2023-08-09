@@ -12,7 +12,6 @@ namespace Financial.Control.Infra.Data.Config.Types
             builder.ToTable(nameof(Card));
 
             builder.HasKey(card => card.Id);
-            builder.Ignore(card => card.IsValid);
 
             builder.Property(card => card.CardType).IsRequired(true);
             builder.Property(card => card.Name).IsRequired(true);

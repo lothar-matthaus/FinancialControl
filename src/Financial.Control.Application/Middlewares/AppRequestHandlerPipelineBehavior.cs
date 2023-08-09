@@ -61,16 +61,12 @@ namespace Financial.Control.Application.Middlewares
             }
             catch (Exception ex)
             {
-                notifications.Add(Notification.Create(ex.GetType().Name, ex.Source, $"{ex.Message} - {ex.InnerException?.Message}"));
-            }
-            finally
-            {
-                _httpContext.Response.SetStatusCode(HttpStatusCode.InternalServerError);
                 response = new TResponse();
+                notifications.Add(Notification.Create(ex.GetType().Name, ex.Source, $"{ex.Message} - {ex.InnerException?.Message}"));
+                _httpContext.Response.SetStatusCode(HttpStatusCode.InternalServerError);
                 response.SetInvalidState(ServerMessage.InternalServerError(), notifications, HttpStatusCode.InternalServerError);
+                return response;
             }
-
-            return response;
         }
     }
 }

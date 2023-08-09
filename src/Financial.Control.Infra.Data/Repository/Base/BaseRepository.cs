@@ -14,7 +14,7 @@ namespace Financial.Control.Infra.Data.Repository.Base
             _dbContext = dbContext.Set<TEntity>();
         }
 
-        public async void AddAsync(TEntity entity, CancellationToken cancellationToken) => await _dbContext.AddAsync(entity, cancellationToken);
+        public async Task AddAsync(TEntity entity, CancellationToken cancellationToken) => await _dbContext.AddAsync(entity, cancellationToken);
         public IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> expression) => _dbContext.Where(expression);
         public void Update(TEntity entity) => _dbContext.Update(entity);
     }

@@ -20,5 +20,17 @@ namespace Financial.Control.Domain.Constants
                 { CardFlag.Elo, Elo }
             };
         }
+        public static class EmailPattern
+        {
+            public const string Email = "";
+        }
+        public static class PasswordPatterns
+        {
+            public const string Password = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,\-./:;<=>?@[\\\]^_`{|}~])[a-zA-Z0-9!@#$%^&*()_+,\-./:;<=>?@[\\\]^_`{|}~]{8,}$";
+        }
+        public static class UrlPattern
+        {
+            public const string URL = @"^(https?|ftp)://[^\s/$.?#].[^\s]*$";
+        }
     }
 }

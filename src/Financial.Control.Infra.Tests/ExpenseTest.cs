@@ -1,27 +1,24 @@
 ﻿using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.ValueObjects;
 using Financial.Control.Infra.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Financial.Control.Infra.Tests
 {
-    public class ExpenseTest
+    public class ExpenseTests
     {
         [Fact]
-        public void test()
+        public void ExpenseCreateTest()
         {
-            IServiceCollection services = new ServiceCollection();
-            services.AddScoped<INotificationManager, NotificationManager>();
+            Category category = Category.Create("Dinossauro");
+            Card card = DebitCard.Create("Cartão de débito", "5213 7091 0049 8664");
+            Payment payment = Payment.Create(200, 2, Domain.Enums.PaymentType.DebitCard);
 
-            IServiceProvider serviceProvider = services.BuildServiceProvider();
+            Expense expense = Expense.Create("Ração para os gatos", category, card, payment);
 
-            var teste = Expense.Create("", null, null, null);
-
-            INotificationManager notificationManager = serviceProvider.GetService<INotificationManager>();
-
-            if (!teste.IsValid)
-                notificationManager.AddNotifications(teste.GetNotifications());
+            Assert.True(expense.IsValid());
         }
     }
 }

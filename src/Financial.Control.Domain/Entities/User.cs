@@ -1,11 +1,32 @@
 ﻿using Financial.Control.Domain.Entities.Base;
+using Financial.Control.Domain.Entities.Notifications;
+using static Financial.Control.Domain.Constants.Patterns;
+using System.Text.RegularExpressions;
 
 namespace Financial.Control.Domain.Entities
 {
     public class User : BaseEntity
     {
+        #region Private properties
+        private string _name;
+        #endregion
         #region Properties
-        public string Name { get; private set; }
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                Validate(isInvalidIf: (string.IsNullOrWhiteSpace(value)),
+                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Name), "O nome do usuário deve ser informado."),
+                         ifValid: () => _name = value);
+
+                Validate(isInvalidIf: (value.Length < 3),
+                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Name), "O nome do usuário é muito curto."),
+                         ifValid: () => _name = value);
+            }
+        }
+
         #endregion
 
         #region Navigation
@@ -17,10 +38,12 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         protected User() { }
-        private User(string name, string email, string profilePictureURL, string plainPassword)
+        private User(string name, Account account)
         {
             Name = name;
-            Account = Account.Create(email, profilePictureURL, plainPassword);
+            Account = account;
+
+            _notifications.AddRange(Account.GetNotifications());
         }
 
         #region Behaviors
@@ -74,7 +97,7 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         #region Factory
-        public static User Create(string name, string email, string profilePictureURL, string plainPassword) => new User(name, email, profilePictureURL, plainPassword);
+        public static User Create(string name, Account account) => new User(name, account);
         #endregion
     }
 }

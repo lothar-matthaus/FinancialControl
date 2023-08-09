@@ -37,10 +37,10 @@ namespace Financial.Control.Application.Handlers.Expenses
             Payment payment = Payment.Create(request.Value, request.Installment, request.PaymentType);
             Expense expense = Expense.Create(request.Description, category, card, payment);
 
-            if (!payment.IsValid)
+            if (!payment.IsValid())
                 _app.Services.NotificationManager.AddNotifications(payment.GetNotifications());
 
-            if (!expense.IsValid)
+            if (!expense.IsValid())
                 _app.Services.NotificationManager.AddNotifications(expense.GetNotifications());
 
             user.AddExpense(expense);

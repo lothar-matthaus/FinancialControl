@@ -1,8 +1,31 @@
-﻿namespace Financial.Control.Domain.ValueObjects
+﻿using Financial.Control.Domain.Entities.Notifications;
+using Financial.Control.Domain.ValueObjects.Base;
+using System.Text.RegularExpressions;
+using static Financial.Control.Domain.Constants.Patterns;
+
+namespace Financial.Control.Domain.ValueObjects
 {
-    public record ProfilePicture
+    public record ProfilePicture : BaseValueObject
     {
-        public string Value { get; set; }
+        #region Private properties
+        private string _value;
+        #endregion
+
+        public string Value
+        {
+            get { return _value; }
+            set
+            {
+                Validate(isInvalidIf: (string.IsNullOrWhiteSpace(value)),
+                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Value), "A URL da foto de perfil deve ser informada."),
+                         ifValid: () => _value = value);
+
+                Validate(isInvalidIf: (!Regex.IsMatch(value, UrlPattern.URL)),
+                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Value), "O formato da URL está incorreta."),
+                         ifValid: () => _value = value);
+            }
+        }
+
 
         protected ProfilePicture() { }
         private ProfilePicture(string value)

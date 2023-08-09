@@ -2,6 +2,7 @@
 using Financial.Control.Domain.Enums;
 using Financial.Control.Domain.Extensions;
 using Financial.Control.Domain.ValueObjects.Base;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Financial.Control.Domain.ValueObjects
 {
@@ -19,7 +20,9 @@ namespace Financial.Control.Domain.ValueObjects
             get { return _value; }
             private set
             {
-                Validate(value == default, () => Notification.Create(this.GetType().Name, nameof(Value), "O valor da despesa deve ser informado."), () => _value = value / Installment);
+                Validate(isInvalidIf: value == default, 
+                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Value), "O valor da despesa deve ser informado."),
+                         ifValid: () => _value = value / Installment);
             }
         }
 
@@ -30,7 +33,7 @@ namespace Financial.Control.Domain.ValueObjects
             get { return _paymentType; }
             private set
             {
-                Validate(!Enum.IsDefined(PaymentType), () => Notification.Create(this.GetType().Name, nameof(Value), "A forma de pagamento selectionada não é válida."), () => _paymentType = value);
+                Validate(!Enum.IsDefined(typeof(Enums.PaymentType), value), () => Notification.Create(this.GetType().Name, nameof(Value), "A forma de pagamento selecionada não é válida."), () => _paymentType = value);
             }
         }
 
@@ -39,8 +42,13 @@ namespace Financial.Control.Domain.ValueObjects
             get { return _installment; }
             private set
             {
-                Validate((value < 1), () => Notification.Create(this.GetType().Name, nameof(Value), "O pagamento deve ter ao menos uma prestação."), () => _installment = value);
-                Validate((value == 1 && PaymentType != PaymentType.Money), () => Notification.Create(this.GetType().Name, nameof(Value), $"A forma de pagamento {PaymentType.GetDescription()} deve ser à vista."), () => _installment = value);
+                Validate(isInvalidIf: (value <= 0),
+                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Value), "O pagamento deve ter ao menos uma prestação."),
+                         ifValid: () => _installment = value);
+
+                Validate(isInvalidIf: (value > 1 && PaymentType != PaymentType.CreditCard),
+                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Value), $"Não é possível parcelar com a forma de pagamento '{PaymentType.GetDescription()}'"),
+                         ifValid: () => _installment = value);
             }
         }
 

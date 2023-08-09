@@ -10,7 +10,6 @@ namespace Financial.Control.Infra.Data.Config.Types
         {
             builder.ToTable(nameof(Expense));
             builder.HasKey(ex => ex.Id);
-            builder.Ignore(ex => ex.IsValid);
 
             builder.Property(ex => ex.Description).IsRequired(true).HasMaxLength(300);
             builder.Property(ex => ex.PaidOut).IsRequired().HasDefaultValue(false);

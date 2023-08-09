@@ -21,11 +21,15 @@ namespace Financial.Control.Application.Handlers.Users
             bool emailAlreadyExists = await _app.UnitOfWork.Users.EmailAlreadyExists(request.Email);
 
             if (emailAlreadyExists)
-                return UserCreateResponse.AsError(UserMessage.UserCreateError(), HttpStatusCode.Conflict, UserCreateErrorResponse
-                    .Create(UserMessage.UserEmailAlreadyExists(request.Email), new List<Notification>() { Notification.Create(request.GetType().Name, nameof(request.Email), GenericMessage.EmailConflict()) }));
+                _app.Services.NotificationManager.AddNotification(Notification.Create(request.GetType().Name, nameof(request.Email), UserMessage.UserEmailAlreadyExists(request.Email)));
 
-            User user = request;
-            _app.UnitOfWork.Users.AddAsync(user, cancellationToken);
+            Account account = Account.Create(request.Email, request.ProfilePictureUrl, request.Password, request.ConfirmPassword);
+            User user = User.Create(request.Name, account);
+
+            if (!user.IsValid())
+                _app.Services.NotificationManager.AddNotifications(user.GetNotifications());
+
+            await _app.UnitOfWork.Users.AddAsync(user, cancellationToken);
 
             return UserCreateResponse.AsSuccess(UserMessage.UserCreateSuccess(), HttpStatusCode.Created, UserCreateSuccessResponse.Create(user));
         }

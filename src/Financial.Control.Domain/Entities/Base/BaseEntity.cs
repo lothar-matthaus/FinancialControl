@@ -8,7 +8,6 @@ namespace Financial.Control.Domain.Entities.Base
         public long Id { get; }
         public DateTime CreationDate { get; }
         public DateTime UpdateDate { get; }
-        public bool IsValid { get; private set; }
 
         #region Notifications
         protected List<Notification> _notifications { get; private set; } = new List<Notification>();
@@ -17,18 +16,18 @@ namespace Financial.Control.Domain.Entities.Base
         #region Methods
         public IReadOnlyCollection<Notification> GetNotifications() => _notifications;
 
-        public void Validate(bool isInvalid, Func<Notification> ifInvalid, Action ifValid)
+        public void Validate(bool isInvalidIf, Func<Notification> ifInvalid, Action ifValid)
         {
-            if (isInvalid)
+            if (isInvalidIf)
             {
                 _notifications ??= new List<Notification>();
                 _notifications.Add(ifInvalid.Invoke());
             }
             else
                 ifValid.Invoke();
-
-            IsValid = !_notifications.Any();
         }
+
+        public bool IsValid() => !_notifications.Any();
         #endregion
     }
 }

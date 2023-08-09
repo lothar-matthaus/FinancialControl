@@ -20,12 +20,16 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         public Account() { }
-        private Account(string email, string profilePictureUrl, string plainTextPassword)
+        private Account(string email, string profilePictureUrl, string plainTextPassword, string confirmPlainText)
         {
             Email = Email.Create(email);
             ProfilePicture = ProfilePicture.Create(profilePictureUrl);
-            Password = Password.Create(plainTextPassword);
+            Password = Password.Create(plainTextPassword, confirmPlainText);
             Status = AccountStatus.Blocked;
+
+            _notifications.AddRange(Email.GetNotifications());
+            _notifications.AddRange(ProfilePicture.GetNotifications());
+            _notifications.AddRange(Password.GetNotifications());
         }
 
         #region Behaviors
@@ -35,6 +39,7 @@ namespace Financial.Control.Domain.Entities
                 return;
 
             Email = Email.Create(email);
+            _notifications.AddRange(Email.GetNotifications());
         }
 
         public void SetProfilePicture(string profilePictureUrl)
@@ -43,6 +48,7 @@ namespace Financial.Control.Domain.Entities
                 return;
 
             ProfilePicture = ProfilePicture.Create(profilePictureUrl);
+            _notifications.AddRange(ProfilePicture.GetNotifications());
         }
         public void SetToken(UserToken userToken)
         {
@@ -52,23 +58,23 @@ namespace Financial.Control.Domain.Entities
             Token = UserToken.Create(userToken.AccessToken, userToken.ExpirationTime);
         }
 
-        public bool SetPassword(string plainTextPassword, string currentPasswordPlainText)
+        public void SetPassword(string plainTextPassword, string currentPasswordPlainText)
         {
             if (string.IsNullOrWhiteSpace(plainTextPassword))
-                return false;
+                return;
 
-            Password currentPassword = Password.Create(currentPasswordPlainText, Password.Salt);
+            Password currentPassword = Password.CreateWithSalt(currentPasswordPlainText, Password.Salt);
 
             if (!currentPassword.Value.Equals(Password.Value))
-                return false;
+                return;
 
-            Password = Password.Create(plainTextPassword);
+            Password = Password.CreateWithSalt(plainTextPassword, Password.Salt);
+            _notifications.AddRange(Password.GetNotifications());
 
-            return true;
+            return;
         }
-
         #endregion
 
-        public static Account Create(string email, string profilePictureUrl, string plainTextPassword) => new Account(email, profilePictureUrl, plainTextPassword);
+        public static Account Create(string email, string profilePictureUrl, string plainTextPassword, string confirmPlainText) => new Account(email, profilePictureUrl, plainTextPassword, confirmPlainText);
     }
 }

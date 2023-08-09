@@ -10,7 +10,6 @@ namespace Financial.Control.Infra.Data.Config.Types
         {
             builder.ToTable(nameof(Account));
             builder.HasKey(account => account.Id);
-            builder.Ignore(account => account.IsValid);
 
             builder.Ignore(account => account.Token);
 
@@ -23,11 +22,12 @@ namespace Financial.Control.Infra.Data.Config.Types
             {
                 password.Property(pass => pass.Value).IsRequired(true).HasMaxLength(256).HasColumnName("Password");
                 password.Property(pass => pass.Salt).IsRequired(true).HasMaxLength(256).HasColumnName("PasswordSalt");
+                password.Ignore(password => password.PlainText);
             });
 
             builder.OwnsOne(account => account.ProfilePicture, profilePicture =>
             {
-                profilePicture.Property(pass => pass.Value).IsRequired(true).HasColumnName("ProfilePictureURL");
+                profilePicture.Property(profilePicture => profilePicture.Value).IsRequired(true).HasColumnName("ProfilePictureURL");
             });
 
             builder.Property(account => account.Status).IsRequired();

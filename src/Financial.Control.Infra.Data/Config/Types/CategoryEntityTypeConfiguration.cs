@@ -10,7 +10,6 @@ namespace Financial.Control.Infra.Data.Config.Types
         {
             builder.ToTable(nameof(Category));
             builder.HasKey(category => category.Id);
-            builder.Ignore(category => category.IsValid);
 
             builder.Property(category => category.Name).IsRequired(true).HasMaxLength(120);
 

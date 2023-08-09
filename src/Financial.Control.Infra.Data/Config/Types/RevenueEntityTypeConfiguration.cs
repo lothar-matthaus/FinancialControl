@@ -10,7 +10,6 @@ namespace Financial.Control.Infra.Data.Config.Types
         {
             builder.ToTable(nameof(Revenue));
             builder.HasKey(rev => rev.Id);
-            builder.Ignore(rev => rev.IsValid);
 
             builder.Property(rev => rev.Value).IsRequired(true);
             builder.Property(rev => rev.Name).IsRequired(true);

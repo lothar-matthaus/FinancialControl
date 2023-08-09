@@ -23,11 +23,11 @@ namespace Financial.Control.Application.Handlers.Users
                 return UserUpdatePasswordResponse.AsError(UserMessage.UserUpdatePasswordError(), HttpStatusCode.BadRequest, UserUpdatePasswordErrorResponse
                     .Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(user?.Id)) }));
 
-            bool passwordWasUpdated = user.Account.SetPassword(request.NewPassword, request.CurrentPassword);
+            user.Account.SetPassword(request.NewPassword, request.CurrentPassword);
 
-            if (!passwordWasUpdated)
+            if (!user.Account.Password.IsValid())
                 return UserUpdatePasswordResponse.AsError(UserMessage.UserUpdatePasswordError(), HttpStatusCode.BadRequest, UserUpdatePasswordErrorResponse
-                    .Create(UserMessage.PasswordNotEquals(), new List<Notification> { Notification.Create(request.GetType().Name, request.CurrentPassword.GetType().Name, "") }));
+                    .Create(UserMessage.PasswordNotEquals(), user.Account.GetNotifications()));
 
             _app.UnitOfWork.Users.Update(user);
 
