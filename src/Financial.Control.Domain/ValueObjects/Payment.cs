@@ -2,7 +2,6 @@
 using Financial.Control.Domain.Enums;
 using Financial.Control.Domain.Extensions;
 using Financial.Control.Domain.ValueObjects.Base;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Financial.Control.Domain.ValueObjects
 {
@@ -20,7 +19,7 @@ namespace Financial.Control.Domain.ValueObjects
             get { return _value; }
             private set
             {
-                Validate(isInvalidIf: value == default, 
+                Validate(isInvalidIf: value == default,
                          ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Value), "O valor da despesa deve ser informado."),
                          ifValid: () => _value = value / Installment);
             }

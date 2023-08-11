@@ -10,78 +10,77 @@ namespace Financial.Control.Domain.ValueObjects
     public record Password : BaseValueObject
     {
         #region Private properties
-        private string _value;
         private string _salt;
+        private string _value;
         private string _plainText;
-        private string _confirmPlainText;
+        private string _confirmationPlainText;
         #endregion
 
-        private string ConfirmPlainText
-        {
-            get { return _confirmPlainText; }
-            set
-            {
-                Validate(isInvalidIf: (!Regex.IsMatch(value, PasswordPatterns.Password)),
-                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Value), "A senha de confirmação deve conter: Pelo menos 8 caracteres. Pelo menos 1 letra maiúscula. Pelo menos uma letra minúscula. Pelo menos 1 caractere especial"),
-                         ifValid: () => _confirmPlainText = value);
-            }
-        }
         public string PlainText
         {
-            get { return _plainText; }
+            get => _plainText;
             set
             {
-                Validate(isInvalidIf: (!value.Equals(ConfirmPlainText)),
-                        ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Value), "As senhas não se correspondem."),
-                        ifValid: () => _plainText = value);
-
-                Validate(isInvalidIf: (!Regex.IsMatch(value, PasswordPatterns.Password)),
-                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Value), "A senha deve conter: Pelo menos 8 caracteres. Pelo menos 1 letra maiúscula. Pelo menos uma letra minúscula. Pelo menos 1 caractere especial"),
+                Validate(isInvalidIf: string.IsNullOrWhiteSpace(value),
+                         ifInvalid: () => Notification.Create(GetType().Name, "Password", "A senha deve ser informada."),
                          ifValid: () => _plainText = value);
+
+                Validate(isInvalidIf: !string.IsNullOrWhiteSpace(value) && !Regex.IsMatch(value, PasswordPatterns.Password),
+                         ifInvalid: () => Notification.Create(GetType().Name, "Password", "A senha deve conter pelo menos: 1 número. 1 caractere especial. 1 letra minúscula. 1 letra maiúscula."),
+                         ifValid: () => _plainText = value);
+            }
+        }
+        public string ConfirmationPlainText
+        {
+            get => _confirmationPlainText;
+            set
+            {
+                Validate(isInvalidIf: string.IsNullOrWhiteSpace(value),
+                         ifInvalid: () => Notification.Create(GetType().Name, "ConfirmPassword", "A senha deve ser informada."),
+                         ifValid: () => _confirmationPlainText = value);
+
+                Validate(isInvalidIf: !string.IsNullOrWhiteSpace(value) && !Regex.IsMatch(value, PasswordPatterns.Password),
+                         ifInvalid: () => Notification.Create(GetType().Name, "ConfirmPassword", "A confirmação de senha deve conter pelo menos: 1 número. 1 caractere especial. 1 letra minúscula. 1 letra maiúscula."),
+                         ifValid: () => _confirmationPlainText = value);
+
+                Validate(isInvalidIf: !string.IsNullOrWhiteSpace(value) && (!_plainText.Equals(value)),
+                         ifInvalid: () => Notification.Create(GetType().Name, "ConfirmPassword", "As senhas não se correspondem."),
+                         ifValid: () => _confirmationPlainText = value);
             }
         }
 
         public string Salt
         {
-            get { return _salt; }
-            set
-            {
-                Validate(isInvalidIf: (string.IsNullOrWhiteSpace(value)),
-                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Value), "O SALT da senha não pode ser vazia."),
+            get => _salt;
+            set => Validate(isInvalidIf: string.IsNullOrWhiteSpace(value),
+                         ifInvalid: () => Notification.Create(GetType().Name, nameof(Salt), "O SALT da senha não pode ser vazia."),
                          ifValid: () => _salt = value);
-            }
         }
 
         public string Value
         {
-            get { return _value; }
-            set
-            {
-                Validate(isInvalidIf: (string.IsNullOrWhiteSpace(value)),
-                        ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Value), "A senha não deve estar vazia."),
-                        ifValid: () => _value = GenerateHash(value));
-            }
+            get => _value;
+            set => Validate(isInvalidIf: string.IsNullOrWhiteSpace(value),
+                        ifInvalid: () => Notification.Create(GetType().Name, nameof(Value), "O HASH do password não foi gerado corretamente."),
+                        ifValid: () => _value = value);
         }
 
         protected Password() { }
 
-        private Password(string plainText, string salt)
+
+
+        private Password(string passwordPlainText, StringBuilder salt)
         {
-            Salt = salt;
-            PlainText = plainText;
-            Value = plainText;
+            PlainText = passwordPlainText;
+            Salt = salt.ToString() ?? string.Empty;
+            Value = GenerateHash(passwordPlainText);
         }
-
-        private Password(string plainText, string confirmPlainText, string salt)
+        private Password(string passwordPlainText, string passwordConfirmationPlainText)
         {
-            if (string.IsNullOrWhiteSpace(salt))
-                Salt = GeneratePasswordSalt();
-            else
-                Salt = salt;
-
-            ConfirmPlainText = confirmPlainText;
-            PlainText = plainText;
-            Value = plainText;
+            PlainText = passwordPlainText;
+            ConfirmationPlainText = passwordConfirmationPlainText;
+            Salt = GeneratePasswordSalt();
+            Value = GenerateHash(passwordPlainText);
         }
 
         #region Private Methods
@@ -94,10 +93,10 @@ namespace Financial.Control.Domain.ValueObjects
         }
         private string GenerateHash(string plainTextPassword)
         {
-            var key = Encoding.UTF8.GetBytes(Salt);
+            byte[] key = Encoding.UTF8.GetBytes(Salt ?? "");
             string hashString;
 
-            using (HMACSHA256 hmac = new HMACSHA256(key))
+            using (HMACSHA256 hmac = new(key))
             {
                 byte[] passwordBytes = Encoding.UTF8.GetBytes(plainTextPassword);
                 byte[] hash = hmac.ComputeHash(passwordBytes);
@@ -107,19 +106,29 @@ namespace Financial.Control.Domain.ValueObjects
 
             return hashString;
         }
+
         #endregion
 
         #region Behaviors
-        public bool IsMatchPassword(string plainTextPassword)
+
+        public void IsCurrentPasswordMatch(string plainText)
         {
-            string hashedPassword = GenerateHash(plainTextPassword);
-            return hashedPassword.Equals(this.Value);
+            Validate(isInvalidIf: !plainText.Equals(Value),
+                     ifInvalid: () => Notification.Create(GetType().Name, "CurrentPassword", "A senha atual informada não é válida."),
+                     ifValid: () => new object());
         }
         #endregion
 
         #region Factory
-        public static Password Create(string plainText, string confirmPlainText) => new Password(plainText, confirmPlainText, string.Empty);
-        public static Password CreateWithSalt(string plainText, string salt) => new Password(plainText, salt);
+        public static Password Create(string passwordPlainText, string passwordConfirmationPlainText)
+        {
+            return new Password(passwordPlainText, passwordConfirmationPlainText);
+        }
+
+        public static Password CreateWithSalt(string passwordPlainText, StringBuilder salt)
+        {
+            return new Password(passwordPlainText, salt);
+        }
         #endregion
     }
 }

@@ -1,7 +1,5 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Entities.Notifications;
-using static Financial.Control.Domain.Constants.Patterns;
-using System.Text.RegularExpressions;
 
 namespace Financial.Control.Domain.Entities
 {

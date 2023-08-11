@@ -3,7 +3,8 @@ using Financial.Control.Application.Models.Revenues.Response.Update;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
@@ -12,13 +13,13 @@ namespace Financial.Control.Application.Handlers.Revenues
 {
     public sealed class RevenueUpdateHandler : BaseRequestHandler<RevenueUpdateRequest, RevenueUpdateResponse>
     {
-        public RevenueUpdateHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor) { }
+        public RevenueUpdateHandler(IApplicationUser applicationUser, IUnitOfWork unitOfWork, INotificationManager notificationManager) : base(applicationUser, unitOfWork, notificationManager) { }
 
         public async override Task<RevenueUpdateResponse> Handle(RevenueUpdateRequest request, CancellationToken cancellationToken)
         {
-            Revenue revenue = await _app.UnitOfWork.Revenues
+            Revenue revenue = await _unitOfWork.Revenues
                 .Query(rev => rev.Id.Equals(request.Id) &&
-                      (_app.CurrentUser.Id.Equals(rev.User.Id)))
+                      (_applicationUser.Id.Equals(rev.User.Id)))
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (revenue is null)
@@ -28,7 +29,7 @@ namespace Financial.Control.Application.Handlers.Revenues
             revenue.SetName(request.Name);
             revenue.SetValue(request.Value);
 
-            _app.UnitOfWork.Revenues.Update(revenue);
+            _unitOfWork.Revenues.Update(revenue);
 
             return RevenueUpdateResponse.AsSuccess(RevenueMessage.RevenueUpdateSuccess(), HttpStatusCode.OK, RevenueUpdateSuccessResponse.Create(revenue));
         }

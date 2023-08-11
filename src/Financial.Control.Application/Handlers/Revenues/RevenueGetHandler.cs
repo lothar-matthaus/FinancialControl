@@ -3,7 +3,8 @@ using Financial.Control.Application.Models.Revenues.Response.Get;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
@@ -12,12 +13,12 @@ namespace Financial.Control.Application.Handlers.Revenues
 {
     public sealed class RevenueGetHandler : BaseRequestHandler<RevenueGetRequest, RevenueGetResponse>
     {
-        public RevenueGetHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor) { }
+        public RevenueGetHandler(IApplicationUser applicationUser, IUnitOfWork unitOfWork, INotificationManager notificationManager) : base(applicationUser, unitOfWork, notificationManager) { }
 
         public async override Task<RevenueGetResponse> Handle(RevenueGetRequest request, CancellationToken cancellationToken)
         {
-            Revenue revenue = await _app.UnitOfWork.Revenues
-                .Query(rev => rev.Id.Equals(request.Id) && rev.User.Id.Equals(_app.CurrentUser.Id))
+            Revenue revenue = await _unitOfWork.Revenues
+                .Query(rev => rev.Id.Equals(request.Id) && rev.User.Id.Equals(_applicationUser.Id))
                 .FirstOrDefaultAsync();
 
             if (revenue is null)

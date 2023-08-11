@@ -3,8 +3,9 @@ using Financial.Control.Application.Models.Categories.Queries;
 using Financial.Control.Application.Models.Categories.Response;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Interfaces;
+using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Models.Categories;
-using Microsoft.AspNetCore.Http;
+using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
@@ -13,11 +14,11 @@ namespace Financial.Control.Application.Handlers.Categories
 {
     public class CategoryListHandler : BaseRequestHandler<CategoryListRequest, CategoryListResponse>
     {
-        public CategoryListHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor) { }
+        public CategoryListHandler(IApplicationUser applicationUser, IUnitOfWork unitOfWork, INotificationManager notificationManager) : base(applicationUser, unitOfWork, notificationManager) { }
 
         public async override Task<CategoryListResponse> Handle(CategoryListRequest request, CancellationToken cancellationToken)
         {
-            IReadOnlyCollection<Category> query = await _app.UnitOfWork.Categories
+            IReadOnlyCollection<Category> query = await _unitOfWork.Categories
                 .Query(cat => request.Name == null || EF.Functions.Like(cat.Name, $"{request.Name}%"))
                 .ToListAsync(cancellationToken);
 

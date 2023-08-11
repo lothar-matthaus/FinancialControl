@@ -3,7 +3,8 @@ using Financial.Control.Application.Models.Cards.Response.Delete;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
@@ -12,15 +13,15 @@ namespace Financial.Control.Application.Handlers.Cards
 {
     public class CardDeleteHandler : BaseRequestHandler<CardDeleteRequest, CardDeleteResponse>
     {
-        public CardDeleteHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor)
+        public CardDeleteHandler(IApplicationUser applicationUser, IUnitOfWork unitOfWork, INotificationManager notificationManager) : base(applicationUser, unitOfWork, notificationManager)
         {
         }
         public async override Task<CardDeleteResponse> Handle(CardDeleteRequest request, CancellationToken cancellationToken)
         {
-            User user = await _app.UnitOfWork.Users.Query(user => user.Id.Equals(_app.CurrentUser.Id))
+            User user = await _unitOfWork.Users.Query(user => user.Id.Equals(_applicationUser.Id))
                 .FirstOrDefaultAsync();
 
-            Card card = _app.UnitOfWork.Cards
+            Card card = _unitOfWork.Cards
                 .Query(card => card.Id.Equals(request.CardId))
                 .FirstOrDefault();
 
@@ -30,7 +31,7 @@ namespace Financial.Control.Application.Handlers.Cards
 
             user.RemoveCard(card);
 
-            _app.UnitOfWork.Users.Update(user);
+            _unitOfWork.Users.Update(user);
 
             return CardDeleteResponse.AsSuccess(CardMessage.CardDeleteSuccess(), HttpStatusCode.OK, CardDeleteSuccessResponse.Create(card));
         }

@@ -1,6 +1,7 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Enums;
 using Financial.Control.Domain.ValueObjects;
+using System.Text;
 
 namespace Financial.Control.Domain.Entities
 {
@@ -58,18 +59,15 @@ namespace Financial.Control.Domain.Entities
             Token = UserToken.Create(userToken.AccessToken, userToken.ExpirationTime);
         }
 
-        public void SetPassword(string plainTextPassword, string currentPasswordPlainText)
+        public void SetPassword(string plainTextPassword, string confirmationPlainText, string currentPasswordPlainText)
         {
-            if (string.IsNullOrWhiteSpace(plainTextPassword))
-                return;
+            Password currentPassword = Password;
 
-            Password currentPassword = Password.CreateWithSalt(currentPasswordPlainText, Password.Salt);
+            Password = Password.CreateWithSalt(currentPasswordPlainText, new StringBuilder(currentPassword.Salt));
+            Password.IsCurrentPasswordMatch(currentPassword.Value);
 
-            if (!currentPassword.Value.Equals(Password.Value))
-                return;
-
-            Password = Password.CreateWithSalt(plainTextPassword, Password.Salt);
-            _notifications.AddRange(Password.GetNotifications());
+            if (Password.IsValid())
+                Password = Password.Create(plainTextPassword, confirmationPlainText);
 
             return;
         }

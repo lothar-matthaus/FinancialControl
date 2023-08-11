@@ -3,7 +3,8 @@ using Financial.Control.Application.Models.Users.Response.Create;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Repository;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
@@ -11,25 +12,22 @@ namespace Financial.Control.Application.Handlers.Users
 {
     public class UserCreateHandler : BaseRequestHandler<UserCreateRequest, UserCreateResponse>
     {
-        public UserCreateHandler(IApplication application,
-            IHttpContextAccessor httpContextAccessor) :
-            base(application, httpContextAccessor)
-        { }
+        public UserCreateHandler(IApplicationUser applicationUser, IUnitOfWork unitOfWork, INotificationManager notificationManager) : base(applicationUser, unitOfWork, notificationManager) { }
 
         public async override Task<UserCreateResponse> Handle(UserCreateRequest request, CancellationToken cancellationToken)
         {
-            bool emailAlreadyExists = await _app.UnitOfWork.Users.EmailAlreadyExists(request.Email);
+            bool emailAlreadyExists = await _unitOfWork.Users.EmailAlreadyExists(request.Email);
 
             if (emailAlreadyExists)
-                _app.Services.NotificationManager.AddNotification(Notification.Create(request.GetType().Name, nameof(request.Email), UserMessage.UserEmailAlreadyExists(request.Email)));
+                _notificationManager.AddNotification(Notification.Create(request.GetType().Name, nameof(request.Email), UserMessage.UserEmailAlreadyExists(request.Email)));
 
             Account account = Account.Create(request.Email, request.ProfilePictureUrl, request.Password, request.ConfirmPassword);
             User user = User.Create(request.Name, account);
 
             if (!user.IsValid())
-                _app.Services.NotificationManager.AddNotifications(user.GetNotifications());
+                _notificationManager.AddNotifications(user.GetNotifications());
 
-            await _app.UnitOfWork.Users.AddAsync(user, cancellationToken);
+            await _unitOfWork.Users.AddAsync(user, cancellationToken);
 
             return UserCreateResponse.AsSuccess(UserMessage.UserCreateSuccess(), HttpStatusCode.Created, UserCreateSuccessResponse.Create(user));
         }

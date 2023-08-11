@@ -35,14 +35,13 @@ namespace Financial.Control.Application.Controllers
         /// <summary>
         /// Busca uma receita específica no sistema
         /// </summary>
-        /// <param name="request"></param>
         /// <returns></returns>
         /// <response code="200">A receita foi encontrada.</response>
         /// <response code="500">Erro interno do sistema.</response>
         [HttpGet("{id}")]
         public Task<RevenueGetResponse> Get([FromRoute] long id)
         {
-            RevenueGetRequest request = new RevenueGetRequest(id);
+            RevenueGetRequest request = new(id);
             request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }
@@ -85,7 +84,7 @@ namespace Financial.Control.Application.Controllers
         [HttpDelete("{id}")]
         public Task<RevenueDeleteResponse> Delete([FromRoute] long id)
         {
-            RevenueDeleteRequest request = new RevenueDeleteRequest(id);
+            RevenueDeleteRequest request = new(id);
             request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }

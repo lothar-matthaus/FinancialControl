@@ -3,7 +3,8 @@ using Financial.Control.Application.Models.Cards.Response.Update;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
@@ -12,14 +13,14 @@ namespace Financial.Control.Application.Handlers.Cards
 {
     public class CardUpdateHandler : BaseRequestHandler<CardUpdateRequest, CardUpdateResponse>
     {
-        public CardUpdateHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor)
+        public CardUpdateHandler(IApplicationUser applicationUser, IUnitOfWork unitOfWork, INotificationManager notificationManager) : base(applicationUser, unitOfWork, notificationManager)
         {
         }
 
         public async override Task<CardUpdateResponse> Handle(CardUpdateRequest request, CancellationToken cancellationToken)
         {
-            Card card = await _app.UnitOfWork.Cards
-                .Query(card => card.Id.Equals(request.Id) && card.UserId.Equals(_app.CurrentUser.Id))
+            Card card = await _unitOfWork.Cards
+                .Query(card => card.Id.Equals(request.Id) && card.UserId.Equals(_applicationUser.Id))
                 .FirstOrDefaultAsync();
 
             if (card is null)
@@ -30,7 +31,7 @@ namespace Financial.Control.Application.Handlers.Cards
             (card as CreditCard).SetCardInvoiceDate(request.CardInvoiceDay);
             (card as CreditCard).SetLimit(request.Limit);
 
-            _app.UnitOfWork.Cards.Update(card);
+            _unitOfWork.Cards.Update(card);
 
             return CardUpdateResponse.AsSuccess(CardMessage.CardUpdateSuccess(), HttpStatusCode.OK, CardUpdateSuccessResponse.Create(card));
         }

@@ -1,13 +1,9 @@
 ﻿using Financial.Control.Domain.Entities;
-using System.Linq.Expressions;
+using Financial.Control.Domain.Interfaces.Repository.Base;
 
 namespace Financial.Control.Domain.Interfaces.Repository
 {
-    public interface ICategoryRepository
+    public interface ICategoryRepository : IRepository<Category>
     {
-        public IQueryable<Category> Query(Expression<Func<Category, bool>> expression);
-
-        //public void Add(Category category);
-        // public void Update(Category category);
     }
 }

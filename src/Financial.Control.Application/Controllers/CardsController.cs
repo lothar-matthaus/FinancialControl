@@ -31,7 +31,6 @@ namespace Financial.Control.Application.Controllers
 
         public async Task<CardCreateResponse> Post([FromBody] CardCreateRequest request)
         {
-            request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -45,7 +44,6 @@ namespace Financial.Control.Application.Controllers
         public async Task<CardUpdateResponse> Patch([FromRoute] long id, [FromBody] CardUpdateRequest request)
         {
             request.SetRequestId(id);
-            request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -61,7 +59,6 @@ namespace Financial.Control.Application.Controllers
         public async Task<CardDeleteResponse> Delete([FromRoute] long id)
         {
             CardDeleteRequest request = CardDeleteRequest.Create(id);
-            request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -77,7 +74,6 @@ namespace Financial.Control.Application.Controllers
         public async Task<CardGetResponse> Get([FromRoute] long id)
         {
             CardGetRequest request = CardGetRequest.Create(id);
-            request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -90,8 +86,7 @@ namespace Financial.Control.Application.Controllers
         [HttpGet]
         public async Task<CardListResponse> Get()
         {
-            CardListRequest request = new CardListRequest();
-            request.SetModelState(ModelState);
+            CardListRequest request = new();
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
     }

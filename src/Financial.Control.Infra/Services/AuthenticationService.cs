@@ -11,17 +11,19 @@ namespace Financial.Control.Infra.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly IAppConfig _config;
+        private readonly IAppConfig _appConfig;
+        private readonly INotificationManager _notificationManager;
 
-        public AuthenticationService(IAppConfig config)
+        public AuthenticationService(IAppConfig appConfig, INotificationManager notificationManager)
         {
-            _config = config;
+            _appConfig = appConfig;
+            _notificationManager = notificationManager;
         }
         public UserToken GenerateAccessToken(User user)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_config.JwtConfig.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            JwtSecurityTokenHandler tokenHandler = new();
+            byte[] key = Encoding.ASCII.GetBytes(_appConfig.JwtConfig.Secret);
+            SecurityTokenDescriptor tokenDescriptor = new()
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
@@ -29,12 +31,12 @@ namespace Financial.Control.Infra.Services
                     new Claim(ClaimTypes.Sid, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Name.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(_config.JwtConfig.ExpirationTime),
+                Expires = DateTime.UtcNow.AddMinutes(_appConfig.JwtConfig.ExpirationTime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Issuer = _config.JwtConfig.Issuer,
+                Issuer = _appConfig.JwtConfig.Issuer,
                 IssuedAt = DateTime.UtcNow
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             string tokenString = tokenHandler.WriteToken(token);
 
             return UserToken.Create(tokenString, tokenDescriptor.Expires.Value);
@@ -42,7 +44,9 @@ namespace Financial.Control.Infra.Services
 
         public UserToken Login(User user, string plainTextPassword, CancellationToken cancellationToken)
         {
-            if (!user.Account.Password.IsMatchPassword(plainTextPassword))
+            Password loginPassword = Password.CreateWithSalt(plainTextPassword, new StringBuilder(user?.Account?.Password?.Salt));
+
+            if (!loginPassword.Value.Equals(user?.Account?.Password?.Value))
                 return null;
 
             UserToken token = GenerateAccessToken(user);

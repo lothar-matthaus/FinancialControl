@@ -1,7 +1,8 @@
 ﻿using Financial.Control.Domain.Interfaces;
+using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Models;
+using Financial.Control.Domain.Repository;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace Financial.Control.Application.Handlers
 {
@@ -9,13 +10,16 @@ namespace Financial.Control.Application.Handlers
         where TRequest : IRequest<TResponse>
         where TResponse : IBaseResponse, new()
     {
-        protected readonly IApplication _app;
-        private readonly HttpContext _httpContext;
+        protected readonly IApplicationUser _applicationUser;
+        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly INotificationManager _notificationManager;
 
-        public BaseRequestHandler(IApplication application, IHttpContextAccessor httpContextAccessor)
+
+        public BaseRequestHandler(IApplicationUser applicationUser, IUnitOfWork unitOfWork, INotificationManager notificationManager)
         {
-            _app = application;
-            _httpContext = httpContextAccessor.HttpContext;
+            _applicationUser = applicationUser;
+            _unitOfWork = unitOfWork;
+            _notificationManager = notificationManager;
         }
 
         public abstract Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken);

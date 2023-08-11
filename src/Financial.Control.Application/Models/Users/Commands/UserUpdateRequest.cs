@@ -1,6 +1,5 @@
 ﻿using Financial.Control.Application.Models.Users.Response.Update.Users;
 using Financial.Control.Domain.Models.Users.Commands;
-using System.ComponentModel;
 
 namespace Financial.Control.Application.Models.Users.Commands
 {

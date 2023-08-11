@@ -1,6 +1,5 @@
 ﻿using Financial.Control.Application.Models.Users.Response.Update.Password;
 using Financial.Control.Domain.Models.Users.Commands;
-using System.ComponentModel.DataAnnotations;
 
 namespace Financial.Control.Application.Models.Users.Commands
 {

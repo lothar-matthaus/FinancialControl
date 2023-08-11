@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Application.Models.Users.Response.Create;
-using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Models.Users.Commands;
 
 namespace Financial.Control.Application.Models.Users.Commands

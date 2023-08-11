@@ -20,7 +20,6 @@ namespace Financial.Control.Application.Controllers
         [HttpGet]
         public async Task<CategoryListResponse> Post([FromQuery] CategoryListRequest request)
         {
-            request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
     }

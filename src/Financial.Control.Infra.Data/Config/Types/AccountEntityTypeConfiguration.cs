@@ -23,6 +23,7 @@ namespace Financial.Control.Infra.Data.Config.Types
                 password.Property(pass => pass.Value).IsRequired(true).HasMaxLength(256).HasColumnName("Password");
                 password.Property(pass => pass.Salt).IsRequired(true).HasMaxLength(256).HasColumnName("PasswordSalt");
                 password.Ignore(password => password.PlainText);
+                password.Ignore(password => password.ConfirmationPlainText);
             });
 
             builder.OwnsOne(account => account.ProfilePicture, profilePicture =>

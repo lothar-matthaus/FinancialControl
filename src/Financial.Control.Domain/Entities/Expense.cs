@@ -1,7 +1,6 @@
 ﻿using Financial.Control.Domain.Entities.Base;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Enums;
-using Financial.Control.Domain.Extensions;
 using Financial.Control.Domain.ValueObjects;
 
 namespace Financial.Control.Domain.Entities
@@ -74,15 +73,18 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         protected Expense() { }
-        private Expense(string description, Category category, Card card, Payment payment)
+        private Expense(string description, Category category, Card card, decimal value, int installment, PaymentType paymentType)
         {
             Description = description;
             Category = category;
             Card = card;
-            Payment = payment;
+            Payment = Payment.Create(value, installment, paymentType);
             PaidOut = false;
+
+            if (!Payment.IsValid())
+                _notifications.AddRange(Payment.GetNotifications());
         }
 
-        public static Expense Create(string description, Category category, Card card, Payment payment) => new Expense(description, category, card, payment);
+        public static Expense Create(string description, Category category, Card card, decimal value, int installment, PaymentType paymentType) => new Expense(description, category, card, value, installment, paymentType);
     }
 }

@@ -21,7 +21,6 @@ namespace Financial.Control.Application.Controllers
         [HttpPost]
         public Task<LoginResponse> Login([FromBody] LoginRequest request)
         {
-            request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }
     }

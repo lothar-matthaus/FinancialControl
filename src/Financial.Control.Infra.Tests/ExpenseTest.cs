@@ -1,8 +1,5 @@
 ﻿using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.ValueObjects;
-using Financial.Control.Infra.Services;
-using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Financial.Control.Infra.Tests

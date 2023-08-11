@@ -18,7 +18,6 @@ namespace Financial.Control.Application.Controllers
         [HttpPost]
         public async Task<ExpenseCreateResponse> Post([FromBody] ExpenseCreateRequest request)
         {
-            request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
     }

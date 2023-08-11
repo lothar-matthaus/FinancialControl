@@ -6,7 +6,6 @@ using Financial.Control.Infra.Config;
 using Financial.Control.Infra.Data;
 using Financial.Control.Infra.Services;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Financial.Control.Infra.IoC.Services
@@ -18,16 +17,10 @@ namespace Financial.Control.Infra.IoC.Services
             services.AddScoped<IAppConfig, AppConfig>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<INotificationManager, NotificationManager>();
-            services.AddScoped<IApplicationServices, ApplicationServices>();
-            services.AddScoped<IApplication>(service =>
+            services.AddScoped<IApplicationUser>(provider =>
             {
-                IAppConfig appConfig = service.GetRequiredService<IAppConfig>();
-                IConfiguration configuration = service.GetRequiredService<IConfiguration>();
-                IApplicationServices applicationServices = service.GetRequiredService<IApplicationServices>();
-                IUnitOfWork unitOfWork = service.GetRequiredService<IUnitOfWork>();
-                IHttpContextAccessor httpContextAccessor = service.GetRequiredService<IHttpContextAccessor>();
-
-                return new Config.Application(configuration, unitOfWork, applicationServices, appConfig, httpContextAccessor);
+                IHttpContextAccessor httpContext = provider.GetRequiredService<IHttpContextAccessor>();
+                return new ApplicationUser(httpContext);
             });
 
             return services;

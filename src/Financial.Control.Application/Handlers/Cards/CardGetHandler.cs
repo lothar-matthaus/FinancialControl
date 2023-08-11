@@ -3,7 +3,8 @@ using Financial.Control.Application.Models.Cards.Response.Get;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
@@ -12,16 +13,16 @@ namespace Financial.Control.Application.Handlers.Cards
 {
     public class CardGetHandler : BaseRequestHandler<CardGetRequest, CardGetResponse>
     {
-        public CardGetHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor) { }
+        public CardGetHandler(IApplicationUser applicationUser, IUnitOfWork unitOfWork, INotificationManager notificationManager) : base(applicationUser, unitOfWork, notificationManager) { }
 
         public async override Task<CardGetResponse> Handle(CardGetRequest request, CancellationToken cancellationToken)
         {
-            Card card = await _app.UnitOfWork.Cards.Query(card => card.Id.Equals(request.Id) && card.UserId.Equals(_app.CurrentUser.Id))
+            Card card = await _unitOfWork.Cards.Query(card => card.Id.Equals(request.Id) && card.UserId.Equals(_applicationUser.Id))
                 .FirstOrDefaultAsync();
 
             if (card is null)
                 return CardGetResponse.AsError(CardMessage.CardGetError(), HttpStatusCode.BadRequest, CardGetErrorResponse
-                    .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(request.Id) ) }));
+                    .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(request.Id)) }));
 
             return CardGetResponse.AsSuccess(CardMessage.CardGetSuccess(), HttpStatusCode.OK, CardGetSuccessResponse.Create(card));
         }

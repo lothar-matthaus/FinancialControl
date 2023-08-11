@@ -3,7 +3,8 @@ using Financial.Control.Application.Models.Cards.Response.Create;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
@@ -12,14 +13,14 @@ namespace Financial.Control.Application.Handlers.Cards
 {
     public class CardCreateHandler : BaseRequestHandler<CardCreateRequest, CardCreateResponse>
     {
-        public CardCreateHandler(IApplication application, IHttpContextAccessor httpContextAccessor) : base(application, httpContextAccessor) { }
+        public CardCreateHandler(IApplicationUser applicationUser, IUnitOfWork unitOfWork, INotificationManager notificationManager) : base(applicationUser, unitOfWork, notificationManager) { }
 
         public async override Task<CardCreateResponse> Handle(CardCreateRequest request, CancellationToken cancellationToken)
         {
-            User user = await _app.UnitOfWork.Users.Query(us => us.Id.Equals(_app.CurrentUser.Id))
+            User user = await _unitOfWork.Users.Query(us => us.Id.Equals(_applicationUser.Id))
                 .FirstOrDefaultAsync();
 
-            bool cardAlreadyExists = _app.UnitOfWork.Cards.Query(card => card.CardNumber.Equals(request.CardNumber.Replace(" ", ""))).Any();
+            bool cardAlreadyExists = _unitOfWork.Cards.Query(card => card.CardNumber.Equals(request.CardNumber.Replace(" ", ""))).Any();
 
             if (cardAlreadyExists)
                 return CardCreateResponse.AsError(CardMessage.CardCreateError(), HttpStatusCode.Conflict, CardCreateErrorResponse
@@ -29,7 +30,7 @@ namespace Financial.Control.Application.Handlers.Cards
 
             user.AddCard(card);
 
-            _app.UnitOfWork.Users.Update(user);
+            _unitOfWork.Users.Update(user);
 
             return CardCreateResponse.AsSuccess(CardMessage.CardCreateSuccess(), HttpStatusCode.Created, CardCreateSuccessResponse.Create(card));
         }

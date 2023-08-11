@@ -1,6 +1,5 @@
 ﻿using Financial.Control.Domain.Interfaces.Repository;
 using Financial.Control.Domain.Repository;
-using Financial.Control.Infra.Data.Repository;
 
 namespace Financial.Control.Infra.Data
 {
@@ -8,20 +7,24 @@ namespace Financial.Control.Infra.Data
     {
         private readonly FinancialControlDbContext _dbContext;
 
-        public UnitOfWork(FinancialControlDbContext dbContext)
+        public UnitOfWork(FinancialControlDbContext dbContext,
+            IUserRepository userRepository,
+            ICardRepository cardRepository,
+            IRevenueRepository revenueRepository,
+            ICategoryRepository categoryRepository
+        )
         {
             _dbContext = dbContext;
+            Users = userRepository;
+            Cards = cardRepository;
+            Revenues = revenueRepository;
+            Categories = categoryRepository;
         }
 
-        private IUserRepository _userRepository;
-        private ICardRepository _cardRepository;
-        private IRevenueRepository _revenueRepository;
-        private ICategoryRepository _categoryRepository;
-
-        public IUserRepository Users => _userRepository ?? new UserRepository(_dbContext);
-        public ICardRepository Cards => _cardRepository ?? new CardRepository(_dbContext);
-        public IRevenueRepository Revenues => _revenueRepository ?? new RevenueRepository(_dbContext);
-        public ICategoryRepository Categories => _categoryRepository ?? new CategoryRepository(_dbContext);
+        public IUserRepository Users { get; }
+        public ICardRepository Cards { get; }
+        public IRevenueRepository Revenues { get; }
+        public ICategoryRepository Categories { get; }
 
         public async Task Commit(CancellationToken cancellationToken) => await _dbContext.SaveChangesAsync(cancellationToken);
     }

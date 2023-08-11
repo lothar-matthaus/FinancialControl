@@ -30,7 +30,6 @@ namespace Financial.Control.Application.Controllers
         [HttpPost]
         public async Task<UserCreateResponse> CreateUser([FromBody] UserCreateRequest request)
         {
-            request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -45,7 +44,6 @@ namespace Financial.Control.Application.Controllers
         [Authorize]
         public async Task<UserUpdateResponse> UpdateUser([FromBody] UserUpdateRequest request)
         {
-            request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -60,7 +58,6 @@ namespace Financial.Control.Application.Controllers
         public async Task<UserGetResponse> GetUser()
         {
             UserGetRequest request = UserGetRequest.Create();
-            request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -74,7 +71,6 @@ namespace Financial.Control.Application.Controllers
         [Authorize]
         public async Task<UserUpdatePasswordResponse> UpdatePassword([FromBody] UserUpdatePasswordRequest request)
         {
-            request.SetModelState(ModelState);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
     }
