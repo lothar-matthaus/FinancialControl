@@ -8,6 +8,6 @@ namespace Financial.Control.Infra.Data.Repository
     {
         public CardRepository(FinancialControlDbContext dbContext) : base(dbContext) { }
 
-        public bool CardAlreadyExists(string cardNumber) => _dbContext.Where(card => card.CardNumber.Equals(cardNumber)).Any();
+        public bool CardAlreadyExists(string cardNumber) => _dbContext.Where(card => card.Number.Equals(cardNumber)).Any();
     }
 }

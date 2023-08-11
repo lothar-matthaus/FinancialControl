@@ -19,8 +19,8 @@ namespace Financial.Control.Domain.Entities
                          ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Name), "O nome do usuário deve ser informado."),
                          ifValid: () => _name = value);
 
-                Validate(isInvalidIf: (value.Length < 3),
-                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Name), "O nome do usuário é muito curto."),
+                Validate(isInvalidIf: (value.Length < 4),
+                         ifInvalid: () => Notification.Create(this.GetType().Name, nameof(Name), "O nome do usuário deve ter pelo menos 4 caracteres."),
                          ifValid: () => _name = value);
             }
         }

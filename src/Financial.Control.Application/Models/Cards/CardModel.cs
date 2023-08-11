@@ -16,11 +16,11 @@ namespace Financial.Control.Application.Models.Cards
 
         public CardModel(Card card) : base(card.Id, card.CreationDate, card.UpdateDate)
         {
-            CardNumber = card.CardNumber;
+            CardNumber = card.Number;
             Name = card.Name;
             Flag = new KeyValuePair<CardFlag, string>(card.Flag, card.Flag.GetDescription());
-            Type = new KeyValuePair<CardType, string>(card.CardType, card.CardType.GetDescription());
-            CardInvoiceDay = (card as CreditCard)?.CardInvoiceDay;
+            Type = new KeyValuePair<CardType, string>(card.Type, card.Type.GetDescription());
+            CardInvoiceDay = (card as CreditCard)?.InvoiceDay;
             Limit = (card as CreditCard)?.Limit;
         }
 

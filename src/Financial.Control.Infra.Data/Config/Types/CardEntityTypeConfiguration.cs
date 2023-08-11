@@ -13,12 +13,12 @@ namespace Financial.Control.Infra.Data.Config.Types
 
             builder.HasKey(card => card.Id);
 
-            builder.Property(card => card.CardType).IsRequired(true);
+            builder.Property(card => card.Type).IsRequired(true);
             builder.Property(card => card.Name).IsRequired(true);
             builder.Property(card => card.Flag).IsRequired(true);
-            builder.Property(card => card.CardNumber).IsRequired(true).HasMaxLength(16);
+            builder.Property(card => card.Number).IsRequired(true).HasMaxLength(16);
 
-            builder.HasDiscriminator<CardType>("CardType").HasValue<CreditCard>(CardType.Credit).HasValue<DebitCard>(CardType.Debit);
+            builder.HasDiscriminator<CardType>("Type").HasValue<CreditCard>(CardType.Credit).HasValue<DebitCard>(CardType.Debit);
 
             builder.Property(card => card.CreationDate).ValueGeneratedOnAdd().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(card => card.UpdateDate).ValueGeneratedOnAddOrUpdate().HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -29,7 +29,7 @@ namespace Financial.Control.Infra.Data.Config.Types
         public void Configure(EntityTypeBuilder<CreditCard> builder)
         {
             builder.Property(card => card.Limit).IsRequired(true);
-            builder.Property(card => card.CardInvoiceDay).IsRequired(true).HasColumnName("CardInvoiceDay");
+            builder.Property(card => card.InvoiceDay).IsRequired(true);
         }
 
         public void Configure(EntityTypeBuilder<DebitCard> builder)

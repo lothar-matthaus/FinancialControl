@@ -33,7 +33,7 @@ namespace Financial.Control.Application.Handlers.Logon
 
             if (user is null || user.Account.Token is null)
                 return LoginResponse.AsError(LoginMessage.LoginError(), HttpStatusCode.BadRequest, LoginErrorResponse
-                    .Create(LoginMessage.UserOrPasswordInvalid(), new List<Notification>() { Notification.Create(request.GetType().Name) }));
+                    .Create(LoginMessage.UserOrPasswordInvalid(), null));
 
             return LoginResponse.AsSuccess(LoginMessage.LoginSuccess(), HttpStatusCode.OK, LoginSuccessResponse.Create(user));
         }

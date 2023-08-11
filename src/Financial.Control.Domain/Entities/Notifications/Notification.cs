@@ -15,9 +15,12 @@
             Field = field;
         }
 
-        #region Factory
-
+        #region Methods
+        public override string ToString() =>  $@"Context: {Context}\nField: {Field}\nMessage: {Message}";
         #endregion
+
+        #region Factory
         public static Notification Create(string context, string field = null, string message = null) => new Notification(field, context, message);
+        #endregion
     }
 }

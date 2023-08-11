@@ -20,13 +20,19 @@ namespace Financial.Control.Application.Handlers.Cards
             User user = await _unitOfWork.Users.Query(us => us.Id.Equals(_applicationUser.Id))
                 .FirstOrDefaultAsync();
 
-            bool cardAlreadyExists = _unitOfWork.Cards.Query(card => card.CardNumber.Equals(request.CardNumber.Replace(" ", ""))).Any();
+            bool cardAlreadyExists = _unitOfWork.Cards.Query(card => card.Number.Equals(request.CardNumber.Replace(" ", ""))).Any();
 
             if (cardAlreadyExists)
                 return CardCreateResponse.AsError(CardMessage.CardCreateError(), HttpStatusCode.Conflict, CardCreateErrorResponse
                     .Create(CardMessage.CardAlreadyExists(request.CardNumber), new List<Notification>() { Notification.Create(request.GetType().Name, string.Empty, null) }));
 
             Card card = request;
+
+            if (!card.IsValid())
+            {
+                _notificationManager.AddNotifications(card.GetNotifications());
+                return null;
+            }
 
             user.AddCard(card);
 

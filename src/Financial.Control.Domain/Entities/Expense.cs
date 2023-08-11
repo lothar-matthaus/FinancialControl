@@ -81,8 +81,9 @@ namespace Financial.Control.Domain.Entities
             Payment = Payment.Create(value, installment, paymentType);
             PaidOut = false;
 
-            if (!Payment.IsValid())
-                _notifications.AddRange(Payment.GetNotifications());
+            _notifications.AddRange(Payment.GetNotifications());
+            _notifications.AddRange(Category.GetNotifications());
+            _notifications.AddRange(Card?.GetNotifications());
         }
 
         public static Expense Create(string description, Category category, Card card, decimal value, int installment, PaymentType paymentType) => new Expense(description, category, card, value, installment, paymentType);

@@ -1,19 +1,48 @@
-﻿using Financial.Control.Domain.Enums;
+﻿using Financial.Control.Domain.Entities.Notifications;
+using Financial.Control.Domain.Enums;
 
 namespace Financial.Control.Domain.Entities
 {
     public class CreditCard : Card
     {
+        #region Private properties
+        private decimal _limit;
+        private int _invoiceDay;
+        #endregion
+
         #region Properties
-        public decimal Limit { get; private set; }
-        public int CardInvoiceDay { get; private set; }
+        public int InvoiceDay
+        {
+            get { return _invoiceDay; }
+            set
+            {
+                Validate(isInvalidIf: (value == default),
+                         ifInvalid: () => Notification.Create(GetType().Name, nameof(InvoiceDay), "A data de vencimento da fatura deve ser informada."),
+                         ifValid: () => _invoiceDay = value);
+
+                Validate(isInvalidIf: (value > 31),
+                         ifInvalid: () => Notification.Create(GetType().Name, nameof(InvoiceDay), "A data de vencimento não é válida."),
+                         ifValid: () => _invoiceDay = value);
+            }
+        }
+
+        public decimal Limit
+        {
+            get { return _limit; }
+            set
+            {
+                Validate(isInvalidIf: (value == default),
+                         ifInvalid: () => Notification.Create(GetType().Name, nameof(Limit), "O limite informado não é válido."),
+                         ifValid: () => _limit = value);
+            }
+        }
         #endregion
 
         protected CreditCard() : base() { }
-        private CreditCard(string name, decimal limit, string number, int cardInvoiceDate) : base(name, CardType.Credit, number)
+        private CreditCard(string name, decimal limit, string number, int invoiceDate) : base(name, CardType.Credit, number)
         {
             Limit = limit;
-            CardInvoiceDay = cardInvoiceDate;
+            InvoiceDay = invoiceDate;
         }
 
         #region Behaviors
@@ -22,7 +51,7 @@ namespace Financial.Control.Domain.Entities
             if (cardInvoiceDate is null)
                 return;
 
-            CardInvoiceDay = cardInvoiceDate.Value;
+            InvoiceDay = cardInvoiceDate.Value;
         }
 
         public void SetLimit(decimal? limit)
@@ -33,6 +62,6 @@ namespace Financial.Control.Domain.Entities
             Limit = limit.Value;
         }
         #endregion
-        public static CreditCard Create(string name, decimal limit, string number, int CardInvoiceDay) => new CreditCard(name, limit, number, CardInvoiceDay);
+        public static CreditCard Create(string name, decimal limit, string number, int invoiceDate) => new CreditCard(name, limit, number, invoiceDate);
     }
 }
