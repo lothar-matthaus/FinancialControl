@@ -1,9 +1,11 @@
-﻿using Financial.Control.Application.Models.Users.Queries;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Users;
+using Financial.Control.Application.Models.Users.Queries;
 using Financial.Control.Application.Models.Users.Response.Get;
 using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Models.Users;
 using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -23,11 +25,7 @@ namespace Financial.Control.Application.Handlers.Users
                 .Query(us => us.Id.Equals(_applicationUser.Id)).Include(user => user.Account)
                 .FirstOrDefaultAsync();
 
-            if (user is null)
-                return UserGetResponse.AsError(UserMessage.UserGetError(), HttpStatusCode.NotFound, UserGetErrorResponse
-                    .Create(UserMessage.UserNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(_applicationUser.Id)) }));
-
-            return UserGetResponse.AsSuccess(UserMessage.UserGetSuccess(), HttpStatusCode.OK, UserGetSuccessResponse.Create(user));
+            return UserGetResponse.AsSuccess(UserMessage.UserGetSuccess(), HttpStatusCode.OK, SuccessResponse<IUserModel>.Create(UserModel.Create(user)));
         }
     }
 }

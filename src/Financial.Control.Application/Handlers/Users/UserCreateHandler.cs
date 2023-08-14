@@ -1,9 +1,12 @@
-﻿using Financial.Control.Application.Models.Users.Commands;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Users;
+using Financial.Control.Application.Models.Users.Commands;
 using Financial.Control.Application.Models.Users.Response.Create;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Models.Users;
 using Financial.Control.Domain.Repository;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
@@ -29,7 +32,7 @@ namespace Financial.Control.Application.Handlers.Users
 
             await _unitOfWork.Users.AddAsync(user, cancellationToken);
 
-            return UserCreateResponse.AsSuccess(UserMessage.UserCreateSuccess(), HttpStatusCode.Created, UserCreateSuccessResponse.Create(user));
+            return UserCreateResponse.AsSuccess(UserMessage.UserCreateSuccess(), HttpStatusCode.Created, SuccessResponse<IUserModel>.Create(UserModel.Create(user)));
         }
     }
 }

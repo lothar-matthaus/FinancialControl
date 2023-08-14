@@ -11,7 +11,7 @@ namespace Financial.Control.Application.Models.Categories
             Name = category.Name;
         }
 
-        #region MyRegion
+        #region Factory
         public static CategoryModel Create(Category category) => new CategoryModel(category);
         #endregion
     }

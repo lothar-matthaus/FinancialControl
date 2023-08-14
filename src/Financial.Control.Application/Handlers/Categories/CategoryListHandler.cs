@@ -1,4 +1,5 @@
-﻿using Financial.Control.Application.Models.Categories;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Categories;
 using Financial.Control.Application.Models.Categories.Queries;
 using Financial.Control.Application.Models.Categories.Response;
 using Financial.Control.Domain.Entities;
@@ -19,14 +20,15 @@ namespace Financial.Control.Application.Handlers.Categories
         public async override Task<CategoryListResponse> Handle(CategoryListRequest request, CancellationToken cancellationToken)
         {
             IReadOnlyCollection<Category> query = await _unitOfWork.Categories
-                .Query(cat => request.Name == null || EF.Functions.Like(cat.Name, $"{request.Name}%"))
+                .Query(cat => request.Name == null || EF.Functions.Like(cat.Name, $"%{request.Name}%"))
                 .ToListAsync(cancellationToken);
 
-            IReadOnlyCollection<ICategoryModel> categories = query.Select(cat => CategoryModel.Create(cat))
+            IReadOnlyCollection<ICategoryModel> categories = query
+                .Select(cat => CategoryModel.Create(cat))
                 .ToList();
 
             return CategoryListResponse.AsSuccess(categories.Any() ? CategoryMessage.CategoryListsuccess() : CategoryMessage.CategoryListNotFound(),
-                HttpStatusCode.OK, CategoryListSuccessResponse.Create(categories));
+                HttpStatusCode.OK, SuccessResponse<ICategoryModel>.Create(categories));
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿using Financial.Control.Application.Models.Users.Commands;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Users;
+using Financial.Control.Application.Models.Users.Commands;
 using Financial.Control.Application.Models.Users.Response.Update.Password;
 using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Models.Users;
 using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -20,10 +22,6 @@ namespace Financial.Control.Application.Handlers.Users
             User user = await _unitOfWork.Users.Query(us => us.Id.Equals(_applicationUser.Id))
                 .FirstOrDefaultAsync(cancellationToken);
 
-            if (user is null)
-                return UserUpdatePasswordResponse.AsError(UserMessage.UserUpdatePasswordError(), HttpStatusCode.BadRequest, UserUpdatePasswordErrorResponse
-                    .Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(user?.Id)) }));
-
             user.Account.SetPassword(request.NewPassword, request.ConfirmNewPassword, request.CurrentPassword);
 
             if (!user.Account.Password.IsValid())
@@ -34,7 +32,7 @@ namespace Financial.Control.Application.Handlers.Users
 
             _unitOfWork.Users.Update(user);
 
-            return UserUpdatePasswordResponse.AsSuccess(UserMessage.UserUpdatePasswordSuccess(), HttpStatusCode.OK, UserUpdatePasswordSuccessResponse.Create(user));
+            return UserUpdatePasswordResponse.AsSuccess(UserMessage.UserUpdatePasswordSuccess(), HttpStatusCode.OK, SuccessResponse<IUserModel>.Create(UserModel.Create(user)));
         }
     }
 }

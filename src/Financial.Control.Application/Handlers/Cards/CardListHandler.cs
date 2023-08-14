@@ -1,4 +1,5 @@
-﻿using Financial.Control.Application.Models.Cards;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Cards;
 using Financial.Control.Application.Models.Cards.Queries;
 using Financial.Control.Application.Models.Cards.Response.List;
 using Financial.Control.Domain.Entities;
@@ -21,7 +22,7 @@ namespace Financial.Control.Application.Handlers.Cards
             IReadOnlyCollection<ICardModel> cardsList = cards.ToList().ConvertAll(card => CardModel.Create(card));
 
             return CardListResponse.AsSuccess(cardsList.Any() ? CardMessage.CardListSuccess() : CardMessage.CardListNotFound(_applicationUser.Nome),
-                System.Net.HttpStatusCode.OK, CardListSuccessResponse.Create(cardsList));
+                System.Net.HttpStatusCode.OK, SuccessResponse<ICardModel>.Create(cardsList));
         }
     }
 }

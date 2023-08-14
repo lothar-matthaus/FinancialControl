@@ -1,9 +1,12 @@
-﻿using Financial.Control.Application.Models.Revenues.Queries;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Revenues;
+using Financial.Control.Application.Models.Revenues.Queries;
 using Financial.Control.Application.Models.Revenues.Response.Get;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Models.Revenues;
 using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -22,10 +25,10 @@ namespace Financial.Control.Application.Handlers.Revenues
                 .FirstOrDefaultAsync();
 
             if (revenue is null)
-                return RevenueGetResponse.AsError(RevenueMessage.RevenueGetError(), HttpStatusCode.BadRequest, RevenueGetErrorResponse
+                return RevenueGetResponse.AsError(RevenueMessage.RevenueGetError(), HttpStatusCode.BadRequest, ErrorResponse
                     .Create(RevenueMessage.RevenueGetNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "RevenueId", GenericMessage.IdNotExists(request.Id)) }));
 
-            return RevenueGetResponse.AsSuccess(RevenueMessage.RevenueGetSuccess(), HttpStatusCode.Created, RevenueGetSuccessResponse.Create(revenue));
+            return RevenueGetResponse.AsSuccess(RevenueMessage.RevenueGetSuccess(), HttpStatusCode.Created, SuccessResponse<IRevenueModel>.Create(RevenueModel.Create(revenue)));
         }
     }
 }

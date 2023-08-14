@@ -36,7 +36,9 @@ namespace Financial.Control.Application.Middlewares
 
             try
             {
-                User user = await _unitOfWork.Users.Query(us => us.Id.Equals(_applicationUser.Id)).FirstOrDefaultAsync(cancellationToken);
+                User user = await _unitOfWork.Users
+                    .Query(us => us.Id.Equals(_applicationUser.Id))
+                    .FirstOrDefaultAsync(cancellationToken);
 
                 if (_httpContext.User.Identity.IsAuthenticated && user is null)
                 {

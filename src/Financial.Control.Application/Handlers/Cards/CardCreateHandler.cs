@@ -1,9 +1,12 @@
-﻿using Financial.Control.Application.Models.Cards.Commands;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Cards;
+using Financial.Control.Application.Models.Cards.Commands;
 using Financial.Control.Application.Models.Cards.Response.Create;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Models.Cards;
 using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -23,7 +26,7 @@ namespace Financial.Control.Application.Handlers.Cards
             bool cardAlreadyExists = _unitOfWork.Cards.Query(card => card.Number.Equals(request.CardNumber.Replace(" ", ""))).Any();
 
             if (cardAlreadyExists)
-                return CardCreateResponse.AsError(CardMessage.CardCreateError(), HttpStatusCode.Conflict, CardCreateErrorResponse
+                return CardCreateResponse.AsError(CardMessage.CardCreateError(), HttpStatusCode.Conflict, ErrorResponse
                     .Create(CardMessage.CardAlreadyExists(request.CardNumber), new List<Notification>() { Notification.Create(request.GetType().Name, string.Empty, null) }));
 
             Card card = request;
@@ -38,7 +41,7 @@ namespace Financial.Control.Application.Handlers.Cards
 
             _unitOfWork.Users.Update(user);
 
-            return CardCreateResponse.AsSuccess(CardMessage.CardCreateSuccess(), HttpStatusCode.Created, CardCreateSuccessResponse.Create(card));
+            return CardCreateResponse.AsSuccess(CardMessage.CardCreateSuccess(), HttpStatusCode.Created, SuccessResponse<ICardModel>.Create(CardModel.Create(card)));
         }
     }
 }

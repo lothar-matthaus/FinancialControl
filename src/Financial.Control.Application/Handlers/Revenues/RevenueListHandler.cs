@@ -1,9 +1,11 @@
-﻿using Financial.Control.Application.Models.Revenues;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Revenues;
 using Financial.Control.Application.Models.Revenues.Queries;
 using Financial.Control.Application.Models.Revenues.Response.List;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Models.Revenues;
 using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -22,11 +24,11 @@ namespace Financial.Control.Application.Handlers.Revenues
 
             IReadOnlyCollection<Revenue> revenues = await _unitOfWork.Revenues
                 .Query(rev => rev.User.Id.Equals(_applicationUser.Id) &&
-                      (dateFilter == default || rev.Date.Equals(dateFilter))
-                ).ToListAsync(cancellationToken);
+                      (dateFilter == default || rev.Date.Equals(dateFilter)))
+                .ToListAsync(cancellationToken);
 
             return RevenueListResponse.AsSuccess(revenues.Any() ? RevenueMessage.RevenueListSuccess() : RevenueMessage.RevenueListNotFound(),
-                HttpStatusCode.OK, RevenueListSuccessResponse.Create(revenues.ToList().ConvertAll(rev => RevenueModel.Create(rev)))); ;
+                HttpStatusCode.OK, SuccessResponse<IRevenueModel>.Create(revenues.ToList().ConvertAll(rev => RevenueModel.Create(rev)))); ;
         }
     }
 }

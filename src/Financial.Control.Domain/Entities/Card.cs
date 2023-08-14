@@ -40,7 +40,7 @@ namespace Financial.Control.Domain.Entities
                 Validate(isInvalidIf: (string.IsNullOrWhiteSpace(value)),
                          ifInvalid: () => Notification.Create(GetType().Name, nameof(Name), "O nome do cartão deve ser informado."),
                          ifValid: () => _name = value);
-                
+
                 Validate(isInvalidIf: (value.Length < 4),
                          ifInvalid: () => Notification.Create(GetType().Name, nameof(Name), "O nome do cartão deve ter pelo menos 4 caracteres."),
                          ifValid: () => _name = value);
@@ -78,18 +78,20 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         public Card() { }
-        protected Card(string name, CardType cardType, string cardNumber)
+        protected Card(string name, CardType cardType, string number)
         {
             Name = name;
-            Number = cardNumber;
-            Flag = SetCardFlag(cardNumber.Replace(" ", ""));
+            Number = FormatCardNumber(number);
+            Flag = SetCardFlag(FormatCardNumber(number));
             Type = cardType;
         }
 
         #region Private Methods
-        private bool IsValidCardNumber(string cardNumber)
+
+        private string FormatCardNumber(string number) => Regex.Replace(number, @"\D", "");
+        private bool IsValidCardNumber(string number)
         {
-            string cleanedNumber = new string(cardNumber.Where(char.IsDigit).ToArray());
+            string cleanedNumber = new string(number.Where(char.IsDigit).ToArray());
 
             if (cleanedNumber.Length < 13 || cleanedNumber.Length > 19)
             {
@@ -118,9 +120,8 @@ namespace Financial.Control.Domain.Entities
 
             return sum % 10 == 0;
         }
-
-        private CardFlag SetCardFlag(string cardNumber) => CardFlagPattern.Patterns
-                    .Where(pattern => Regex.IsMatch(cardNumber, pattern.Value))
+        private CardFlag SetCardFlag(string number) => CardFlagPattern.Patterns
+                    .Where(pattern => Regex.IsMatch(number, pattern.Value))
                     .Select(pattern => pattern.Key)
                     .FirstOrDefault();
         #endregion

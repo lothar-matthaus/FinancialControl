@@ -9,6 +9,9 @@ namespace Financial.Control.Application.Models.Logon
         public string Name { get; }
         public string Email { get; }
         public UserToken Token { get; }
+        public long Id { get; }
+        public DateTime CreationDate { get; }
+        public DateTime UpdateDate { get; }
 
         private LoginModel(User user)
         {

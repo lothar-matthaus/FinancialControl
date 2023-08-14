@@ -1,10 +1,13 @@
-﻿using Financial.Control.Application.Models.Expenses.Commands;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Expenses;
+using Financial.Control.Application.Models.Expenses.Commands;
 using Financial.Control.Application.Models.Expenses.Response;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Enums;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Models.Expenses;
 using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -25,7 +28,7 @@ namespace Financial.Control.Application.Handlers.Expenses
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (category is null)
-                return ExpenseCreateResponse.AsError(ExpenseMessage.ExpenseCreateError(), HttpStatusCode.BadRequest, ExpenseCreateErrorResponse
+                return ExpenseCreateResponse.AsError(ExpenseMessage.ExpenseCreateError(), HttpStatusCode.BadRequest, ErrorResponse
                     .Create(CategoryMessage.CategoryGetNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(request.CategoryId)) }));
 
             Card card = null;
@@ -43,7 +46,7 @@ namespace Financial.Control.Application.Handlers.Expenses
 
             _unitOfWork.Users.Update(user);
 
-            return ExpenseCreateResponse.AsSuccess(ExpenseMessage.ExpenseCreateSuccess(), HttpStatusCode.Created, ExpenseCreateSuccessResponse.Create(expense));
+            return ExpenseCreateResponse.AsSuccess(ExpenseMessage.ExpenseCreateSuccess(), HttpStatusCode.Created, SuccessResponse<IExpenseModel>.Create(ExpenseModel.Create(expense)));
         }
     }
 }

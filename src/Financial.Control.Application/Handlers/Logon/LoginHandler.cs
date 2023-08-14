@@ -1,9 +1,11 @@
-﻿using Financial.Control.Application.Models.Logon.Commands;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Logon;
+using Financial.Control.Application.Models.Logon.Commands;
 using Financial.Control.Application.Models.Logon.Response;
 using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Models.Logon;
 using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -32,10 +34,9 @@ namespace Financial.Control.Application.Handlers.Logon
             _authenticationService.Login(user, request.Password, cancellationToken);
 
             if (user is null || user.Account.Token is null)
-                return LoginResponse.AsError(LoginMessage.LoginError(), HttpStatusCode.BadRequest, LoginErrorResponse
-                    .Create(LoginMessage.UserOrPasswordInvalid(), null));
+                return LoginResponse.AsError(LoginMessage.LoginError(), HttpStatusCode.BadRequest, ErrorResponse.Create(LoginMessage.UserOrPasswordInvalid(), null));
 
-            return LoginResponse.AsSuccess(LoginMessage.LoginSuccess(), HttpStatusCode.OK, LoginSuccessResponse.Create(user));
+            return LoginResponse.AsSuccess(LoginMessage.LoginSuccess(), HttpStatusCode.OK, SuccessResponse<ILoginModel>.Create(LoginModel.Create(user)));
         }
     }
 }

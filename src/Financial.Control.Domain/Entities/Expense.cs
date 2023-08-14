@@ -77,12 +77,12 @@ namespace Financial.Control.Domain.Entities
         {
             Description = description;
             Category = category;
-            Card = card;
             Payment = Payment.Create(value, installment, paymentType);
+            Card = card;
             PaidOut = false;
 
-            _notifications.AddRange(Payment.GetNotifications());
-            _notifications.AddRange(Category.GetNotifications());
+            _notifications.AddRange(Payment?.GetNotifications());
+            _notifications.AddRange(Category?.GetNotifications());
             _notifications.AddRange(Card?.GetNotifications());
         }
 

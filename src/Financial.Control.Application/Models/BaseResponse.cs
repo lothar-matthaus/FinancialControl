@@ -3,7 +3,10 @@ using System.Net;
 
 namespace Financial.Control.Application.Models
 {
-    public abstract class BaseResponse<TSuccess, TError> : IBaseResponse<TSuccess, TError> where TSuccess : IBaseSuccessResponse where TError : IBaseErrorResponse
+    public abstract class BaseResponse<TSuccess, TError, TModel> : IBaseResponse<TSuccess, TError, TModel>
+        where TSuccess : ISuccessResponse<TModel>
+        where TError : IErrorResponse
+        where TModel : IBaseModel
     {
         public string Message { get; protected set; }
         public HttpStatusCode StatusCode { get; protected set; }
@@ -20,6 +23,7 @@ namespace Financial.Control.Application.Models
             StatusCode = statusCode;
             Success = success;
         }
+
         protected BaseResponse(string message, HttpStatusCode statusCode, TError error)
         {
             Message = message;

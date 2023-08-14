@@ -1,9 +1,12 @@
-﻿using Financial.Control.Application.Models.Revenues.Commands;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Revenues;
+using Financial.Control.Application.Models.Revenues.Commands;
 using Financial.Control.Application.Models.Revenues.Response.Create;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Models.Revenues;
 using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -21,14 +24,14 @@ namespace Financial.Control.Application.Handlers.Revenues
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (user is null)
-                return RevenueCreateResponse.AsError(RevenueMessage.RevenueCreateError(), HttpStatusCode.BadRequest, RevenueCreateErrorResponse
+                return RevenueCreateResponse.AsError(RevenueMessage.RevenueCreateError(), HttpStatusCode.BadRequest, ErrorResponse
                     .Create(UserMessage.UserNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(_applicationUser.Id)) }));
 
             user.AddRevenue(request);
 
             _unitOfWork.Users.Update(user);
 
-            return RevenueCreateResponse.AsSuccess(RevenueMessage.RevenueCreateSuccess(), HttpStatusCode.Created, RevenueCreateSuccessResponse.Create(request));
+            return RevenueCreateResponse.AsSuccess(RevenueMessage.RevenueCreateSuccess(), HttpStatusCode.Created, SuccessResponse<IRevenueModel>.Create(RevenueModel.Create(request)));
         }
     }
 }

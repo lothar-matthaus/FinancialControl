@@ -28,7 +28,6 @@ namespace Financial.Control.Application.Controllers
         [HttpPost]
         public Task<RevenueCreateResponse> CreateRevenue([FromBody] RevenueCreateRequest request)
         {
-            request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -42,7 +41,6 @@ namespace Financial.Control.Application.Controllers
         public Task<RevenueGetResponse> Get([FromRoute] long id)
         {
             RevenueGetRequest request = new(id);
-            request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -55,7 +53,6 @@ namespace Financial.Control.Application.Controllers
         [HttpGet()]
         public Task<RevenueListResponse> Get([FromQuery] RevenueListRequest request)
         {
-            request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -70,7 +67,6 @@ namespace Financial.Control.Application.Controllers
         public Task<RevenueUpdateResponse> Update([FromRoute] long id, [FromBody] RevenueUpdateRequest request)
         {
             request.SetRequestId(id);
-            request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -85,7 +81,6 @@ namespace Financial.Control.Application.Controllers
         public Task<RevenueDeleteResponse> Delete([FromRoute] long id)
         {
             RevenueDeleteRequest request = new(id);
-            request.SetModelState(ModelState);
             return _mediatR.Send(request, HttpContext.RequestAborted);
         }
     }

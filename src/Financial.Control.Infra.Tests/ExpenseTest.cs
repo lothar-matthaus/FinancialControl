@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.ValueObjects;
 using Xunit;
 
 namespace Financial.Control.Infra.Tests

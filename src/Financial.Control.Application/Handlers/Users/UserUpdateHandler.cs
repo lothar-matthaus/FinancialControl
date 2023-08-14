@@ -1,9 +1,12 @@
-﻿using Financial.Control.Application.Models.Users.Commands;
+﻿using Financial.Control.Application.Models;
+using Financial.Control.Application.Models.Users;
+using Financial.Control.Application.Models.Users.Commands;
 using Financial.Control.Application.Models.Users.Response.Update.Users;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
+using Financial.Control.Domain.Models.Users;
 using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -28,13 +31,8 @@ namespace Financial.Control.Application.Handlers.Users
                 .AnyAsync();
 
             if (emailAlreadyExists)
-                return UserUpdateResponse.AsError(UserMessage.UserUpdateError(), HttpStatusCode.Conflict,
-                    UserUpdateErrorResponse.Create(UserMessage.UserEmailAlreadyExists(request.Email), new List<Notification>() { Notification
+                return UserUpdateResponse.AsError(UserMessage.UserUpdateError(), HttpStatusCode.Conflict, ErrorResponse.Create(UserMessage.UserEmailAlreadyExists(request.Email), new List<Notification>() { Notification
                     .Create(request.GetType().Name, nameof(request.Email), GenericMessage.EmailConflict()) }));
-
-            if (user is null)
-                return UserUpdateResponse.AsError(UserMessage.UserUpdateError(), HttpStatusCode.NotFound,
-                    UserUpdateErrorResponse.Create(UserMessage.UserNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(_applicationUser.Id)) }));
 
             user.SetName(request.Name);
             user.SetEmail(request.Email);
@@ -42,7 +40,7 @@ namespace Financial.Control.Application.Handlers.Users
 
             _unitOfWork.Users.Update(user);
 
-            return UserUpdateResponse.AsSuccess(UserMessage.UserUpdateSuccess(), HttpStatusCode.OK, UserUpdateSuccessResponse.Create(user));
+            return UserUpdateResponse.AsSuccess(UserMessage.UserUpdateSuccess(), HttpStatusCode.OK, SuccessResponse<IUserModel>.Create(UserModel.Create(user)));
         }
     }
 }

@@ -16,7 +16,7 @@
         }
 
         #region Methods
-        public override string ToString() =>  $@"Context: {Context}\nField: {Field}\nMessage: {Message}";
+        public override string ToString() => $@"Context: {Context}\nField: {Field}\nMessage: {Message}";
         #endregion
 
         #region Factory
