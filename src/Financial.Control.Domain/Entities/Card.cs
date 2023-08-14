@@ -87,7 +87,6 @@ namespace Financial.Control.Domain.Entities
         }
 
         #region Private Methods
-
         private string FormatCardNumber(string number) => Regex.Replace(number, @"\D", "");
         private bool IsValidCardNumber(string number)
         {

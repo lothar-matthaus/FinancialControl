@@ -16,6 +16,7 @@ namespace Financial.Control.Application.Models
 
         #region Factory
         public static ErrorResponse Create(string message, IReadOnlyCollection<Notification> errors) => new ErrorResponse(message, errors);
+        public static ErrorResponse Create(string message, Notification error) => new ErrorResponse(message, new List<Notification>() { error });
         #endregion
     }
 }

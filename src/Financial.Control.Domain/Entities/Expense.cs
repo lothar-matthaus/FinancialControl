@@ -86,6 +86,24 @@ namespace Financial.Control.Domain.Entities
             _notifications.AddRange(Card?.GetNotifications());
         }
 
+        #region Behaviors
+        public void SetDescription(string description) 
+        {
+            if (string.IsNullOrWhiteSpace(description))
+                return;
+
+            Description = description;
+        }
+
+        public void SetCategory(Category category)
+        {
+            if (category is null)
+                return;
+
+            Category = category;
+        }
+        #endregion
+
         public static Expense Create(string description, Category category, Card card, decimal value, int installment, PaymentType paymentType) => new Expense(description, category, card, value, installment, paymentType);
     }
 }

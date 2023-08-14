@@ -12,6 +12,7 @@ namespace Financial.Control.Infra.IoC.Repositories
             services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<IRevenueRepository, RevenueRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IExpenseRepository, ExpenseRepository>();
 
             return services;
         }

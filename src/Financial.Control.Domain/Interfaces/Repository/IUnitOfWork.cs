@@ -8,6 +8,7 @@ namespace Financial.Control.Domain.Repository
         public ICardRepository Cards { get; }
         public IRevenueRepository Revenues { get; }
         public ICategoryRepository Categories { get; }
+        public IExpenseRepository Expenses { get; }
 
         public Task Commit(CancellationToken cancellationToken);
     }

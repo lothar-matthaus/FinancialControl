@@ -34,9 +34,11 @@ namespace Financial.Control.Application.Handlers.Logon
             _authenticationService.Login(user, request.Password, cancellationToken);
 
             if (user is null || user.Account.Token is null)
-                return LoginResponse.AsError(LoginMessage.LoginError(), HttpStatusCode.BadRequest, ErrorResponse.Create(LoginMessage.UserOrPasswordInvalid(), null));
+                return LoginResponse.AsError(message: LoginMessage.LoginError(), statusCode: HttpStatusCode.BadRequest, ErrorResponse.Create(
+                    message: LoginMessage.UserOrPasswordInvalid(), error: null));
 
-            return LoginResponse.AsSuccess(LoginMessage.LoginSuccess(), HttpStatusCode.OK, SuccessResponse<ILoginModel>.Create(LoginModel.Create(user)));
+            return LoginResponse.AsSuccess(message: LoginMessage.LoginSuccess(), statusCode: HttpStatusCode.OK, 
+                success: SuccessResponse<ILoginModel>.Create(LoginModel.Create(user)));
         }
     }
 }

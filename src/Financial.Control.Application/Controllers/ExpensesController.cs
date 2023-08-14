@@ -20,5 +20,17 @@ namespace Financial.Control.Application.Controllers
         {
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
+
+        /// <summary>
+        /// Atualiza uma despesa.
+        /// </summary>
+        /// <response code="201">A despesa foi atualizada com sucesso.</response>
+        /// <response code="500">Erro interno ocorrido no servidor</response>
+        [HttpPatch("{id}")]
+        public async Task<ExpenseUpdateResponse> Update([FromRoute] long id, [FromBody] ExpenseUpdateRequest request)
+        {
+            request.SetRequestId(id);
+            return await _mediatR.Send(request, HttpContext.RequestAborted);
+        }
     }
 }

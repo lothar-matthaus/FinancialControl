@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Financial.Control.Domain.Models.Expenses.Commands
 {
-    public interface IExpenseCreateRequest : IBaseRequest, IValidatableObject
+    public interface IExpenseCreateRequest : IBaseRequest
     {
         public string Description { get; }
         public string CardNumber { get; }
