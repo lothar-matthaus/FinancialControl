@@ -20,6 +20,7 @@
             public static string UserOrPasswordInvalid() => "Usuário ou senha inválidos.";
             public static string PasswordNotEquals() => "A senha atual informada não corresponde.";
             public static string UserEmailAlreadyExists(string email) => $"O e-mail '{email}' informado já está cadastrado no sistema.";
+            public static string AccountBlocked() => "A conta está bloqueada.";
         }
         public class CardMessage
         {
@@ -103,7 +104,6 @@
         {
             public static string IdNotExists(long? id) => $"O ID {id} informado é inválido.";
             public static string EmailConflict() => $"Conflito ao cadastrar o e-mail.";
-
         }
     }
 }

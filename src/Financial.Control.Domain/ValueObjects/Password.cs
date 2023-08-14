@@ -69,7 +69,7 @@ namespace Financial.Control.Domain.ValueObjects
 
 
 
-        private Password(string passwordPlainText, StringBuilder salt)
+        private Password(string passwordPlainText, string salt)
         {
             PlainText = passwordPlainText;
             Salt = salt.ToString() ?? string.Empty;
@@ -125,7 +125,7 @@ namespace Financial.Control.Domain.ValueObjects
             return new Password(passwordPlainText, passwordConfirmationPlainText);
         }
 
-        public static Password CreateWithSalt(string passwordPlainText, StringBuilder salt)
+        public static Password CreateWithSalt(string passwordPlainText, string salt)
         {
             return new Password(passwordPlainText, salt);
         }

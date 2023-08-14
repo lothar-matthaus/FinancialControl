@@ -5,10 +5,10 @@ namespace Financial.Control.Domain.Enums
     public enum AccountStatus
     {
         [Description("Ativa")]
-        Active,
+        Active = 1,
         [Description("Bloqueada")]
-        Blocked,
+        Blocked = 2,
         [Description("Removida")]
-        Removed
+        Removed = 3
     }
 }

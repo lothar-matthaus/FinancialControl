@@ -3,6 +3,7 @@ using Financial.Control.Application.Models.Logon;
 using Financial.Control.Application.Models.Logon.Commands;
 using Financial.Control.Application.Models.Logon.Response;
 using Financial.Control.Domain.Entities;
+using Financial.Control.Domain.Enums;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Models.Logon;
@@ -32,6 +33,10 @@ namespace Financial.Control.Application.Handlers.Logon
                  .FirstOrDefaultAsync(cancellationToken);
 
             _authenticationService.Login(user, request.Password, cancellationToken);
+
+            if(user.Account.Status.Equals(AccountStatus.Blocked))
+                return LoginResponse.AsError(message: LoginMessage.LoginError(), statusCode: HttpStatusCode.BadRequest, ErrorResponse.Create(
+                    message: UserMessage.AccountBlocked(), error: null));
 
             if (user is null || user.Account.Token is null)
                 return LoginResponse.AsError(message: LoginMessage.LoginError(), statusCode: HttpStatusCode.BadRequest, ErrorResponse.Create(
