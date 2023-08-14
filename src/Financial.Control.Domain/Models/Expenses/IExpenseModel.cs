@@ -7,6 +7,6 @@ namespace Financial.Control.Domain.Models.Expenses
         public new long Id { get; }
         public string Description { get; }
         public bool PaidOut { get; }
-        public Payment Payment { get; }
+        public IPaymentModel Payment { get; }
     }
 }

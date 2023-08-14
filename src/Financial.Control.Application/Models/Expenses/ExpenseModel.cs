@@ -8,13 +8,13 @@ namespace Financial.Control.Application.Models.Expenses
     {
         public string Description { get; }
         public bool PaidOut { get; }
-        public Payment Payment { get; }
+        public IPaymentModel Payment { get; }
 
         private ExpenseModel(Expense expense) : base(expense.Id, expense.CreationDate, expense.UpdateDate)
         {
             Description = expense.Description;
-            Payment = expense.Payment;
             PaidOut = expense.PaidOut;
+            Payment = PaymentModel.Create(expense.Payment);
         }
 
         #region Factory
