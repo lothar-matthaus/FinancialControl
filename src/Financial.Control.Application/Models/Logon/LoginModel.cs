@@ -18,6 +18,8 @@ namespace Financial.Control.Application.Models.Logon
             Name = user.Name;
             Email = user.Account.Email.Value;
             Token = user.Account.Token;
+            CreationDate = user.CreationDate;
+            UpdateDate = user.UpdateDate;
         }
 
         public static LoginModel Create(User user) => new LoginModel(user);
