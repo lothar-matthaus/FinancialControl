@@ -1,4 +1,4 @@
-﻿using Financial.Control.Application.Models.Expenses.Response;
+﻿using Financial.Control.Application.Models.Expenses.Response.Create;
 using Financial.Control.Domain.Enums;
 
 namespace Financial.Control.Application.Models.Expenses.Commands

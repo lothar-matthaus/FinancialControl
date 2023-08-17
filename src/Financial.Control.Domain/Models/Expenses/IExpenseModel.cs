@@ -1,4 +1,6 @@
-﻿namespace Financial.Control.Domain.Models.Expenses
+﻿using Financial.Control.Domain.Models.Categories;
+
+namespace Financial.Control.Domain.Models.Expenses
 {
     public interface IExpenseModel : IBaseModel
     {
@@ -6,5 +8,6 @@
         public string Description { get; }
         public bool PaidOut { get; }
         public IPaymentModel Payment { get; }
+        public ICategoryModel Category { get; }
     }
 }

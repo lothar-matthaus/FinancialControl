@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Application.Models;
 using Financial.Control.Application.Models.Expenses;
 using Financial.Control.Application.Models.Expenses.Commands;
-using Financial.Control.Application.Models.Expenses.Response;
+using Financial.Control.Application.Models.Expenses.Response.Create;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Enums;

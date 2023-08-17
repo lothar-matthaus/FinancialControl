@@ -1,4 +1,4 @@
-﻿using Financial.Control.Application.Models.Expenses.Response;
+﻿using Financial.Control.Application.Models.Expenses.Response.List;
 using Financial.Control.Domain.Models.Expenses.Queries;
 
 namespace Financial.Control.Application.Models.Expenses.Queries

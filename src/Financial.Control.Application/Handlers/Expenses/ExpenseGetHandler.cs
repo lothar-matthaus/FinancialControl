@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Application.Models;
 using Financial.Control.Application.Models.Expenses;
 using Financial.Control.Application.Models.Expenses.Queries;
-using Financial.Control.Application.Models.Expenses.Response;
+using Financial.Control.Application.Models.Expenses.Response.Get;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Entities.Notifications;
 using Financial.Control.Domain.Interfaces;
@@ -21,7 +21,9 @@ namespace Financial.Control.Application.Handlers.Expenses
         }
         public async override Task<ExpenseGetResponse> Handle(ExpenseGetRequest request, CancellationToken cancellationToken)
         {
-            Expense expense = await _unitOfWork.Expenses.Query(ex => ex.Id.Equals(request.Id)).FirstOrDefaultAsync(cancellationToken);
+            Expense expense = await _unitOfWork.Expenses.Query(ex => ex.Id.Equals(request.Id))
+                .Include(ex => ex.Category)
+                .FirstOrDefaultAsync(cancellationToken);
 
             if (expense is null)
             {

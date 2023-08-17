@@ -5,7 +5,7 @@ using Financial.Control.Domain.Models.Expenses.Response;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
-namespace Financial.Control.Application.Models.Expenses.Response
+namespace Financial.Control.Application.Models.Expenses.Response.Update
 {
     public sealed class ExpenseUpdateResponse : BaseResponse<ISuccessSingleResponse<IExpenseModel>, IErrorResponse, IExpenseModel>, IExpenseUpdateResponse
     {

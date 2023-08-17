@@ -1,7 +1,7 @@
 ﻿using Financial.Control.Application.Models;
 using Financial.Control.Application.Models.Expenses;
 using Financial.Control.Application.Models.Expenses.Queries;
-using Financial.Control.Application.Models.Expenses.Response;
+using Financial.Control.Application.Models.Expenses.Response.List;
 using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
@@ -20,8 +20,13 @@ namespace Financial.Control.Application.Handlers.Expenses
 
         public async override Task<ExpenseListResponse> Handle(ExpenseListRequest request, CancellationToken cancellationToken)
         {
-            IEnumerable<Expense> expenses = await _unitOfWork.Expenses.Query(ex => ex.User.Id.Equals(_applicationUser.Id)).ToListAsync(cancellationToken);
-            IReadOnlyCollection<IExpenseModel> expenseModels = expenses.Select(ex => ExpenseModel.Create(ex)).ToImmutableList();
+            IEnumerable<Expense> expenses = await _unitOfWork.Expenses.Query(ex => ex.User.Id.Equals(_applicationUser.Id))
+                .Include(ex => ex.Category)
+                .ToListAsync(cancellationToken);
+
+            IReadOnlyCollection<IExpenseModel> expenseModels = expenses
+                .Select(ex => ExpenseModel.Create(ex))
+                .ToImmutableList();
 
             return ExpenseListResponse.AsSuccess(message: expenseModels.Any() ? ExpenseMessage.ExpenseListSuccess() : ExpenseMessage.ExpenseListNotFound(), statusCode: HttpStatusCode.OK,
                 success: SuccessListResponse<IExpenseModel>.Create(expenseModels));

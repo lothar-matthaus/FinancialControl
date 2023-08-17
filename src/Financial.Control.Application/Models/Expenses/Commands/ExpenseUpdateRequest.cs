@@ -1,4 +1,4 @@
-﻿using Financial.Control.Application.Models.Expenses.Response;
+﻿using Financial.Control.Application.Models.Expenses.Response.Update;
 using Financial.Control.Domain.Models.Expenses.Commands;
 using System.ComponentModel.DataAnnotations;
 

@@ -1,7 +1,10 @@
 ﻿using Financial.Control.Application.Controllers.Base;
 using Financial.Control.Application.Models.Expenses.Commands;
 using Financial.Control.Application.Models.Expenses.Queries;
-using Financial.Control.Application.Models.Expenses.Response;
+using Financial.Control.Application.Models.Expenses.Response.Create;
+using Financial.Control.Application.Models.Expenses.Response.Get;
+using Financial.Control.Application.Models.Expenses.Response.List;
+using Financial.Control.Application.Models.Expenses.Response.Update;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
