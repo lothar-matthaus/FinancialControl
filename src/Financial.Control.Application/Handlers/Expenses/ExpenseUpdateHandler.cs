@@ -9,12 +9,7 @@ using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Models.Expenses;
 using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Expenses
@@ -48,7 +43,7 @@ namespace Financial.Control.Application.Handlers.Expenses
 
             _unitOfWork.Expenses.Update(expense);
 
-            return ExpenseUpdateResponse.AsSuccess(message: ExpenseMessage.ExpenseUpdateSuccess(), statusCode: HttpStatusCode.OK, 
+            return ExpenseUpdateResponse.AsSuccess(message: ExpenseMessage.ExpenseUpdateSuccess(), statusCode: HttpStatusCode.OK,
                 success: SuccessSingleResponse<IExpenseModel>.Create(ExpenseModel.Create(expense)));
         }
     }

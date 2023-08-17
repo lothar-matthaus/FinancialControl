@@ -7,13 +7,13 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Revenues.Response.Delete
 {
-    public class RevenueDeleteResponse : BaseResponse<ISuccessResponse<IRevenueModel>, IErrorResponse, IRevenueModel>, IRevenueDeleteResponse
+    public class RevenueDeleteResponse : BaseResponse<ISuccessSingleResponse<IRevenueModel>, IErrorResponse, IRevenueModel>, IRevenueDeleteResponse
     {
         public RevenueDeleteResponse()
         {
         }
 
-        private RevenueDeleteResponse(string message, HttpStatusCode statusCode, ISuccessResponse<IRevenueModel> success) : base(message, statusCode, success)
+        private RevenueDeleteResponse(string message, HttpStatusCode statusCode, ISuccessSingleResponse<IRevenueModel> success) : base(message, statusCode, success)
         {
         }
 
@@ -22,7 +22,7 @@ namespace Financial.Control.Application.Models.Revenues.Response.Delete
         }
 
         #region Factory
-        public static RevenueDeleteResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessResponse<IRevenueModel> success) => new RevenueDeleteResponse(message, statusCode, success);
+        public static RevenueDeleteResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessSingleResponse<IRevenueModel> success) => new RevenueDeleteResponse(message, statusCode, success);
         public static RevenueDeleteResponse AsError(string message, HttpStatusCode statusCode, IErrorResponse error) => new RevenueDeleteResponse(message, statusCode, error);
         #endregion
 

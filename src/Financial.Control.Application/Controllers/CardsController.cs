@@ -58,7 +58,7 @@ namespace Financial.Control.Application.Controllers
         [Route("{id}")]
         public async Task<CardDeleteResponse> Delete([FromRoute] long id)
         {
-            CardDeleteRequest request = CardDeleteRequest.Create(id);
+            CardDeleteRequest request = new(id);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
 
@@ -73,7 +73,7 @@ namespace Financial.Control.Application.Controllers
         [Route("{id}")]
         public async Task<CardGetResponse> Get([FromRoute] long id)
         {
-            CardGetRequest request = CardGetRequest.Create(id);
+            CardGetRequest request = new(id);
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
 

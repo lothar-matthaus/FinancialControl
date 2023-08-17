@@ -5,6 +5,7 @@ namespace Financial.Control.Domain.Interfaces.Repository
 {
     public interface ICardRepository : IRepository<Card>
     {
-        public bool CardAlreadyExists(string cardNumber);
+        void Delete(Card card);
+        Task<bool> CardAlreadyExists(string cardNumber, CancellationToken cancellationToken);
     }
 }

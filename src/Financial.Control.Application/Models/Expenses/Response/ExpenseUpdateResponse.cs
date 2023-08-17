@@ -2,22 +2,17 @@
 using Financial.Control.Domain.Models;
 using Financial.Control.Domain.Models.Expenses;
 using Financial.Control.Domain.Models.Expenses.Response;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Expenses.Response
 {
-    public sealed class ExpenseUpdateResponse : BaseResponse<ISuccessResponse<IExpenseModel>, IErrorResponse, IExpenseModel>, IExpenseUpdateResponse
+    public sealed class ExpenseUpdateResponse : BaseResponse<ISuccessSingleResponse<IExpenseModel>, IErrorResponse, IExpenseModel>, IExpenseUpdateResponse
     {
         public ExpenseUpdateResponse()
         {
         }
-        private ExpenseUpdateResponse(string message, HttpStatusCode statusCode, ISuccessResponse<IExpenseModel> success) : base(message, statusCode, success)
+        private ExpenseUpdateResponse(string message, HttpStatusCode statusCode, ISuccessSingleResponse<IExpenseModel> success) : base(message, statusCode, success)
         {
         }
 
@@ -26,7 +21,7 @@ namespace Financial.Control.Application.Models.Expenses.Response
         }
 
         #region Factory
-        public static ExpenseUpdateResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessResponse<IExpenseModel> success) => new ExpenseUpdateResponse(message, statusCode, success);
+        public static ExpenseUpdateResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessSingleResponse<IExpenseModel> success) => new ExpenseUpdateResponse(message, statusCode, success);
         public static ExpenseUpdateResponse AsError(string message, HttpStatusCode statusCode, IErrorResponse error) => new ExpenseUpdateResponse(message, statusCode, error);
         #endregion
 

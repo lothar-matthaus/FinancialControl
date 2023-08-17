@@ -1,6 +1,6 @@
 ﻿namespace Financial.Control.Domain.Models.Revenues.Response.Create
 {
-    public interface IRevenueCreateResponse : IBaseResponse<ISuccessResponse<IRevenueModel>, IErrorResponse, IRevenueModel>, IBaseResponse
+    public interface IRevenueCreateResponse : IBaseResponse<ISuccessSingleResponse<IRevenueModel>, IErrorResponse, IRevenueModel>, IBaseResponse
     {
     }
 }

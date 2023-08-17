@@ -1,6 +1,4 @@
-﻿using Financial.Control.Domain.ValueObjects;
-
-namespace Financial.Control.Domain.Models.Expenses
+﻿namespace Financial.Control.Domain.Models.Expenses
 {
     public interface IExpenseModel : IBaseModel
     {

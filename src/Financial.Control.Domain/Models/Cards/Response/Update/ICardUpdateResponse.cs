@@ -1,6 +1,6 @@
 ﻿namespace Financial.Control.Domain.Models.Cards.Response.Update
 {
-    public interface ICardUpdateResponse : IBaseResponse<ISuccessResponse<ICardModel>, IErrorResponse, ICardModel>, IBaseResponse
+    public interface ICardUpdateResponse : IBaseResponse<ISuccessSingleResponse<ICardModel>, IErrorResponse, ICardModel>, IBaseResponse
     {
     }
 }

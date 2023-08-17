@@ -7,11 +7,11 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Users.Response.Create
 {
-    public class UserCreateResponse : BaseResponse<ISuccessResponse<IUserModel>, IErrorResponse, IUserModel>, IUserCreateResponse
+    public class UserCreateResponse : BaseResponse<ISuccessSingleResponse<IUserModel>, IErrorResponse, IUserModel>, IUserCreateResponse
     {
         public UserCreateResponse() : base() { }
 
-        public UserCreateResponse(string message, HttpStatusCode statusCode, ISuccessResponse<IUserModel> success) : base(message, statusCode, success)
+        public UserCreateResponse(string message, HttpStatusCode statusCode, ISuccessSingleResponse<IUserModel> success) : base(message, statusCode, success)
         {
         }
         public UserCreateResponse(string message, HttpStatusCode statusCode, IErrorResponse error) : base(message, statusCode, error)
@@ -19,7 +19,7 @@ namespace Financial.Control.Application.Models.Users.Response.Create
         }
 
         #region Factory
-        public static UserCreateResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessResponse<IUserModel> success) => new UserCreateResponse(message, statusCode, success);
+        public static UserCreateResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessSingleResponse<IUserModel> success) => new UserCreateResponse(message, statusCode, success);
         public static UserCreateResponse AsError(string message, HttpStatusCode statusCode, IErrorResponse error) => new UserCreateResponse(message, statusCode, error);
         #endregion
 

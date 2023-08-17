@@ -21,20 +21,15 @@ namespace Financial.Control.Application.Handlers.Cards
         }
         public async override Task<CardDeleteResponse> Handle(CardDeleteRequest request, CancellationToken cancellationToken)
         {
-            User user = await _unitOfWork.Users.Query(user => user.Id.Equals(_applicationUser.Id))
-                .FirstOrDefaultAsync();
-
-            Card card = _unitOfWork.Cards
-                .Query(card => card.Id.Equals(request.CardId))
-                .FirstOrDefault();
+            Card card = await _unitOfWork.Cards
+                .Query(card => card.Id.Equals(request.Id) &&
+                      (card.User.Id.Equals(_applicationUser.Id))).FirstOrDefaultAsync(cancellationToken);
 
             if (card is null)
                 return CardDeleteResponse.AsError(CardMessage.CardDeleteError(), HttpStatusCode.BadRequest, ErrorResponse
-                    .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name) }));
+                    .Create(CardMessage.CardNotFound(), Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(request.Id))));
 
-            user.RemoveCard(card);
-
-            _unitOfWork.Users.Update(user);
+            _unitOfWork.Cards.Delete(card);
 
             return CardDeleteResponse.AsSuccess(CardMessage.CardDeleteSuccess(), HttpStatusCode.OK, SuccessSingleResponse<ICardModel>.Create(CardModel.Create(card)));
         }

@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace Financial.Control.Domain.Models.Expenses.Commands
 {

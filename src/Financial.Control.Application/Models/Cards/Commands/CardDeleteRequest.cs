@@ -5,12 +5,10 @@ namespace Financial.Control.Application.Models.Cards.Commands
 {
     public sealed class CardDeleteRequest : BaseRequest<CardDeleteResponse>, ICardDeleteRequest
     {
-        public long CardId { get; private set; }
-        private CardDeleteRequest(long cardId)
+        public long Id { get; }
+        public CardDeleteRequest(long id)
         {
-            CardId = cardId;
+            Id = id;
         }
-
-        public static CardDeleteRequest Create(long id) => new CardDeleteRequest(id);
     }
 }

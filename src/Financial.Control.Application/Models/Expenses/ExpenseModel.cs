@@ -1,6 +1,5 @@
 ﻿using Financial.Control.Domain.Entities;
 using Financial.Control.Domain.Models.Expenses;
-using Financial.Control.Domain.ValueObjects;
 
 namespace Financial.Control.Application.Models.Expenses
 {

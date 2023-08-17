@@ -2,7 +2,6 @@
 using Financial.Control.Domain.Models;
 using Financial.Control.Domain.Models.Expenses;
 using Financial.Control.Domain.Models.Expenses.Response;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 

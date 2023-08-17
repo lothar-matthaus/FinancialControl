@@ -46,5 +46,18 @@ namespace Financial.Control.Application.Controllers
             ExpenseListRequest request = ExpenseListRequest.Create();
             return await _mediatR.Send(request, HttpContext.RequestAborted);
         }
+
+        /// <summary>
+        /// Coleta uma despesa específica do usuário logado.
+        /// </summary>
+        /// <response code="200">A despesa do usuário foi encontrada com sucesso.</response>
+        /// <response code="400">A despesa não existe.</response>
+        /// <response code="500">Erro interno ocorrido no servidor</response>
+        [HttpGet("{id}")]
+        public async Task<ExpenseGetResponse> Get([FromRoute] long id)
+        {
+            ExpenseGetRequest request = new ExpenseGetRequest(id);
+            return await _mediatR.Send(request, HttpContext.RequestAborted);
+        }
     }
 }

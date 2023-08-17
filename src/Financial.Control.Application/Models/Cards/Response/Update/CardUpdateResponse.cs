@@ -7,13 +7,13 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Cards.Response.Update
 {
-    public sealed class CardUpdateResponse : BaseResponse<ISuccessResponse<ICardModel>, IErrorResponse, ICardModel>, ICardUpdateResponse
+    public sealed class CardUpdateResponse : BaseResponse<ISuccessSingleResponse<ICardModel>, IErrorResponse, ICardModel>, ICardUpdateResponse
     {
         public CardUpdateResponse()
         {
         }
 
-        public CardUpdateResponse(string message, HttpStatusCode statusCode, ISuccessResponse<ICardModel> success) : base(message, statusCode, success)
+        public CardUpdateResponse(string message, HttpStatusCode statusCode, ISuccessSingleResponse<ICardModel> success) : base(message, statusCode, success)
         {
         }
         public CardUpdateResponse(string message, HttpStatusCode statusCode, IErrorResponse error) : base(message, statusCode, error)
@@ -21,7 +21,7 @@ namespace Financial.Control.Application.Models.Cards.Response.Update
         }
 
         #region Behaviors
-        public static CardUpdateResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessResponse<ICardModel> success) => new CardUpdateResponse(message, statusCode, success);
+        public static CardUpdateResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessSingleResponse<ICardModel> success) => new CardUpdateResponse(message, statusCode, success);
         public static CardUpdateResponse AsError(string message, HttpStatusCode statusCode, IErrorResponse error) => new CardUpdateResponse(message, statusCode, error);
         #endregion
         public void SetInvalidState(string message, IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)

@@ -23,7 +23,7 @@ namespace Financial.Control.Application.Handlers.Expenses
             IEnumerable<Expense> expenses = await _unitOfWork.Expenses.Query(ex => ex.User.Id.Equals(_applicationUser.Id)).ToListAsync(cancellationToken);
             IReadOnlyCollection<IExpenseModel> expenseModels = expenses.Select(ex => ExpenseModel.Create(ex)).ToImmutableList();
 
-            return ExpenseListResponse.AsSuccess(message: expenseModels.Any() ? ExpenseMessage.ExpenseListSuccess() : ExpenseMessage.ExpenseListNotFound(), statusCode: HttpStatusCode.OK, 
+            return ExpenseListResponse.AsSuccess(message: expenseModels.Any() ? ExpenseMessage.ExpenseListSuccess() : ExpenseMessage.ExpenseListNotFound(), statusCode: HttpStatusCode.OK,
                 success: SuccessListResponse<IExpenseModel>.Create(expenseModels));
         }
     }

@@ -1,5 +1,4 @@
 ﻿using Financial.Control.Domain.Models;
-using Financial.Control.Domain.Models.Cards;
 using System.Net;
 
 namespace Financial.Control.Application.Models

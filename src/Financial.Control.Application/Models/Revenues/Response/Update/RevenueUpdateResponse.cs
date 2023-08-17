@@ -7,15 +7,15 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Revenues.Response.Update
 {
-    public class RevenueUpdateResponse : BaseResponse<ISuccessResponse<IRevenueModel>, IErrorResponse, IRevenueModel>, IRevenueUpdateResponse
+    public class RevenueUpdateResponse : BaseResponse<ISuccessSingleResponse<IRevenueModel>, IErrorResponse, IRevenueModel>, IRevenueUpdateResponse
     {
         public RevenueUpdateResponse() { }
-        private RevenueUpdateResponse(string message, HttpStatusCode statusCode, ISuccessResponse<IRevenueModel> success) : base(message, statusCode, success) { }
+        private RevenueUpdateResponse(string message, HttpStatusCode statusCode, ISuccessSingleResponse<IRevenueModel> success) : base(message, statusCode, success) { }
         private RevenueUpdateResponse(string message, HttpStatusCode statusCode, IErrorResponse error) : base(message, statusCode, error) { }
 
         #region Factory
         public static RevenueUpdateResponse AsError(string message, HttpStatusCode statusCode, IErrorResponse error) => new RevenueUpdateResponse(message, statusCode, error);
-        public static RevenueUpdateResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessResponse<IRevenueModel> success) => new RevenueUpdateResponse(message, statusCode, success);
+        public static RevenueUpdateResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessSingleResponse<IRevenueModel> success) => new RevenueUpdateResponse(message, statusCode, success);
         #endregion
 
         public void SetInvalidState(string message, IReadOnlyCollection<Notification> errors, HttpStatusCode? statusCode = null)

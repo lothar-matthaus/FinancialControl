@@ -1,6 +1,4 @@
-﻿using Financial.Control.Domain.Entities;
-using Financial.Control.Domain.Models;
-using Financial.Control.Domain.Models.Users;
+﻿using Financial.Control.Domain.Models;
 
 namespace Financial.Control.Application.Models
 {

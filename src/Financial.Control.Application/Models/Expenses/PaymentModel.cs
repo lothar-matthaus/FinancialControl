@@ -2,11 +2,6 @@
 using Financial.Control.Domain.Extensions;
 using Financial.Control.Domain.Models.Expenses;
 using Financial.Control.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Application.Models.Expenses
 {

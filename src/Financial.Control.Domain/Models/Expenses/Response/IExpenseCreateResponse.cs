@@ -1,6 +1,6 @@
 ﻿namespace Financial.Control.Domain.Models.Expenses.Response
 {
-    public interface IExpenseCreateResponse : IBaseResponse<ISuccessResponse<IExpenseModel>, IErrorResponse, IExpenseModel>, IBaseResponse
+    public interface IExpenseCreateResponse : IBaseResponse<ISuccessSingleResponse<IExpenseModel>, IErrorResponse, IExpenseModel>, IBaseResponse
     {
     }
 }

@@ -1,11 +1,6 @@
 ﻿using Financial.Control.Application.Models.Expenses.Response;
 using Financial.Control.Domain.Models.Expenses.Commands;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Financial.Control.Application.Models.Expenses.Commands
 {

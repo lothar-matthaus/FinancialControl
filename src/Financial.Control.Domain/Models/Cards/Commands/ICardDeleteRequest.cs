@@ -2,6 +2,6 @@
 {
     public interface ICardDeleteRequest : IBaseRequest
     {
-        public long CardId { get; }
+        public long Id { get; }
     }
 }

@@ -34,7 +34,7 @@ namespace Financial.Control.Application.Handlers.Logon
 
             _authenticationService.Login(user, request.Password, cancellationToken);
 
-            if(user.Account.Status.Equals(AccountStatus.Blocked))
+            if (user.Account.Status.Equals(AccountStatus.Blocked))
                 return LoginResponse.AsError(message: LoginMessage.LoginError(), statusCode: HttpStatusCode.BadRequest, ErrorResponse.Create(
                     message: UserMessage.AccountBlocked(), error: null));
 
@@ -42,7 +42,7 @@ namespace Financial.Control.Application.Handlers.Logon
                 return LoginResponse.AsError(message: LoginMessage.LoginError(), statusCode: HttpStatusCode.BadRequest, ErrorResponse.Create(
                     message: LoginMessage.UserOrPasswordInvalid(), error: null));
 
-            return LoginResponse.AsSuccess(message: LoginMessage.LoginSuccess(), statusCode: HttpStatusCode.OK, 
+            return LoginResponse.AsSuccess(message: LoginMessage.LoginSuccess(), statusCode: HttpStatusCode.OK,
                 success: SuccessSingleResponse<ILoginModel>.Create(LoginModel.Create(user)));
         }
     }
