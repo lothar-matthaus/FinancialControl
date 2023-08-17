@@ -43,7 +43,7 @@ namespace Financial.Control.Application.Handlers.Logon
                     message: LoginMessage.UserOrPasswordInvalid(), error: null));
 
             return LoginResponse.AsSuccess(message: LoginMessage.LoginSuccess(), statusCode: HttpStatusCode.OK, 
-                success: SuccessResponse<ILoginModel>.Create(LoginModel.Create(user)));
+                success: SuccessSingleResponse<ILoginModel>.Create(LoginModel.Create(user)));
         }
     }
 }

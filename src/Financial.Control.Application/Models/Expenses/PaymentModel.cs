@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Financial.Control.Application.Models
+namespace Financial.Control.Application.Models.Expenses
 {
     public class PaymentModel : IPaymentModel
     {

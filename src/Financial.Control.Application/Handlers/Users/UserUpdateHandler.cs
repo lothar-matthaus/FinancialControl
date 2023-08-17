@@ -40,7 +40,7 @@ namespace Financial.Control.Application.Handlers.Users
 
             _unitOfWork.Users.Update(user);
 
-            return UserUpdateResponse.AsSuccess(UserMessage.UserUpdateSuccess(), HttpStatusCode.OK, SuccessResponse<IUserModel>.Create(UserModel.Create(user)));
+            return UserUpdateResponse.AsSuccess(UserMessage.UserUpdateSuccess(), HttpStatusCode.OK, SuccessSingleResponse<IUserModel>.Create(UserModel.Create(user)));
         }
     }
 }

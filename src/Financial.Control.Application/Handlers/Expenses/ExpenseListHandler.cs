@@ -8,14 +8,8 @@ using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Models.Expenses;
 using Financial.Control.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Handlers.Expenses
@@ -30,7 +24,7 @@ namespace Financial.Control.Application.Handlers.Expenses
             IReadOnlyCollection<IExpenseModel> expenseModels = expenses.Select(ex => ExpenseModel.Create(ex)).ToImmutableList();
 
             return ExpenseListResponse.AsSuccess(message: expenseModels.Any() ? ExpenseMessage.ExpenseListSuccess() : ExpenseMessage.ExpenseListNotFound(), statusCode: HttpStatusCode.OK, 
-                success: SuccessResponse<IExpenseModel>.Create(expenseModels));
+                success: SuccessListResponse<IExpenseModel>.Create(expenseModels));
         }
     }
 }

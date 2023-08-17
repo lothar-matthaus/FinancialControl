@@ -25,7 +25,7 @@ namespace Financial.Control.Application.Handlers.Users
                 .Query(us => us.Id.Equals(_applicationUser.Id)).Include(user => user.Account)
                 .FirstOrDefaultAsync();
 
-            return UserGetResponse.AsSuccess(UserMessage.UserGetSuccess(), HttpStatusCode.OK, SuccessResponse<IUserModel>.Create(UserModel.Create(user)));
+            return UserGetResponse.AsSuccess(UserMessage.UserGetSuccess(), HttpStatusCode.OK, SuccessSingleResponse<IUserModel>.Create(UserModel.Create(user)));
         }
     }
 }

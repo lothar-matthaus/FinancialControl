@@ -36,7 +36,7 @@ namespace Financial.Control.Application.Handlers.Cards
 
             _unitOfWork.Users.Update(user);
 
-            return CardDeleteResponse.AsSuccess(CardMessage.CardDeleteSuccess(), HttpStatusCode.OK, SuccessResponse<ICardModel>.Create(CardModel.Create(card)));
+            return CardDeleteResponse.AsSuccess(CardMessage.CardDeleteSuccess(), HttpStatusCode.OK, SuccessSingleResponse<ICardModel>.Create(CardModel.Create(card)));
         }
     }
 }

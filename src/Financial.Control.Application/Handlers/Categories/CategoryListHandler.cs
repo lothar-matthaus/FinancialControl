@@ -28,7 +28,7 @@ namespace Financial.Control.Application.Handlers.Categories
                 .ToList();
 
             return CategoryListResponse.AsSuccess(categories.Any() ? CategoryMessage.CategoryListsuccess() : CategoryMessage.CategoryListNotFound(),
-                HttpStatusCode.OK, SuccessResponse<ICategoryModel>.Create(categories));
+                HttpStatusCode.OK, SuccessListResponse<ICategoryModel>.Create(categories));
         }
     }
 }

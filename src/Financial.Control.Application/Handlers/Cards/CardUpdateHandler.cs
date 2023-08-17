@@ -42,7 +42,7 @@ namespace Financial.Control.Application.Handlers.Cards
 
             _unitOfWork.Cards.Update(card);
 
-            return CardUpdateResponse.AsSuccess(CardMessage.CardUpdateSuccess(), HttpStatusCode.OK, SuccessResponse<ICardModel>.Create(CardModel.Create(card)));
+            return CardUpdateResponse.AsSuccess(CardMessage.CardUpdateSuccess(), HttpStatusCode.OK, SuccessSingleResponse<ICardModel>.Create(CardModel.Create(card)));
         }
     }
 }

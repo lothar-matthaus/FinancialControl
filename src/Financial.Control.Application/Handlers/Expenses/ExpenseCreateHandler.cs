@@ -47,7 +47,7 @@ namespace Financial.Control.Application.Handlers.Expenses
             _unitOfWork.Users.Update(user);
 
             return ExpenseCreateResponse.AsSuccess(ExpenseMessage.ExpenseCreateSuccess(), HttpStatusCode.Created, 
-                SuccessResponse<IExpenseModel>.Create(ExpenseModel.Create(expense)));
+                SuccessSingleResponse<IExpenseModel>.Create(ExpenseModel.Create(expense)));
         }
     }
 }

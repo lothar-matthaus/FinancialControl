@@ -7,14 +7,14 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Revenues.Response.Get
 {
-    public sealed class RevenueGetResponse : BaseResponse<ISuccessResponse<IRevenueModel>, IErrorResponse, IRevenueModel>, IRevenueGetResponse
+    public sealed class RevenueGetResponse : BaseResponse<ISuccessSingleResponse<IRevenueModel>, IErrorResponse, IRevenueModel>, IRevenueGetResponse
     {
         public RevenueGetResponse() { }
-        private RevenueGetResponse(string message, HttpStatusCode statusCode, ISuccessResponse<IRevenueModel> success) : base(message, statusCode, success) { }
+        private RevenueGetResponse(string message, HttpStatusCode statusCode, ISuccessSingleResponse<IRevenueModel> success) : base(message, statusCode, success) { }
         private RevenueGetResponse(string message, HttpStatusCode statusCode, IErrorResponse error) : base(message, statusCode, error) { }
 
         #region Factory
-        public static RevenueGetResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessResponse<IRevenueModel> success) => new RevenueGetResponse(message, statusCode, success);
+        public static RevenueGetResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessSingleResponse<IRevenueModel> success) => new RevenueGetResponse(message, statusCode, success);
         public static RevenueGetResponse AsError(string message, HttpStatusCode statusCode, IErrorResponse error) => new RevenueGetResponse(message, statusCode, error);
         #endregion
 

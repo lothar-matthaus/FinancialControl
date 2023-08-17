@@ -7,14 +7,14 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Categories.Response
 {
-    public sealed class CategoryListResponse : BaseResponse<ISuccessResponse<ICategoryModel>, IErrorResponse, ICategoryModel>, ICategoryListResponse
+    public sealed class CategoryListResponse : BaseResponse<ISuccessListResponse<ICategoryModel>, IErrorResponse, ICategoryModel>, ICategoryListResponse
     {
         public CategoryListResponse() { }
-        public CategoryListResponse(string message, HttpStatusCode statusCode, ISuccessResponse<ICategoryModel> success) : base(message, statusCode, success) { }
+        public CategoryListResponse(string message, HttpStatusCode statusCode, ISuccessListResponse<ICategoryModel> success) : base(message, statusCode, success) { }
         public CategoryListResponse(string message, HttpStatusCode statusCode, IErrorResponse error) : base(message, statusCode, error) { }
 
         #region Factory
-        public static CategoryListResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessResponse<ICategoryModel> success) => new CategoryListResponse(message, statusCode, success);
+        public static CategoryListResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessListResponse<ICategoryModel> success) => new CategoryListResponse(message, statusCode, success);
         public static CategoryListResponse AsError(string message, HttpStatusCode statusCode, IErrorResponse error) => new CategoryListResponse(message, statusCode, error);
 
         #endregion

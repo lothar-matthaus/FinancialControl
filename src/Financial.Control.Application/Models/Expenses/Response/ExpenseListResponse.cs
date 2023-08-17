@@ -8,15 +8,15 @@ using static Financial.Control.Domain.Constants.ApplicationMessage;
 
 namespace Financial.Control.Application.Models.Expenses.Response
 {
-    public class ExpenseListResponse : BaseResponse<ISuccessResponse<IExpenseModel>, IErrorResponse, IExpenseModel>, IExpenseListResponse
+    public class ExpenseListResponse : BaseResponse<ISuccessListResponse<IExpenseModel>, IErrorResponse, IExpenseModel>, IExpenseListResponse
     {
         public ExpenseListResponse() { }
-        private ExpenseListResponse(string message, HttpStatusCode statusCode, ISuccessResponse<IExpenseModel> success) : base(message, statusCode, success) { }
+        private ExpenseListResponse(string message, HttpStatusCode statusCode, ISuccessListResponse<IExpenseModel> success) : base(message, statusCode, success) { }
         private ExpenseListResponse(string message, HttpStatusCode statusCode, IErrorResponse error) : base(message, statusCode, error) { }
 
 
         #region Factory
-        public static ExpenseListResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessResponse<IExpenseModel> success) => new ExpenseListResponse(message, statusCode, success);
+        public static ExpenseListResponse AsSuccess(string message, HttpStatusCode statusCode, ISuccessListResponse<IExpenseModel> success) => new ExpenseListResponse(message, statusCode, success);
         public static ExpenseListResponse AsError(string message, HttpStatusCode statusCode, IErrorResponse error) => new ExpenseListResponse(message, statusCode, error);
         #endregion
 

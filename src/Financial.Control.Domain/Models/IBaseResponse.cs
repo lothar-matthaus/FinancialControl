@@ -5,9 +5,9 @@ using System.Net;
 namespace Financial.Control.Domain.Models
 {
     public interface IBaseResponse<TSuccess, TError, TModel>
-        where TModel : IBaseModel
         where TSuccess : ISuccessResponse<TModel>
         where TError : IErrorResponse
+        where TModel : IBaseModel
     {
         public string Message { get; }
         public HttpStatusCode StatusCode { get; }

@@ -22,7 +22,7 @@ namespace Financial.Control.Application.Handlers.Cards
             IReadOnlyCollection<ICardModel> cardsList = cards.ToList().ConvertAll(card => CardModel.Create(card));
 
             return CardListResponse.AsSuccess(cardsList.Any() ? CardMessage.CardListSuccess() : CardMessage.CardListNotFound(_applicationUser.Nome),
-                System.Net.HttpStatusCode.OK, SuccessResponse<ICardModel>.Create(cardsList));
+                System.Net.HttpStatusCode.OK, SuccessListResponse<ICardModel>.Create(cardsList));
         }
     }
 }

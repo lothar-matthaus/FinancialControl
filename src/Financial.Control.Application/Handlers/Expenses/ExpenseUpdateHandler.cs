@@ -49,7 +49,7 @@ namespace Financial.Control.Application.Handlers.Expenses
             _unitOfWork.Expenses.Update(expense);
 
             return ExpenseUpdateResponse.AsSuccess(message: ExpenseMessage.ExpenseUpdateSuccess(), statusCode: HttpStatusCode.OK, 
-                success: SuccessResponse<IExpenseModel>.Create(ExpenseModel.Create(expense)));
+                success: SuccessSingleResponse<IExpenseModel>.Create(ExpenseModel.Create(expense)));
         }
     }
 }

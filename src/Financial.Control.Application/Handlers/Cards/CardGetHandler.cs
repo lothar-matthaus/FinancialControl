@@ -27,7 +27,7 @@ namespace Financial.Control.Application.Handlers.Cards
                 return CardGetResponse.AsError(CardMessage.CardGetError(), HttpStatusCode.BadRequest, ErrorResponse
                     .Create(CardMessage.CardNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(request.Id)) }));
 
-            return CardGetResponse.AsSuccess(CardMessage.CardGetSuccess(), HttpStatusCode.OK, SuccessResponse<ICardModel>.Create(CardModel.Create(card)));
+            return CardGetResponse.AsSuccess(CardMessage.CardGetSuccess(), HttpStatusCode.OK, SuccessSingleResponse<ICardModel>.Create(CardModel.Create(card)));
         }
     }
 }

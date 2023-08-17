@@ -28,7 +28,7 @@ namespace Financial.Control.Application.Handlers.Revenues
                 .ToListAsync(cancellationToken);
 
             return RevenueListResponse.AsSuccess(revenues.Any() ? RevenueMessage.RevenueListSuccess() : RevenueMessage.RevenueListNotFound(),
-                HttpStatusCode.OK, SuccessResponse<IRevenueModel>.Create(revenues.ToList().ConvertAll(rev => RevenueModel.Create(rev)))); ;
+                HttpStatusCode.OK, SuccessListResponse<IRevenueModel>.Create(revenues.ToList().ConvertAll(rev => RevenueModel.Create(rev)))); ;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Financial.Control.Application.Handlers.Users
 
             await _unitOfWork.Users.AddAsync(user, cancellationToken);
 
-            return UserCreateResponse.AsSuccess(UserMessage.UserCreateSuccess(), HttpStatusCode.Created, SuccessResponse<IUserModel>.Create(UserModel.Create(user)));
+            return UserCreateResponse.AsSuccess(UserMessage.UserCreateSuccess(), HttpStatusCode.Created, SuccessSingleResponse<IUserModel>.Create(UserModel.Create(user)));
         }
     }
 }
