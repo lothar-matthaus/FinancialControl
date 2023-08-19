@@ -73,11 +73,11 @@ namespace Financial.Control.Domain.Entities
         #endregion
 
         protected Expense() { }
-        private Expense(string description, Category category, Card card, decimal value, int installment, PaymentType paymentType)
+        private Expense(string description, Category category, Card card, Payment payment)
         {
             Description = description;
             Category = category;
-            Payment = Payment.Create(value, installment, paymentType);
+            Payment = Payment;
             Card = card;
             PaidOut = false;
 
@@ -104,6 +104,6 @@ namespace Financial.Control.Domain.Entities
         }
         #endregion
 
-        public static Expense Create(string description, Category category, Card card, decimal value, int installment, PaymentType paymentType) => new Expense(description, category, card, value, installment, paymentType);
+        public static Expense Create(string description, Category category, Card card, Payment payment) => new Expense(description, category, card, payment);
     }
 }

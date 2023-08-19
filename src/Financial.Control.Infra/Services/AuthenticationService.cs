@@ -27,9 +27,9 @@ namespace Financial.Control.Infra.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Email, user.Account.Email.Value.ToString()),
+                    new Claim(ClaimTypes.Email, user.Account.Email.Value),
                     new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Name.ToString())
+                    new Claim(ClaimTypes.Name, user.Name)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(_appConfig.JwtConfig.ExpirationTime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

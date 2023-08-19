@@ -21,7 +21,9 @@ namespace Financial.Control.Application.Handlers.Expenses
         }
         public async override Task<ExpenseGetResponse> Handle(ExpenseGetRequest request, CancellationToken cancellationToken)
         {
-            Expense expense = await _unitOfWork.Expenses.Query(ex => ex.Id.Equals(request.Id))
+            Expense expense = await _unitOfWork.Expenses
+                .Query(ex => ex.Id.Equals(request.Id) && 
+                      (ex.User.Id.Equals(_applicationUser.Id)))
                 .Include(ex => ex.Category)
                 .FirstOrDefaultAsync(cancellationToken);
 

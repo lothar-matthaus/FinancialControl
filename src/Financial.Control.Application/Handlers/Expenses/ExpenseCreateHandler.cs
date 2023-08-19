@@ -9,6 +9,7 @@ using Financial.Control.Domain.Interfaces;
 using Financial.Control.Domain.Interfaces.Services;
 using Financial.Control.Domain.Models.Expenses;
 using Financial.Control.Domain.Repository;
+using Financial.Control.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using static Financial.Control.Domain.Constants.ApplicationMessage;
@@ -37,7 +38,8 @@ namespace Financial.Control.Application.Handlers.Expenses
                 card = await _unitOfWork.Cards.Query(card => card.Number.Equals(request.CardNumber))
                     .FirstOrDefaultAsync(cancellationToken);
 
-            Expense expense = Expense.Create(request.Description, category, card, request.Value, request.Installment, request.PaymentType);
+            Payment payment = Payment.Create(request.Value, request.Installment, request.PaymentType);
+            Expense expense = Expense.Create(request.Description, category, card, payment);
 
             if (!expense.IsValid())
                 _notificationManager.AddNotifications(expense.GetNotifications());

@@ -14,7 +14,6 @@ namespace Financial.Control.Application.Handlers
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly INotificationManager _notificationManager;
 
-
         public BaseRequestHandler(IApplicationUser applicationUser, IUnitOfWork unitOfWork, INotificationManager notificationManager)
         {
             _applicationUser = applicationUser;

@@ -12,8 +12,6 @@ namespace Financial.Control.Infra.Config
             _section = configuration.GetSection("Jwt");
         }
 
-        #region Private
-        #endregion
         public string Secret => _section.GetSection("Secret").Value;
         public string Issuer => _section.GetSection("Issuer").Value;
         public int ExpirationTime => int.Parse(_section.GetSection("ExpirationTime").Value ?? "0");
