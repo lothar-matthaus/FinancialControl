@@ -15,6 +15,9 @@ namespace Financial.Control.Application.Models.Revenues.Commands
         /// Valor da receita do usuário
         /// </summary>
         public decimal Value { get; set; }
+        /// <summary>
+        /// Mês referente a receita (mm/AAAA)
+        /// </summary>
         public string Date { get; set; }
 
         public static implicit operator Revenue(RevenueCreateRequest request)
