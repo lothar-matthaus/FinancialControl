@@ -58,6 +58,7 @@ namespace Financial.Control.Domain.Entities
             Cards ??= new List<Card>();
             Cards.Add(card);
         }
+
         public void RemoveCard(Card card)
         {
             Cards ??= new List<Card>();
@@ -69,10 +70,22 @@ namespace Financial.Control.Domain.Entities
             Expenses ??= new List<Expense>();
             Expenses.Add(expense);
         }
+
+        public void RemoveExpense(Expense expense)
+        {
+            Expenses ??= new List<Expense>();
+            Expenses.Remove(expense);
+        }
         public void AddRevenue(Revenue revenue)
         {
             Revenues ??= new List<Revenue>();
             Revenues.Add(revenue);
+        }
+
+        public void RemoveRevenue(Revenue revenue)
+        {
+            Revenues ??= new List<Revenue>();
+            Revenues.Remove(revenue);
         }
         #endregion
 

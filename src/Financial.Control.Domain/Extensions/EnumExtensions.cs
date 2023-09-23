@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Financial.Control.Domain.Extensions
 {
-    public static class EnumHelper
+    public static class EnumExtensions
     {
         public static string GetDescription(this Enum @enum)
         {

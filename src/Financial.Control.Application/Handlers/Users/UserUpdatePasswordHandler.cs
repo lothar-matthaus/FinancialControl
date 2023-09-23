@@ -32,7 +32,7 @@ namespace Financial.Control.Application.Handlers.Users
 
             _unitOfWork.Users.Update(user);
 
-            return UserUpdatePasswordResponse.AsSuccess(UserMessage.UserUpdatePasswordSuccess(), HttpStatusCode.OK, SuccessSingleResponse<IUserModel>.Create(UserModel.Create(user)));
+            return UserUpdatePasswordResponse.AsSuccess(UserMessage.UserUpdatePasswordSuccess(), HttpStatusCode.OK, SuccessResponse<IUserModel>.Create(UserModel.Create(user)));
         }
     }
 }

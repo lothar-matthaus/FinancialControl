@@ -28,10 +28,6 @@ namespace Financial.Control.Application.Handlers.Expenses
             Category category = await _unitOfWork.Categories.Query(cat => cat.Id.Equals(request.CategoryId))
                 .FirstOrDefaultAsync(cancellationToken);
 
-            if (category is null)
-                return ExpenseCreateResponse.AsError(ExpenseMessage.ExpenseCreateError(), HttpStatusCode.BadRequest, ErrorResponse
-                    .Create(CategoryMessage.CategoryGetNotFound(), new List<Notification>() { Notification.Create(request.GetType().Name, "Id", GenericMessage.IdNotExists(request.CategoryId)) }));
-
             Card card = null;
 
             if (request.PaymentType != PaymentType.Money)
@@ -42,14 +38,17 @@ namespace Financial.Control.Application.Handlers.Expenses
             Expense expense = Expense.Create(request.Description, category, card, payment);
 
             if (!expense.IsValid())
+            {
                 _notificationManager.AddNotifications(expense.GetNotifications());
+                return null;
+            }
 
             user.AddExpense(expense);
 
             _unitOfWork.Users.Update(user);
 
             return ExpenseCreateResponse.AsSuccess(ExpenseMessage.ExpenseCreateSuccess(), HttpStatusCode.Created,
-                SuccessSingleResponse<IExpenseModel>.Create(ExpenseModel.Create(expense)));
+                SuccessResponse<IExpenseModel>.Create(ExpenseModel.Create(expense)));
         }
     }
 }

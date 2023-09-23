@@ -28,7 +28,7 @@ namespace Financial.Control.Application.Handlers.Revenues
                 return RevenueGetResponse.AsError(RevenueMessage.RevenueGetError(), HttpStatusCode.BadRequest, ErrorResponse
                     .Create(RevenueMessage.RevenueGetNotFound(), new List<Notification> { Notification.Create(request.GetType().Name, "RevenueId", GenericMessage.IdNotExists(request.Id)) }));
 
-            return RevenueGetResponse.AsSuccess(RevenueMessage.RevenueGetSuccess(), HttpStatusCode.Created, SuccessSingleResponse<IRevenueModel>.Create(RevenueModel.Create(revenue)));
+            return RevenueGetResponse.AsSuccess(RevenueMessage.RevenueGetSuccess(), HttpStatusCode.Created, SuccessResponse<IRevenueModel>.Create(RevenueModel.Create(revenue)));
         }
     }
 }

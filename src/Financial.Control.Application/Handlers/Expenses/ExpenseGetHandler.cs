@@ -34,7 +34,7 @@ namespace Financial.Control.Application.Handlers.Expenses
             }
 
             return ExpenseGetResponse.AsSuccess(message: ExpenseMessage.ExpenseGetSuccess(), statusCode: HttpStatusCode.OK,
-                success: SuccessSingleResponse<IExpenseModel>.Create(ExpenseModel.Create(expense)));
+                success: SuccessResponse<IExpenseModel>.Create(ExpenseModel.Create(expense) ?? null));
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Financial.Control.Application.Handlers.Revenues
 
             _unitOfWork.Revenues.Delete(revenue);
 
-            return RevenueDeleteResponse.AsSuccess(RevenueMessage.RevenueDeleteSuccess(), HttpStatusCode.OK, SuccessSingleResponse<IRevenueModel>.Create(RevenueModel.Create(revenue))); ;
+            return RevenueDeleteResponse.AsSuccess(RevenueMessage.RevenueDeleteSuccess(), HttpStatusCode.OK, SuccessResponse<IRevenueModel>.Create(RevenueModel.Create(revenue))); ;
         }
     }
 }

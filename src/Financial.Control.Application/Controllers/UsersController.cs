@@ -65,7 +65,7 @@ namespace Financial.Control.Application.Controllers
         /// Atualiza a senha do usuário que está logado.
         /// </summary>
         /// <response code="200">A senha foi atualizada com sucesso.</response>
-        /// <response code="400">O usu[ario não existe no sistema</response>
+        /// <response code="400">O usuário não existe no sistema</response>
         /// <response code="500">Erro interno ocorrido no servidor</response>
         [HttpPatch("Password")]
         [Authorize]

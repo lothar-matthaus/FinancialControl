@@ -34,7 +34,7 @@ namespace Financial.Control.Application.Handlers.Revenues
 
             _unitOfWork.Revenues.Update(revenue);
 
-            return RevenueUpdateResponse.AsSuccess(RevenueMessage.RevenueUpdateSuccess(), HttpStatusCode.OK, SuccessSingleResponse<IRevenueModel>.Create(RevenueModel.Create(revenue)));
+            return RevenueUpdateResponse.AsSuccess(RevenueMessage.RevenueUpdateSuccess(), HttpStatusCode.OK, SuccessResponse<IRevenueModel>.Create(RevenueModel.Create(revenue)));
         }
     }
 }
